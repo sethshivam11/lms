@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Your Lumio Verification Code</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #f0ede8;
+        font-family: "DM Sans", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        padding: 40px 16px;
+      }
+
+      .wrapper {
+        max-width: 520px;
+        margin: 0 auto;
+      }
+
+      .brand-bar {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+      .brand-name {
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        color: #6b6760;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .card {
+        background: #ffffff;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid #e4e1da;
+      }
+
+      .card-header {
+        background: #1a1917;
+        padding: 36px 40px 32px;
+        position: relative;
+      }
+      .card-header-pattern {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 180px;
+        background-image: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.04) 1px,
+          transparent 1px
+        );
+        background-size: 16px 16px;
+      }
+      .header-eyebrow {
+        font-size: 11px;
+        font-weight: 500;
+        color: #7c7b78;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .header-title {
+        font-size: 26px;
+        font-weight: 300;
+        color: #f5f3ef;
+        line-height: 1.25;
+        letter-spacing: -0.3px;
+      }
+      .header-title strong {
+        font-weight: 500;
+        color: #ffffff;
+      }
+
+      .card-body {
+        padding: 36px 40px;
+      }
+
+      .greeting {
+        font-size: 14px;
+        color: #8a8880;
+        margin-bottom: 24px;
+        line-height: 1.6;
+      }
+
+      /* OTP block */
+      .otp-block {
+        background: #f7f5f1;
+        border: 1px solid #e4e1da;
+        border-radius: 14px;
+        padding: 28px 24px;
+        text-align: center;
+        margin-bottom: 28px;
+      }
+      .otp-label {
+        font-size: 11px;
+        font-weight: 500;
+        color: #a09d98;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+      .otp-code {
+        font-family: "DM Mono", monospace;
+        font-size: 42px;
+        font-weight: 500;
+        color: #1a1917;
+        letter-spacing: 0.18em;
+        line-height: 1.2;
+        margin-bottom: 16px;
+        word-break: break-all;
+        overflow-wrap: break-word;
+      }
+      .otp-divider {
+        width: 40px;
+        height: 1px;
+        background: #d8d5cf;
+        margin: 0 auto 14px;
+      }
+      .otp-expiry {
+        font-size: 12px;
+        color: #a09d98;
+      }
+      .otp-expiry strong {
+        color: #c4682a;
+        font-weight: 500;
+      }
+
+      /* Info cards — table based */
+      .info-table {
+        width: 100%;
+        border-collapse: separate;
+        margin-bottom: 10px;
+        margin-left: -10px;
+        border-spacing: 10px 0;
+        width: calc(100% + 20px);
+      }
+      .info-td {
+        background: #f7f5f1;
+        border-radius: 10px;
+        padding: 14px 16px;
+        border: 1px solid #e4e1da;
+        vertical-align: top;
+        width: 33.33%;
+      }
+      .info-icon {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 6px;
+      }
+      .info-title {
+        font-size: 11px;
+        font-weight: 500;
+        color: #1a1917;
+        margin-bottom: 4px;
+      }
+      .info-desc {
+        font-size: 11px;
+        color: #a09d98;
+        line-height: 1.5;
+      }
+
+      .warning-box {
+        background: #fef6ee;
+        border: 1px solid #f3deca;
+        border-radius: 10px;
+        padding: 14px 16px;
+        margin-bottom: 28px;
+      }
+      .warning-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .warning-icon-td {
+        font-size: 16px;
+        padding-right: 10px;
+        vertical-align: top;
+        padding-top: 1px;
+        width: 24px;
+      }
+      .warning-text-td {
+        font-size: 12px;
+        color: #9a5a28;
+        line-height: 1.6;
+      }
+
+      .card-footer-inner {
+        border-top: 1px solid #f0ede8;
+        padding-top: 20px;
+        font-size: 12px;
+        color: #b0ada8;
+        line-height: 1.7;
+      }
+      .card-footer-inner a {
+        color: #8a8880;
+        text-decoration: underline;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 24px;
+        font-size: 11px;
+        color: #a09d98;
+        line-height: 1.8;
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 24px 12px;
+        }
+        .card-header {
+          padding: 24px 20px 20px;
+        }
+        .header-title {
+          font-size: 22px;
+        }
+        .card-body {
+          padding: 24px 20px;
+        }
+        .otp-code {
+          font-size: 32px;
+          letter-spacing: 0.12em;
+        }
+        .info-table,
+        .info-table tbody,
+        .info-table tr,
+        .info-td {
+          display: block;
+          width: 100% !important;
+          margin: 0 0 10px 0;
+        }
+        .info-table {
+          margin-left: 0;
+          margin-bottom: 10px;
+          width: 100% !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="brand-bar">
+        <span class="brand-name">Lumio</span>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-header-pattern"></div>
+          <p class="header-eyebrow">Security verification</p>
+          <h1 class="header-title">
+            Here's your<br /><strong>one-time code</strong>
+          </h1>
+        </div>
+
+        <div class="card-body">
+          <p class="greeting">
+            Hi {{{NAME}}}, here is the verification code for your Lumio account.
+            Use the code below to continue.
+          </p>
+
+          <div class="otp-block">
+            <p class="otp-label">Verification code</p>
+            <p class="otp-code">{{{OTP}}}</p>
+            <div class="otp-divider"></div>
+            <p class="otp-expiry">
+              Expires in <strong>15 minutes</strong> &nbsp;·&nbsp; Single use
+              only
+            </p>
+          </div>
+
+          <table
+            class="info-table"
+            cellpadding="0"
+            cellspacing="0"
+            role="presentation"
+          >
+            <tr>
+              <td class="info-td">
+                <span class="info-icon">🔒</span>
+                <p class="info-title">Single use</p>
+                <p class="info-desc">This code expires immediately after use</p>
+              </td>
+              <td class="info-td">
+                <span class="info-icon">⏱</span>
+                <p class="info-title">Time sensitive</p>
+                <p class="info-desc">
+                  Valid for 15 minutes from when this was sent
+                </p>
+              </td>
+              <td class="info-td">
+                <span class="info-icon">🛡</span>
+                <p class="info-title">Stay safe</p>
+                <p class="info-desc">
+                  Lumio will never ask for this code over chat or phone
+                </p>
+              </td>
+            </tr>
+          </table>
+
+          <div class="warning-box">
+            <table
+              class="warning-table"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+            >
+              <tr>
+                <td class="warning-icon-td">⚠️</td>
+                <td class="warning-text-td">
+                  If you didn't request this code, your account may be at risk.
+                  We recommend changing your password immediately and contacting
+                  our support team.
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="card-footer-inner">
+            This email was sent to <strong>{{{USER_EMAIL}}}</strong>. If you
+            have questions, reach us at
+            <a href="mailto:support@lms.dev-shivam.in"
+              >support@lms.dev-shivam.in</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>© 2026 Lumio. All rights reserved.</div>
+      </div>
+    </div>
+  </body>
+</html>

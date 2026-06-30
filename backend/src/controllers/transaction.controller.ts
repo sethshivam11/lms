@@ -1,0 +1,178 @@
+import { Request, Response } from "express";
+import asyncHandler from "../utils/AsyncHandler";
+import PaytmChecksum, { PaytmParams } from "paytmchecksum";
+import ApiError from "../utils/ApiError";
+import { query } from "../db";
+import ApiResponse from "../utils/ApiResponse";
+import PaytmConfig from "../config/paytm.config";
+
+const initiatePayment = asyncHandler(async (req: Request, res: Response) => {
+  const id = req.user?.id;
+  if (!id) throw new ApiError(401, "Unauthorized request");
+
+  const { courseId } = req.params;
+  if (!courseId || typeof courseId !== "string" || isNaN(parseInt(courseId))) {
+    throw new ApiError(400, "Invalid course id");
+  }
+
+  const { rows: course } = await query(
+    "SELECT price, owner FROM courses WHERE id = $1",
+    [courseId],
+  );
+  if (!course[0]) {
+    throw new ApiError(404, "Course not found");
+  }
+
+  if (course[0]?.price === 0) {
+    throw new ApiError(400, "Payment not required");
+  }
+
+  const { rows: enrollment } = await query(
+    "SELECT id FROM enrollments WHERE user_id = $1 AND course = $2",
+    [id, courseId],
+  );
+  if (enrollment[0]) {
+    throw new ApiError(400, "You are already enrolled to this course");
+  }
+
+  const paytmParams: PaytmParams = {
+    head: {
+      signature: "",
+    },
+    body: {
+      requestType: "Payment",
+      mid: PaytmConfig.mid!,
+      websiteName: PaytmConfig.website,
+      orderId: `ORDER_U${id}_C${courseId}`,
+      txnAmount: {
+        currency: "INR",
+        value: course[0]?.price,
+      },
+      userInfo: {
+        custId: `${id}`,
+      },
+    },
+  };
+
+  // const checksum = await PaytmChecksum.generateSignature(
+  //   JSON.stringify(paytmParams.body),
+  //   PaytmConfig.key!,
+  // );
+
+  // paytmParams.head.signature = checksum;
+
+  const { rows: transaction } = await query(
+    `INSERT INTO transactions(type, status, amount, transaction_id, instructor, course) 
+    VALUES($1, $2, $3, $4, $5, $6)
+    RETURNING *`,
+    [
+      "enrollment",
+      "pending",
+      course[0]?.price,
+      paytmParams.body.orderId,
+      course[0]?.owner,
+      courseId,
+    ],
+  );
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { transaction: transaction[0], paytmParams },
+        "Transaction initiated successfully",
+      ),
+    );
+});
+
+const verifyPayment = asyncHandler(async (req: Request, res: Response) => {
+  const id = req.user?.id;
+  if (!id) throw new ApiError(401, "Unautorized request");
+
+  const { ORDERID, RESPMSG } = req.body;
+
+  // const paytmCheckSum = req.body.CHECKSUMHASH;
+  // delete req.body.CHECKSUMHASH;
+
+  // const isSignatureValid = await PaytmChecksum.verifySignature(
+  //   req.body,
+  //   PaytmConfig.mid!,
+  //   paytmCheckSum,
+  // );
+  // if (!isSignatureValid) {
+  //   return res.redirect(
+  //     400,
+  //     `/callback?status=failed&orderId=${ORDERID}&message=${RESPMSG}`,
+  //   );
+  // }
+
+  if (!ORDERID || !RESPMSG) {
+    throw new ApiError(400, "Order Id and Response message is required");
+  }
+
+  if (RESPMSG !== "Txn Successful") {
+    throw new ApiError(400, "Transaction failed to verify", [RESPMSG]);
+  }
+
+  await query("BEGIN");
+
+  const { rows: transaction } = await query(
+    "UPDATE transactions SET status = 'success' WHERE transaction_id = $1 RETURNING course, instructor, amount",
+    [ORDERID],
+  );
+  if (!transaction[0]) {
+    await query("ROLLBACK");
+    throw new ApiError(500, "Failed to verify payment", [
+      "Transaction not updated",
+    ]);
+  }
+
+  const { rows: instructor } = await query(
+    "UPDATE users SET wallet = wallet + $1 WHERE id = $2 RETURNING id",
+    [transaction[0]?.amount, transaction[0]?.instructor],
+  );
+  if (!instructor[0]) {
+    await query("ROLLBACK");
+    throw new ApiError(500, "Failed to verify payment", [
+      "Instructor wallet not updated",
+    ]);
+  }
+
+  const { rows: course } = await query(
+    "UPDATE courses SET students_enrolled = students_enrolled + 1 WHERE id = $1 RETURNING id",
+    [transaction[0]?.course],
+  );
+  if (!course[0]) {
+    await query("ROLLBACK");
+    throw new ApiError(500, "Failed to verify payment", ["Course not updated"]);
+  }
+
+  const { rows: enrollment } = await query(
+    "INSERT INTO enrollments (course, user_id) VALUES ($1, $2) RETURNING *",
+    [transaction[0]?.course, id],
+  );
+  if (!enrollment[0]) {
+    await query("ROLLBACK");
+    throw new ApiError(500, "Failed to verify payment", [
+      "Enrollment not created",
+    ]);
+  }
+
+  await query("COMMIT");
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      {
+        transaction,
+        instructor,
+        course,
+        enrollment,
+      },
+      "Transaction verified successfully",
+    ),
+  );
+});
+
+export { initiatePayment, verifyPayment };

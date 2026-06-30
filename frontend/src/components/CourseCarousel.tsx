@@ -1,0 +1,122 @@
+import { Button, Chip } from "@heroui/react";
+import useBoundStore from "../store";
+import useEmblaCarousel from "embla-carousel-react";
+import { ChevronLeft, ChevronRight, Play, Star } from "lucide-react";
+import { Link } from "react-router-dom";
+import type { Course } from "../types/course";
+
+function Slide({
+  course,
+  isSuggested,
+}: {
+  course: Course;
+  isSuggested?: boolean;
+}) {
+  return (
+    <Link to={`/course/${course.id}`} className="group">
+      <div className="relative overflow-hidden w-full rounded-xl">
+        <img
+          src={course.cover}
+          alt={course.name}
+          className="h-full object-cover rounded-xl aspect-video group-hover:scale-105 transition-transform duration-300"
+        />
+        <div className="absolute bottom-0 w-full bg-linear-to-b from-transparent via-black/50 to-black/80 h-full group-hover:opacity-100 opacity-0 transition-opacity duration-300 text-white flex flex-col items-center justify-center gap-2">
+          <Play size={50} />
+          <h3 className="sm:text-xl text-base font-poppins">
+            {isSuggested ? "Start Learning" : "Continue Learning"}
+          </h3>
+        </div>
+        <div className="bg-linear-to-b from-transparent via-black/50 to-black/80 absolute bottom-0 text-white p-4 w-full rounded-b-xl transition-all">
+          <h3 className="lg:text-2xl md:text-xl text-lg">{course.name}</h3>
+          <div className="flex justify-between items-center">
+            <p className="md:text-base text-sm text-muted truncate">
+              {course.subDescription}
+            </p>
+            {course.rating_count > 0 && (
+              <Chip
+                color="warning"
+                variant="primary"
+                className="font-poppins font-medium rounded-full"
+              >
+                {(course.rating_sum / course.rating_count).toLocaleString(
+                  "en-IN",
+                  {
+                    style: "decimal",
+                    maximumFractionDigits: 1,
+                  },
+                )}
+                <Star size={12} strokeWidth={2} />
+              </Chip>
+            )}
+          </div>
+        </div>
+        <Chip
+          variant="soft"
+          className="absolute top-2 right-2 capitalize rounded-full font-poppins"
+        >
+          {course.category}
+        </Chip>
+      </div>
+    </Link>
+  );
+}
+
+function CourseCarousel() {
+  const { recentCourses, suggestedCourses } = useBoundStore();
+  const [emblaRef, emblaApi] = useEmblaCarousel();
+
+  return (
+    <div className="w-full">
+      <div className="flex justify-between items-center w-full mb-3">
+        <h3 className="uppercase text-lg text-muted font-huninn">
+          Continue Learning
+        </h3>
+        <div className="embla__controls">
+          <div className="embla__buttons">
+            {emblaApi?.canScrollPrev && (
+              <Button
+                variant="outline"
+                onClick={() => emblaApi?.scrollPrev()}
+                isIconOnly
+              >
+                <ChevronLeft />
+              </Button>
+            )}
+            {emblaApi?.canScrollNext && (
+              <Button
+                variant="outline"
+                onClick={() => emblaApi?.scrollNext()}
+                isIconOnly
+              >
+                <ChevronRight />
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="embla">
+        <div className="embla__viewport relative" ref={emblaRef}>
+          <div className="embla__container">
+            {recentCourses?.length > 0
+              ? recentCourses.map((course, index) => (
+                  <div className="embla__slide" key={index}>
+                    <div className="embla__slide__number">
+                      <Slide course={course} />
+                    </div>
+                  </div>
+                ))
+              : suggestedCourses.map((course, index) => (
+                  <div className="embla__slide" key={index}>
+                    <div className="embla__slide__number">
+                      <Slide course={course} isSuggested />
+                    </div>
+                  </div>
+                ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default CourseCarousel;

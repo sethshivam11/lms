@@ -1,0 +1,14 @@
+export interface Review {
+  id: number;
+  user_id: number;
+  user_name: string;
+  user_avatar: string;
+  rating: number;
+  review: string;
+  created_at: string;
+  course: number;
+}
+
+export interface ReviewSlice {
+  reviews: Review[];
+}
