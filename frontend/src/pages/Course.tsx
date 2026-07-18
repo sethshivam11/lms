@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import CourseDetails from "../components/CourseDetails";
 import CourseContent from "../components/CourseContent";
 import Reviews from "../components/Reviews";
@@ -6,8 +5,6 @@ import InstructorOverview from "../components/InstructorOverview";
 import CourseDescription from "../components/CourseDescription";
 
 function Course() {
-  const params = useParams();
-
   return (
     <div className="flex flex-col py-6 gap-6">
       <CourseDetails />

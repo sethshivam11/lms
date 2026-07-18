@@ -2,16 +2,31 @@ import SearchCourses from "../components/SearchCourses";
 import useBoundStore from "../store";
 import MyCourseCard from "../components/MyCourseCard";
 import { useMemo, useState } from "react";
-import { Chip } from "@heroui/react";
+import { Button, Chip } from "@heroui/react";
+import EmptyState from "../components/EmptyState";
+import { BookOpen } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function MyCourses() {
-  const { search, setSearch, courses } = useBoundStore();
+  const { setSearch, courses } = useBoundStore();
+  const search = useBoundStore((state) => state.search);
 
   const [filter, setFilter] = useState<string[]>([]);
 
   const categories = useMemo(() => {
     return Array.from(new Set(courses.map((item) => item.category)));
   }, [courses]);
+
+  const filteredCourses = useMemo(() => {
+    return courses.filter((item) => {
+      const matchesCategory =
+        filter.length === 0 || filter.includes(item.category);
+      const matchesSearch =
+        search.length === 0 ||
+        item.name.toLowerCase().includes(search.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [courses, search, filter]);
 
   return (
     <div className="flex flex-col py-6 gap-6">
@@ -41,9 +56,32 @@ function MyCourses() {
         ))}
       </div>
       <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
-        {courses.map((item, index) => (
-          <MyCourseCard course={item} key={index} />
-        ))}
+        {filteredCourses.length > 0 ? (
+          filteredCourses.map((item, index) => (
+            <MyCourseCard course={item} key={index} />
+          ))
+        ) : (
+          <EmptyState
+            icon={BookOpen}
+            title="No Courses Found"
+            description={
+              search.length > 0
+                ? "Try refining your search"
+                : "You are not enrolled in any courses yet"
+            }
+            actions={
+              search.length > 0 ? (
+                <Button variant="outline" onClick={() => setSearch("")}>Clear Search</Button>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <Link to="/explore">
+                    <Button variant="outline">Explore Courses</Button>
+                  </Link>
+                </div>
+              )
+            }
+          />
+        )}
       </div>
     </div>
   );

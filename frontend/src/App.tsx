@@ -11,6 +11,8 @@ import Reviews from "./pages/Reviews";
 import Settings from "./pages/Settings";
 import "./App.css";
 import Course from "./pages/Course";
+import Instructor from "./pages/Instructor";
+import CreateCourse from "./pages/CreateCourse";
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
       <Routes>
         <Route element={<AuthLayout />}>
           <Route element={<Courses />} path="/courses" />
+          <Route element={<CreateCourse />} path="/create-course" />
           <Route element={<Course />} path="/course/:courseId" />
           <Route element={<Dashboard />} path="/dashboard" />
           <Route element={<Earnings />} path="/earnings" />
@@ -26,6 +29,7 @@ function App() {
           <Route element={<MyCourses />} path="/my-courses" />
           <Route element={<Profile />} path="/profile" />
           <Route element={<Reviews />} path="/reviews" />
+          <Route element={<Instructor />} path="/instructor/:instructorId" />
           <Route element={<Settings />} path="/settings" />
         </Route>
       </Routes>

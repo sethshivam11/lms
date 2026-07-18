@@ -46,7 +46,7 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
       "https://res.cloudinary.com/dv3qbj0bn/image/upload/v1780987669/lms/course/yndzt0xxjwmgkyrucwqy.jpg",
     category: "programming",
     price: 2199,
-    rating_sum: 45,
+    rating_sum: 45  ,
     rating_count: 10,
     duration: 7200,
     owner_name: "Shadcn",

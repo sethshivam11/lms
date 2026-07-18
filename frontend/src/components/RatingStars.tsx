@@ -32,18 +32,21 @@ function RatingStars({
       }).map((_, index) => (
         <Star size={size} fill="currentColor" key={index} />
       ))}
-      <div className="relative size-4">
-        {halfStars && (
-          <>
-            <Star className="absolute top-0 left-0" size={size} />
-            <StarHalf
-              className="absolute top-0 left-0"
-              size={size}
-              fill="currentColor"
-            />
-          </>
-        )}
-      </div>
+      {halfStars && (
+        <div className="relative size-4">
+          <Star className="absolute top-0 left-0" size={size} />
+          <StarHalf
+            className="absolute top-0 left-0"
+            size={size}
+            fill="currentColor"
+          />
+        </div>
+      )}
+      {fullStars < 5
+        ? Array.from({ length: 5 - fullStars - (halfStars ? 1 : 0) }).map(
+            (_, index) => <Star size={size} fill="none" key={index} />,
+          )
+        : null}
       <span className={cn("text-background", subTextClassName)}>
         {stars.toLocaleString("en-IN", {
           style: "decimal",

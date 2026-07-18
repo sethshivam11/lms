@@ -1,5 +1,5 @@
 import useBoundStore from "../store";
-import { Avatar, Button, Chip } from "@heroui/react";
+import { Button, Chip } from "@heroui/react";
 import { CheckCircle, CreditCard, History, Shield, Users } from "lucide-react";
 import { formatDuration } from "../lib/helpers";
 import { Link } from "react-router-dom";
@@ -7,6 +7,21 @@ import RatingStars from "./RatingStars";
 
 function CourseDetails() {
   const { course } = useBoundStore();
+
+  const benefits = [
+    {
+      icon: CheckCircle,
+      text: "Lifetime Access",
+    },
+    {
+      icon: Shield,
+      text: "Secured Payments",
+    },
+    {
+      icon: CreditCard,
+      text: "One Time Payment",
+    },
+  ];
 
   return (
     <div className="h-80 w-full">
@@ -41,40 +56,34 @@ function CourseDetails() {
                 </Chip>
               ))}
             </div>
-            <div className="flex justify-between gap-4">
-              <div className="flex items-center gap-2 text-background-secondary/60 text-sm">
-                <div className="flex items-center gap-2">
-                  <RatingStars
-                    stars={course.rating_sum / course.rating_count}
-                    subText={"rated"}
-                    subTextClassName="text-background-secondary/60"
-                  />
-                </div>
-                <span>·</span>
-                <div className="flex items-center gap-1">
-                  <History size={16} /> {formatDuration(course.duration)}
-                </div>
-                <span>·</span>
-                <div className="flex items-center gap-1">
-                  <Users size={16} />{" "}
-                  {course.students_enrolled.toLocaleString("en-IN", {
-                    style: "decimal",
-                  })}{" "}
-                  students
-                </div>
+            <div className="flex items-center gap-2 text-background-secondary/60 text-sm">
+              <RatingStars
+                stars={course.rating_sum / course.rating_count}
+                subText={"rated"}
+                subTextClassName="text-background-secondary/60"
+              />
+              <span>·</span>
+              <div className="flex items-center gap-1">
+                <History size={16} /> {formatDuration(course.duration)}
               </div>
-              <Link
-                to={`/instructor/${course.owner}`}
-                className="flex items-center gap-2 group"
-              >
-                <Avatar className="rounded-full size-8">
-                  <Avatar.Image src={course.owner_avatar} />
-                  <Avatar.Fallback>{course.owner_name[0]}</Avatar.Fallback>
-                </Avatar>
-                <span className="text-white font-semibold group-hover:underline underline-offset-2">
+              <span>·</span>
+              <div className="flex items-center gap-1">
+                <Users size={16} />{" "}
+                {course.students_enrolled.toLocaleString("en-IN", {
+                  style: "decimal",
+                })}{" "}
+                students
+              </div>
+              <span>·</span>
+              <div>
+                created by{" "}
+                <Link
+                  to={`/instructor/${course.owner}`}
+                  className="text-white font-semibold hover:underline underline-offset-2"
+                >
                   {course.owner_name}
-                </span>
-              </Link>
+                </Link>
+              </div>
             </div>
           </div>
           <div className="py-2 flex flex-col justify-end h-full">
@@ -90,26 +99,13 @@ function CourseDetails() {
                 })}
               </h3>
               <ul className="flex flex-col gap-2 text-sm text-muted">
-                {[
-                  {
-                    icon: CheckCircle,
-                    text: "Lifetime Access",
-                  },
-                  {
-                    icon: Shield,
-                    text: "Secured Payments",
-                  },
-                  {
-                    icon: CreditCard,
-                    text: "One Time Payment",
-                  },
-                ].map((item, index) => (
+                {benefits.map((item, index) => (
                   <li className="flex items-center gap-2" key={index}>
                     <item.icon size={16} className="text-accent" /> {item.text}
                   </li>
                 ))}
               </ul>
-              <Button className="w-full mt-3">Enroll Course</Button>
+              <Button className="w-full mt-3">Enroll</Button>
             </div>
           </div>
         </div>

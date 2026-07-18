@@ -1,11 +1,11 @@
 import type { StateCreator } from "zustand";
 import type { UserSlice } from "../types/user";
 
-export const createUserSlice: StateCreator<UserSlice> = (set, get) => ({
+export const createUserSlice: StateCreator<UserSlice> = () => ({
   loading: false,
   user: {
     id: 0,
-    role: "student",
+    role: "instructor",
     avatar: null,
     wallet: 0,
     skills: null,
@@ -24,7 +24,7 @@ export const createUserSlice: StateCreator<UserSlice> = (set, get) => ({
     id: 1,
     avatar: "/avatar-big.png",
     courses: 2,
-    description:
+    bio:
       "My name is Hitesh Choudhary, a retired corporate professional who has seamlessly transitioned into a full-time YouTuber. With a rich history as the founder of LCO (acquired) and a former CTO at iNeuron and Senior Director at PW, I bring a wealth of experience in building software and companies. My journey in the tech world has endowed me with unique insights and expertise, which I am passionate about sharing.",
     name: "Hitesh Choudhary",
     skills: ["javascript", "typescript", "react", "mongodb"],

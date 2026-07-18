@@ -46,7 +46,7 @@ function InstructorOverview() {
           ))}
         </div>
         <p className="text-foreground text-justify font-quicksand px-2">
-          {instructor.description}
+          {instructor.bio}
         </p>
       </div>
     </div>

@@ -27,7 +27,7 @@ export interface Instructor {
 export interface UserSlice {
   loading: false;
   instructor: Instructor & {
-    description: string;
+    bio: string;
     students: number;
     courses: number;
   };

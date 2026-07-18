@@ -2,13 +2,13 @@ import { Chip } from "@heroui/react";
 import type { Course } from "../types/course";
 import { Link } from "react-router-dom";
 import { formatDuration } from "../lib/helpers";
-import { Star } from "lucide-react";
+import RatingChip from "./RatingChip";
 
 function ExploreCard({ course }: { course: Course }) {
   return (
     <Link
       to={`/course/${course.id}`}
-      className="flex gap-2 border border-background hover:border-background-tertiary w-full rounded-lg overflow-hidden relative max-sm:flex-col"
+      className="flex gap-2 border border-background hover:border-background-tertiary hover:shadow-sm w-full rounded-lg overflow-hidden relative max-sm:flex-col"
     >
       <img
         src={course.cover}
@@ -37,18 +37,12 @@ function ExploreCard({ course }: { course: Course }) {
             ))}
           </div>
           <div className="flex gap-2">
-            {course.rating_count > 0 ? (
-              <Chip className="bg-warning rounded-full flex items-center gap-0.5">
-                {(course.rating_sum / course.rating_count).toLocaleString(
-                  "en-IN",
-                  {
-                    style: "decimal",
-                    maximumFractionDigits: 1,
-                  },
-                )}
-                <Star size={16} strokeWidth={1.5} />
-              </Chip>
-            ) : null}
+            <RatingChip
+              rating={course.rating_sum / course.rating_count}
+              className="bg-warning text-sm"
+              starClassName="text-black"
+              size={14}
+            />
             {course.category.length > 0 ? (
               <Chip className="border bg-transparent rounded-full capitalize">
                 {course.category}

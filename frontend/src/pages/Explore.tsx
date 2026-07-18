@@ -3,12 +3,15 @@ import useBoundStore from "../store";
 import SearchCourses from "../components/SearchCourses";
 import Sort from "../components/Sort";
 import ExploreCard from "../components/ExploreCard";
-import { Pagination } from "@heroui/react";
+import { Button, Pagination } from "@heroui/react";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
+import EmptyState from "../components/EmptyState";
+import { BookOpen } from "lucide-react";
 
 function Explore() {
-  const { courses, search, setSearch, pagination } = useBoundStore();
+  const { courses, search, setSearch, pagination, setFilters } =
+    useBoundStore();
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -31,9 +34,43 @@ function Explore() {
           </div>
         </div>
         <Sort />
-        {courses.map((item, index) => (
-          <ExploreCard course={item} key={index} />
-        ))}
+        {courses.length > 0 ? (
+          courses.map((item, index) => (
+            <ExploreCard course={item} key={index} />
+          ))
+        ) : (
+          <EmptyState
+            icon={BookOpen}
+            title="No Courses Found"
+            description={
+              search.length > 0
+                ? "Try refining your search"
+                : "Try adjusting your filters"
+            }
+            actions={
+              search.length > 0 ? (
+                <Button variant="outline" onClick={() => setSearch("")}>
+                  Clear Search
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  onClick={() =>
+                    setFilters({
+                      price: [0, -1],
+                      categories: [],
+                      duration: new Set(),
+                      rating: 0,
+                      lessons: [0, -1],
+                    })
+                  }
+                >
+                  Clear Filters
+                </Button>
+              )
+            }
+          />
+        )}
         <Pagination className="mt-4 justify-center">
           <Pagination.Content className="max-sm:w-full">
             <Pagination.Item>

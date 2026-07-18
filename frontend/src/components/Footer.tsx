@@ -40,6 +40,10 @@ function Footer() {
             path: "/earnings",
           },
           {
+            name: "LMS",
+            path: "/home",
+          },
+          {
             name: "Courses",
             path: "/courses",
           },
@@ -50,7 +54,7 @@ function Footer() {
         ];
   return (
     <div className="flex flex-col bg-footer text-footer-foreground tracking-tight">
-      <div className="flex max-sm:flex-col justify-evenly items-center px-4 py-8 gap-4 font-inter-tight font-semibold">
+      <div className="flex max-sm:flex-col justify-evenly items-center px-4 py-8 gap-4 font-inter-tight">
         <Link
           to="/home"
           className="flex flex-col items-center justify-center gap-2 sm:hidden mb-4"
@@ -80,7 +84,7 @@ function Footer() {
             );
           } else
             return (
-              <Link to={item.path} key={index}>
+              <Link to={item.path} className="font-medium" key={index}>
                 {item.name}
               </Link>
             );

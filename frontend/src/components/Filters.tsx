@@ -36,8 +36,9 @@ function Filters({ className = "" }: { className?: string }) {
     }
     return max;
   }, [courses]);
+
   const maxLessons = useMemo(() => {
-    let max = courses[0].lessons;
+    let max = courses[0]?.lessons || -1;
     courses.map((item) => {
       if (item.lessons > max) {
         max = item.lessons;
@@ -45,6 +46,7 @@ function Filters({ className = "" }: { className?: string }) {
     });
     return max;
   }, [courses]);
+
   const categories = useMemo(
     () =>
       Array.from(new Set(courses.map((item) => item.category).filter(Boolean))),
@@ -108,31 +110,35 @@ function Filters({ className = "" }: { className?: string }) {
         <div className="flex flex-col gap-2">
           <Label className="font-huninn uppercase text-base">Category</Label>
           <div className="flex flex-wrap items-center gap-2">
-            {categories.map((item, index) => (
-              <button
-                className="cursor-pointer"
-                onClick={() =>
-                  filters.categories.includes(item)
-                    ? setFilters({
-                        ...filters,
-                        categories: filters.categories.filter(
-                          (i) => i !== item,
-                        ),
-                      })
-                    : setFilters({
-                        ...filters,
-                        categories: [...filters.categories, item],
-                      })
-                }
-                key={index}
-              >
-                <Chip
-                  className={`capitalize rounded-full border border-accent text-accent bg-white ${filters.categories.includes(item) ? "bg-accent text-white" : ""}`}
+            {categories.length > 0 ? (
+              categories.map((item, index) => (
+                <button
+                  className="cursor-pointer"
+                  onClick={() =>
+                    filters.categories.includes(item)
+                      ? setFilters({
+                          ...filters,
+                          categories: filters.categories.filter(
+                            (i) => i !== item,
+                          ),
+                        })
+                      : setFilters({
+                          ...filters,
+                          categories: [...filters.categories, item],
+                        })
+                  }
+                  key={index}
                 >
-                  {item}
-                </Chip>
-              </button>
-            ))}
+                  <Chip
+                    className={`capitalize rounded-full border border-accent text-accent bg-white ${filters.categories.includes(item) ? "bg-accent text-white" : ""}`}
+                  >
+                    {item}
+                  </Chip>
+                </button>
+              ))
+            ) : (
+              <span className="text-muted text-sm">No categories found</span>
+            )}
           </div>
         </div>
         <div className="flex flex-col gap-2">
@@ -205,7 +211,7 @@ function Filters({ className = "" }: { className?: string }) {
             </Label>
             <Select.Trigger className="flex-1 max-w-60">
               <Select.Value className="max-sm:text-sm" />
-              <Select.Indicator  />
+              <Select.Indicator />
             </Select.Trigger>
             <Select.Popover>
               <ListBox>

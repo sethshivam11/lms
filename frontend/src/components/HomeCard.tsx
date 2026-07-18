@@ -1,13 +1,13 @@
-import { Star } from "lucide-react";
 import type { Course as CourseI } from "../types/course";
 import { Chip } from "@heroui/react";
 import { Link } from "react-router-dom";
 import { formatDuration } from "../lib/helpers";
+import RatingChip from "./RatingChip";
 
 function HomeCard({ course }: { course: CourseI }) {
   return (
     <Link to={`/course/${course.id}`}>
-      <div className="border border-background hover:border-background-tertiary rounded-xl overflow-hidden relative group w-full">
+      <div className="border border-background hover:border-background-tertiary hover:shadow-sm rounded-xl overflow-hidden relative group w-full">
         <Chip
           variant="soft"
           className="absolute top-2 right-2 rounded-full z-10 capitalize font-poppins"
@@ -34,18 +34,13 @@ function HomeCard({ course }: { course: CourseI }) {
             </span>
           </div>
           <div className="flex flex-col gap-1 items-end">
-            {course.rating_count > 0 && (
-              <Chip className="bg-black rounded-full text-white text-base">
-                {(course.rating_sum / course.rating_count).toLocaleString(
-                  "en-IN",
-                  {
-                    style: "decimal",
-                    maximumFractionDigits: 1,
-                  },
-                )}
-                <Star size={14} fill="currentColor" className="text-warning" />
-              </Chip>
-            )}
+            <RatingChip
+              rating={course.rating_sum / course.rating_count}
+              className="bg-black text-white"
+              starClassName="text-warning"
+              fill="currentColor"
+              size={14}
+            />
             {course?.price > 0 && (
               <h5 className="text-accent text-right font-semibold text-xl">
                 {course.price.toLocaleString("en-IN", {

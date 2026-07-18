@@ -1,7 +1,7 @@
 import type { StateCreator } from "zustand";
 import type { LessonSlice } from "../types/lesson";
 
-export const createLessonSlice: StateCreator<LessonSlice> = (set) => ({
+export const createLessonSlice: StateCreator<LessonSlice> = () => ({
   lessons: [
     {
       id: 1,

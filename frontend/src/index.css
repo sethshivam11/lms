@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cal+Sans&family=Huninn&family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Cal+Sans&family=Huninn&family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap");
 @import "tailwindcss";
 @import "@heroui/styles";
 
@@ -9,6 +9,8 @@
   --font-huninn: "Huninn", sans-serif;
   --font-poppins: "Poppins", sans-serif;
   --font-quicksand: "Quicksand", sans-serif;
+  --font-agdasima: "Agdasima", sans-serif;
+  --font-merriweather: "Merriweather", serif;
 }
 
 @theme inline {
@@ -27,7 +29,11 @@
   --accent-foreground: oklch(99.11% 0 0);
   --background: oklch(97.02% 0 256.89);
   --border: oklch(90% 0 256.89);
-  --danger: oklch(65.32% 0.2328 26.11);
+  --danger: oklch(64% 0.15 26);
+  --danger-foreground: oklch(99.11% 0 0);
+  --danger: oklch(64% 0.15 26);
+  --danger-soft: oklch(94% 0.03 26);
+  --danger-border: oklch(84% 0.06 26);
   --danger-foreground: oklch(99.11% 0 0);
   --default: oklch(94% 0 256.89);
   --default-foreground: oklch(21.03% 0.0059 256.89);
@@ -75,7 +81,11 @@
   --accent-foreground: oklch(99.11% 0 0);
   --background: oklch(12% 0 256.89);
   --border: oklch(28% 0 256.89);
-  --danger: oklch(59.4% 0.1967 25);
+  --danger: oklch(60% 0.15 26);
+  --danger-foreground: oklch(99.11% 0 0);
+  --danger: oklch(68% 0.15 26);
+  --danger-soft: oklch(24% 0.03 26);
+  --danger-border: oklch(38% 0.06 26);
   --danger-foreground: oklch(99.11% 0 0);
   --default: oklch(27.4% 0 256.89);
   --default-foreground: oklch(99.11% 0 0);

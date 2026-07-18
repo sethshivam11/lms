@@ -1,9 +1,10 @@
 import { Button, Chip } from "@heroui/react";
 import useBoundStore from "../store";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, Play, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { Course } from "../types/course";
+import RatingChip from "./RatingChip";
 
 function Slide({
   course,
@@ -32,22 +33,12 @@ function Slide({
             <p className="md:text-base text-sm text-muted truncate">
               {course.subDescription}
             </p>
-            {course.rating_count > 0 && (
-              <Chip
-                color="warning"
-                variant="primary"
-                className="font-poppins font-medium rounded-full"
-              >
-                {(course.rating_sum / course.rating_count).toLocaleString(
-                  "en-IN",
-                  {
-                    style: "decimal",
-                    maximumFractionDigits: 1,
-                  },
-                )}
-                <Star size={12} strokeWidth={2} />
-              </Chip>
-            )}
+            <RatingChip
+              rating={course.rating_sum / course.rating_count}
+              className="bg-warning font-poppins font-medium"
+              size={12}
+              starClassName="text-black"
+            />
           </div>
         </div>
         <Chip
