@@ -1,7 +1,11 @@
-import { useState } from "react";
-import CourseDetailsForm, { type FormI } from "../components/CourseDetailsForm";
-import LessonsForm, { type LessonI } from "../components/LessonsForm";
-import PublishCourse from "../components/PublishCourse";
+import { lazy, Suspense, useState } from "react";
+import CourseDetailsForm from "../components/CourseDetailsForm";
+import { Skeleton } from "@heroui/react";
+import type { LessonFormI } from "../types/lesson";
+import type { CourseDetailsFormI } from "../types/course";
+
+const LessonsForm = lazy(() => import("../components/LessonsForm"));
+const PublishCourse = lazy(() => import("../components/PublishCourse"));
 
 const steps = [
   "Start with course details",
@@ -10,8 +14,8 @@ const steps = [
 ];
 
 function CreateCourse() {
-  const [step, setStep] = useState<1 | 2 | 3>(2);
-  const [details, setDetails] = useState<FormI>({
+  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [details, setDetails] = useState<CourseDetailsFormI>({
     name: "",
     subDescription: "",
     description: "",
@@ -20,7 +24,7 @@ function CreateCourse() {
     skills: [],
     price: "",
   });
-  const [lessons, setLessons] = useState<LessonI[]>([]);
+  const [lessons, setLessons] = useState<LessonFormI[]>([]);
 
   function handleSubmit() {}
 
@@ -64,12 +68,45 @@ function CreateCourse() {
             />
           )}
           {step === 2 && (
-            <LessonsForm
-              lessons={lessons}
-              setLessons={setLessons}
-              handleBack={() => setStep(1)}
-              handleNext={() => setStep(3)}
-            />
+            <Suspense
+              fallback={
+                <div className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-2">
+                    <Skeleton className="h-6 w-28 rounded-lg" />
+                    <Skeleton className="h-4 w-40 rounded-lg" />
+                  </div>
+                  <div className="flex flex-col gap-4 bg-background/50 p-4 rounded-xl">
+                    <Skeleton className="h-6 w-32 rounded-lg self-center" />
+                    <div className="grid grid-cols-4 gap-4">
+                      <div className="flex flex-col gap-2">
+                        <Skeleton className="w-12 h-4 rounded-lg" />
+                        <Skeleton className="w-full h-10 rounded-lg" />
+                      </div>
+                      <div className="flex flex-col gap-2 col-span-3">
+                        <Skeleton className="w-12 h-4 rounded-lg" />
+                        <Skeleton className="w-full h-10 rounded-lg" />
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-2 col-span-3">
+                      <Skeleton className="w-12 h-4 rounded-lg" />
+                      <Skeleton className="w-full h-40 rounded-lg" />
+                    </div>
+                    <Skeleton className="h-8 w-32 rounded-lg self-center" />
+                  </div>
+                  <div className="flex justify-between items-center gap-4">
+                    <Skeleton className="h-8 w-20 rounded-lg self-center" />
+                    <Skeleton className="h-8 w-24 rounded-lg self-center" />
+                  </div>
+                </div>
+              }
+            >
+              <LessonsForm
+                lessons={lessons}
+                setLessons={setLessons}
+                handleBack={() => setStep(1)}
+                handleNext={() => setStep(3)}
+              />
+            </Suspense>
           )}
           {step === 3 && <PublishCourse handleSubmit={handleSubmit} />}
         </div>

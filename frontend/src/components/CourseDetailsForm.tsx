@@ -20,24 +20,15 @@ import {
 } from "../schema/course";
 import RichTextField from "./RichTextField";
 import { useState } from "react";
-
-export interface FormI {
-  name: string;
-  subDescription: string;
-  description: string;
-  category: string;
-  level: string;
-  skills: string[];
-  price: string;
-}
+import type { CourseDetailsFormI } from "../types/course";
 
 function CourseDetailsForm({
   form,
   setForm,
   handleNext,
 }: {
-  form: FormI;
-  setForm: (form: FormI) => void;
+  form: CourseDetailsFormI;
+  setForm: (form: CourseDetailsFormI) => void;
   handleNext: () => void;
 }) {
   const [invalid, setInvalid] = useState(false);

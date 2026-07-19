@@ -1,4 +1,3 @@
-import type { QuizI } from "./LessonsForm";
 import {
   Button,
   Checkbox,
@@ -18,6 +17,7 @@ import {
 import RichTextField from "./RichTextField";
 import { GripVertical, Plus, Trash } from "lucide-react";
 import { useSortable } from "@dnd-kit/react/sortable";
+import type { QuizFormI } from "../types/quiz";
 
 function Option({
   id,
@@ -99,8 +99,8 @@ function QuizForm({
   setQuiz,
   invalid,
 }: {
-  quiz: QuizI;
-  setQuiz: (quiz: QuizI) => void;
+  quiz: QuizFormI;
+  setQuiz: (quiz: QuizFormI) => void;
   invalid: boolean;
 }) {
   const handleOptionChange = (

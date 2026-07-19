@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import errorHandler from "./middlewares/error.middleware";
 import { User as UserI } from "./utils/types";
+import path from "path";
 
 import authRoutes from "./routes/auth.route";
 import userRoutes from "./routes/user.route";
@@ -40,9 +41,18 @@ app.use("/api/v1/progress", progressRoutes);
 app.use("/api/v1/instructors", instructorRoutes);
 app.use("/api/v1/transactions", transactionRoutes);
 
-app.get("/", (req, res) => {
-  res.json("Hello World!");
-});
+const __dirname1 = path.resolve();
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname1, "frontend", "dist")));
+  app.get(/.*/, (_, res) => {
+    res.sendFile(path.join(__dirname1, "frontend", "dist", "index.html"));
+  });
+} else {
+  app.get("/", (_, res) => {
+    res.send("App is under development!");
+  });
+}
 
 app.use(errorHandler);
 

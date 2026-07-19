@@ -22,30 +22,8 @@ import { useState } from "react";
 import DraggableLessons from "./DraggableLessons";
 import QuizForm from "./QuizForm";
 import { questionSchema } from "../schema/quiz";
-
-export interface LessonI {
-  id: number;
-  type: "notes" | "video" | "quiz";
-  name: string;
-  duration: string;
-  video: string;
-  notes: string;
-}
-
-export interface QuizI {
-  passMark: string;
-  instructions: string;
-  questions: {
-    id: number;
-    question: string;
-    type: "mcq" | "true_false";
-    options: {
-      id: number;
-      option: string;
-      correct: boolean;
-    }[];
-  }[];
-}
+import type { LessonFormI } from "../types/lesson";
+import type { QuizFormI } from "../types/quiz";
 
 function LessonsForm({
   lessons,
@@ -53,13 +31,13 @@ function LessonsForm({
   handleBack,
   handleNext,
 }: {
-  lessons: LessonI[];
-  setLessons: (lessons: LessonI[]) => void;
+  lessons: LessonFormI[];
+  setLessons: (lessons: LessonFormI[]) => void;
   handleBack: () => void;
   handleNext: () => void;
 }) {
   const [invalid, setInvalid] = useState(false);
-  const [lesson, setLesson] = useState<LessonI>({
+  const [lesson, setLesson] = useState<LessonFormI>({
     id: 0,
     type: "notes",
     name: "",
@@ -67,7 +45,7 @@ function LessonsForm({
     duration: "",
     notes: "",
   });
-  const [quiz, setQuiz] = useState<QuizI>({
+  const [quiz, setQuiz] = useState<QuizFormI>({
     passMark: "",
     instructions: "",
     questions: [
@@ -152,7 +130,7 @@ function LessonsForm({
             onChange={(value) =>
               setLesson((prev) => ({
                 ...prev,
-                type: value?.toString() as LessonI["type"],
+                type: value?.toString() as LessonFormI["type"],
               }))
             }
           >

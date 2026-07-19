@@ -14,12 +14,12 @@ function Slide({
   isSuggested?: boolean;
 }) {
   return (
-    <Link to={`/course/${course.id}`} className="group">
-      <div className="relative overflow-hidden w-full rounded-xl">
+    <Link to={`/course/${course.id}`} className="group w-full">
+      <div className="relative overflow-hidden w-full rounded-xl aspect-video">
         <img
           src={course.cover}
           alt={course.name}
-          className="h-full object-cover rounded-xl aspect-video group-hover:scale-105 transition-transform duration-300"
+          className="h-full object-cover rounded-xl aspect-video group-hover:scale-105 transition-transform duration-300 text-xs text-muted"
         />
         <div className="absolute bottom-0 w-full bg-linear-to-b from-transparent via-black/50 to-black/80 h-full group-hover:opacity-100 opacity-0 transition-opacity duration-300 text-white flex flex-col items-center justify-center gap-2">
           <Play size={50} />
@@ -58,7 +58,7 @@ function CourseCarousel() {
 
   return (
     <div className="w-full">
-      <div className="flex justify-between items-center w-full mb-3">
+      <div className="flex justify-between items-center w-full mb-3 min-h-10">
         <h3 className="uppercase text-lg text-muted font-huninn">
           Continue Learning
         </h3>

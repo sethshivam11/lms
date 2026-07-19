@@ -49,3 +49,13 @@ export interface CourseSlice {
   recentCourses: Course[];
   suggestedCourses: Course[];
 }
+
+export interface CourseDetailsFormI {
+  name: string;
+  subDescription: string;
+  description: string;
+  category: string;
+  level: string;
+  skills: string[];
+  price: string;
+}

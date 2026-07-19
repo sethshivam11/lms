@@ -1,4 +1,3 @@
-import type { LessonI } from "./LessonsForm";
 import { formatDuration } from "../lib/helpers";
 import { Button, Modal } from "@heroui/react";
 import {
@@ -12,6 +11,7 @@ import {
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable } from "@dnd-kit/react/sortable";
 import { move } from "@dnd-kit/helpers";
+import type { LessonFormI } from "../types/lesson";
 
 function Lesson({
   id,
@@ -23,9 +23,9 @@ function Lesson({
 }: {
   id: number;
   index: number;
-  type: LessonI["type"];
-  name: LessonI["name"];
-  duration: LessonI["duration"];
+  type: LessonFormI["type"];
+  name: LessonFormI["name"];
+  duration: LessonFormI["duration"];
   handleDelete: () => void;
 }) {
   const { ref, handleRef } = useSortable({
@@ -106,8 +106,8 @@ function DraggableLessons({
   lessons,
   setLessons,
 }: {
-  lessons: LessonI[];
-  setLessons: (lessons: LessonI[]) => void;
+  lessons: LessonFormI[];
+  setLessons: (lessons: LessonFormI[]) => void;
 }) {
   if (lessons.length === 0) return null;
 
