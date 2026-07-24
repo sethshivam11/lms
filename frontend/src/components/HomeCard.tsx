@@ -23,7 +23,7 @@ function HomeCard({ course }: { course: CourseI }) {
         </div>
         <div className="flex justify-between p-4 gap-2 w-full">
           <div className="flex flex-col w-[80%]">
-            <h5 className="md:text-xl text-lg tracking-tight font-medium">
+            <h5 className="md:text-xl text-lg tracking-tight font-medium font-outfit">
               {course.name}
             </h5>
             <p className="text-muted md:text-base text-sm truncate">

@@ -23,7 +23,7 @@ function Explore() {
     <div className="flex gap-6 py-6">
       <Filters />
       <div className="flex flex-1 flex-col gap-4 w-full">
-        <h3 className="tracking-tighter sm:text-3xl text-2xl font-bold">
+        <h3 className="tracking-tighter sm:text-3xl text-2xl font-bold font-outfit">
           Explore Courses
         </h3>
         <div className="flex max-sm:flex-col items-center gap-2 w-full">

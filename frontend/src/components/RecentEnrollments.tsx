@@ -31,7 +31,7 @@ function RecentEnrollments() {
 
   return (
     <div className="bg-background p-4 rounded-lg w-full">
-      <h4 className="text-xl font-semibold tracking-tight">
+      <h4 className="text-xl font-outfit font-semibold tracking-tight">
         Recent Enrollments
       </h4>
       <div className="flex flex-col gap-2 mt-4">

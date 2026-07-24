@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import useBoundStore from "../store";
 import { Button } from "@heroui/react";
@@ -13,9 +13,9 @@ function Instructor({
   return (
     <div className="border border-background rounded-lg p-4 text-center snap-start hover:border-background-tertiary">
       <img src={instructor.avatar} className="w-40 mb-3" />
-      <h5 className="font-medium sm:text-lg text-base whitespace-nowrap">
+      <h3 className="font-medium sm:text-lg text-base whitespace-nowrap font-outfit">
         {instructor.name}
-      </h5>
+      </h3>
       <p className="text-muted text-xs truncate">
         {instructor.skills.slice(0, 3).join(", ")}
       </p>
@@ -54,28 +54,13 @@ function Instructors() {
         <h3 className="font-huninn uppercase text-muted md:text-lg text-base">
           Popular Instructors
         </h3>
-        <div className="flex items-center gap-3">
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={slideNext} isIconOnly>
-              <ChevronLeft />
-            </Button>
-            <Button variant="outline" onClick={slidePrev} isIconOnly>
-              <ChevronRight />
-            </Button>
-          </div>
-          <Link
-            to="/instructors"
-            className="text-accent font-inter-tight group py-2"
-          >
-            <div className="flex items-center gap-1 group">
-              <span className="max-sm:text-sm">View All</span>
-              <ArrowRight
-                className="transition-transform group-hover:translate-x-1"
-                strokeWidth={1.3}
-                size={20}
-              />
-            </div>
-          </Link>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" onClick={slideNext} isIconOnly>
+            <ChevronLeft />
+          </Button>
+          <Button variant="outline" onClick={slidePrev} isIconOnly>
+            <ChevronRight />
+          </Button>
         </div>
       </div>
       <div

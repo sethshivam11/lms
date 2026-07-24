@@ -60,7 +60,7 @@ function Filters({ className = "" }: { className?: string }) {
         className,
       )}
     >
-      <h5 className="sm:text-2xl text-lg text-center text-foreground font-semibold tracking-tight">
+      <h5 className="sm:text-2xl text-lg text-center text-foreground font-outfit font-semibold tracking-tight">
         Filters
       </h5>
       <div className="flex flex-col gap-4 py-4">

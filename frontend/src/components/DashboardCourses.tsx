@@ -8,7 +8,7 @@ function DashboardCourses() {
   return (
     <div className="bg-background p-4 rounded-lg w-full">
       <div className="flex items-center justify-between">
-        <h4 className="text-xl font-semibold tracking-tight">My Courses</h4>
+        <h4 className="text-xl font-outfit font-semibold tracking-tight">My Courses</h4>
         <Link
           to="/courses"
           className="text-accent hover:underline underline-offset-2"

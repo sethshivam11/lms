@@ -39,9 +39,9 @@ function CourseDetails() {
               {course.category}
             </Chip>
             <div>
-              <h5 className="text-3xl tracking-tight font-bold text-background">
+              <h1 className="text-3xl tracking-tight font-bold font-outfit text-background">
                 {course.name}
-              </h5>
+              </h1>
               <p className="text-background-secondary/80 text-base">
                 {course.subDescription}
               </p>
@@ -88,7 +88,7 @@ function CourseDetails() {
           </div>
           <div className="py-2 flex flex-col justify-end h-full">
             <div className="flex flex-col gap-2 bg-background p-4 rounded-lg w-80">
-              <h5 className="text-xl tracking-tight font-semibold">
+              <h5 className="text-xl tracking-tight font-semibold font-outfit">
                 Enroll into course
               </h5>
               <h3 className="text-3xl tracking-tighter text-accent font-bold">

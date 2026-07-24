@@ -30,7 +30,7 @@ function MyCourses() {
 
   return (
     <div className="flex flex-col py-6 gap-6">
-      <h3 className="tracking-tighter sm:text-3xl text-2xl font-bold">
+      <h3 className="tracking-tighter sm:text-3xl text-2xl font-outfit font-bold">
         My Courses
       </h3>
       <SearchCourses value={search} setValue={setSearch} />

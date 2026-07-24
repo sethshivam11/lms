@@ -18,7 +18,7 @@ function ToolbarButton({
   return (
     <button
       className={cn(
-        "bg-default! p-2.5! size-fit! z-0 focus-visible:z-10 focus-visible:ring-2 focus-visible:outline-none ring-accent hover:bg-default-hover! aria-pressed:bg-accent-soft! relative!",
+        "bg-background! p-2.5! size-fit! z-0 focus-visible:z-10 focus-visible:ring-2 focus-visible:outline-none ring-accent hover:bg-background-secondary! aria-pressed:bg-accent-soft! relative!",
         className,
       )}
       type={type}

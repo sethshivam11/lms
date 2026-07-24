@@ -5,7 +5,6 @@ import "../config/quill-icons";
 import { cn } from "@heroui/styles";
 import EditorToolbar from "./EditorToolbar";
 
-
 interface EditorProps {
   id?: string;
   value?: string;
@@ -80,16 +79,6 @@ const Editor = forwardRef<Quill, EditorProps>(
         onChangeRef.current?.(quill.root.innerHTML);
       });
 
-      quill.on("selection-change", (range) => {
-        const isFocused = range !== null;
-
-        setFocused(isFocused);
-
-        if (!isFocused) {
-          onBlurRef.current?.();
-        }
-      });
-
       quill.keyboard.addBinding({ ctrlKey: true, key: "[" }, () => {
         quill.format("indent", "-1");
         return true;
@@ -130,6 +119,14 @@ const Editor = forwardRef<Quill, EditorProps>(
         <div
           id={id}
           ref={editorRef}
+          onFocus={() => setFocused(true)}
+          onBlur={(e) => {
+            const next = e.relatedTarget as Node | null;
+            if (next && e.currentTarget.contains(next)) return;
+
+            setFocused(false);
+            onBlurRef.current?.();
+          }}
           aria-label="description"
           className={cn("editor-container", className)}
         />

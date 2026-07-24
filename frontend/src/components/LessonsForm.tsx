@@ -5,25 +5,30 @@ import {
   Form,
   Input,
   Label,
-  Modal,
   TextField,
   Select,
   ListBox,
+  Skeleton,
 } from "@heroui/react";
-import { ArrowUp, ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import {
-  durationSchema,
-  nameSchema,
-  notesSchema,
-  videoSchema,
-} from "../schema/lesson";
+  ArrowUp,
+  ChevronLeft,
+  ChevronRight,
+  Plus,
+  RefreshCw,
+  Upload,
+} from "lucide-react";
+import { nameSchema, notesSchema, videoSchema } from "../schema/lesson";
 import RichTextField from "./RichTextField";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import DraggableLessons from "./DraggableLessons";
 import QuizForm from "./QuizForm";
 import { questionSchema } from "../schema/quiz";
 import type { LessonFormI } from "../types/lesson";
 import type { QuizFormI } from "../types/quiz";
+import { Link } from "react-router-dom";
+
+const UploadGuidelines = lazy(() => import("./UploadGuidelines"));
 
 function LessonsForm({
   lessons,
@@ -32,18 +37,20 @@ function LessonsForm({
   handleNext,
 }: {
   lessons: LessonFormI[];
-  setLessons: (lessons: LessonFormI[]) => void;
+  setLessons: React.Dispatch<React.SetStateAction<LessonFormI[]>>;
   handleBack: () => void;
   handleNext: () => void;
 }) {
   const [invalid, setInvalid] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [lesson, setLesson] = useState<LessonFormI>({
-    id: 0,
+    id: 1,
     type: "notes",
     name: "",
     video: "",
     duration: "",
     notes: "",
+    quiz: null,
   });
   const [quiz, setQuiz] = useState<QuizFormI>({
     passMark: "",
@@ -69,39 +76,66 @@ function LessonsForm({
     ],
   });
 
+  const handleEdit = (lesson: LessonFormI) => {
+    setLesson(lesson);
+    if (lesson.quiz) setQuiz(lesson.quiz);
+    setEditing(true);
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     switch (lesson.type) {
       case "notes":
         const notes = notesSchema.safeParse(lesson.notes);
-        setInvalid(notes.success);
+        setInvalid(!notes.success);
         break;
       case "video":
         const result = notesSchema.safeParse(lesson.notes);
-        setInvalid(result.success);
+        setInvalid(!result.success);
         break;
       case "quiz":
         quiz.questions.map((item) => {
           const result = questionSchema.safeParse(item);
-          setInvalid(result.success);
+          setInvalid(!result.success);
           return;
         });
         break;
       default:
         return;
     }
+    let nextId = 0;
+    if (editing) {
+      setLessons((prev) => {
+        nextId = (prev.at(-1)?.id ?? 0) + 1;
+
+        return prev.map((item) => {
+          if (lesson.id === item.id) {
+            return lesson;
+          }
+          return item;
+        });
+      });
+      setEditing(false);
+    } else {
+      setLessons((prev) => {
+        nextId = (prev.at(-1)?.id ?? 0) + 1;
+
+        return [
+          ...prev,
+          { ...lesson, quiz: lesson.type === "quiz" ? quiz : null },
+        ];
+      });
+    }
     setLesson({
-      id: 0,
+      id: nextId + 1,
       type: "notes",
       name: "",
       video: "",
       duration: "",
       notes: "",
+      quiz: null,
     });
-    setLessons([
-      ...lessons,
-      { ...lesson, id: lessons[lessons.length - 1].id + 1 },
-    ]);
+    setInvalid(false);
   };
 
   return (
@@ -111,8 +145,22 @@ function LessonsForm({
         <p className="text-muted text-sm">Add Lessons to your course</p>
       </div>
       <DraggableLessons
+        lessonId={lesson.id}
         lessons={lessons}
         setLessons={(lessons) => setLessons(lessons)}
+        handleEdit={handleEdit}
+        handleCancelEdit={() => {
+          setEditing(false);
+          setLesson({
+            id: lessons[lessons.length - 1].id + 1,
+            type: "notes",
+            name: "",
+            notes: "",
+            video: "",
+            duration: "",
+            quiz: null,
+          });
+        }}
       />
       <Form
         className="flex flex-col gap-4 bg-background/50 p-4 rounded-xl"
@@ -120,7 +168,7 @@ function LessonsForm({
         onInvalid={() => setInvalid(true)}
       >
         <h5 className="text-xl font-semibold text-center tracking-tight text-accent">
-          Lesson Details
+          {editing ? "Edit Lesson" : "Lesson Details"}
         </h5>
         <div className="grid grid-cols-4 gap-4">
           <Select
@@ -181,63 +229,48 @@ function LessonsForm({
           </TextField>
         </div>
         {lesson.type === "video" && (
-          <div className="grid grid-cols-4 gap-4">
-            <TextField
-              name="video"
-              type="text"
-              className="flex-1 col-span-3"
-              validate={(value) => {
-                const result = videoSchema.safeParse(value);
-                return result.success ? null : result.error.issues[0].message;
-              }}
-            >
-              <Label>
-                Video <span className="text-danger">*</span>
-              </Label>
-              <div className="relative">
+          <TextField
+            name="video"
+            type="text"
+            className="flex-1 col-span-3"
+            value={lesson.video}
+            onChange={(value) =>
+              setLesson((prev) => ({ ...prev, video: value }))
+            }
+            validate={(value) => {
+              const result = videoSchema.safeParse(value);
+              return result.success ? null : result.error.issues[0].message;
+            }}
+          >
+            <Label>
+              Video <span className="text-danger">*</span>
+            </Label>
+            <div className="flex items-center gap-2">
+              <div className="relative flex-1">
                 <Input
                   placeholder="URL of the video uploaded to YouTube"
                   className="w-full"
                 />
-                <Modal>
-                  <Modal.Trigger className="absolute top-0 right-0 z-10 -mt-2 -mr-2 size-fit rounded-full">
-                    <button
-                      type="button"
-                      className="p-2 bg-accent-soft text-accent rounded-full backdrop-blur-md italic font-xs leading-2"
-                    >
-                      i
-                    </button>
-                  </Modal.Trigger>
-                  <Modal.Backdrop>
-                    <Modal.Container>
-                      <Modal.Dialog>
-                        <Modal.CloseTrigger />
-                        <Modal.Body></Modal.Body>
-                      </Modal.Dialog>
-                    </Modal.Container>
-                  </Modal.Backdrop>
-                </Modal>
+                <Suspense fallback={<Skeleton className="size-4" />}>
+                  <UploadGuidelines />
+                </Suspense>
               </div>
-              <Description>
-                Please make sure that video must be public or unlisted
-              </Description>
-              <FieldError />
-            </TextField>
-            <TextField
-              name="duration"
-              type="number"
-              validate={(value) => {
-                const result = durationSchema.safeParse(value);
-                return result.success ? null : result.error.issues[0].message;
-              }}
-            >
-              <Label>
-                Duration <span className="text-danger">*</span>
-              </Label>
-              <Input placeholder="Duration (in seconds)" />
-              <FieldError />
-            </TextField>
-          </div>
+              <Link to="https://youtube.com/upload" target="_blank">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="bg-white"
+                  isIconOnly
+                >
+                  <Upload />
+                </Button>
+              </Link>
+            </div>
+            <Description>
+              Please make sure that video must be public or unlisted
+            </Description>
+            <FieldError />
+          </TextField>
         )}
         {(lesson.type === "video" || lesson.type === "notes") && (
           <RichTextField
@@ -256,9 +289,11 @@ function LessonsForm({
             }
             invalid={invalid}
             validate={(value) => {
+              if (lesson.type !== "notes") return null;
               const result = notesSchema.safeParse(value);
               return result.success ? null : result.error.issues[0].message;
             }}
+            resetKey={lesson.id}
           />
         )}
         {lesson.type === "quiz" && (
@@ -266,7 +301,14 @@ function LessonsForm({
         )}
         <div className="flex justify-center gap-4">
           <Button variant="tertiary" type="submit">
-            {lessons.length === 0 ? <Plus /> : <ArrowUp />} Add Lesson
+            {lessons.length === 0 ? (
+              <Plus />
+            ) : editing ? (
+              <RefreshCw />
+            ) : (
+              <ArrowUp />
+            )}
+            {editing ? "Update" : "Add"} Lesson
           </Button>
         </div>
       </Form>

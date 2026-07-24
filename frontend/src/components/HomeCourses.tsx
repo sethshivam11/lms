@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import useBoundStore from "../store";
 import HomeCard from "./HomeCard";
 import { Button } from "@heroui/react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 interface Props {
-  variant?: "recommended" | "free" | "category";
+  variant?: "recommended" | "free" | "category" | "skills";
   title: string;
   path: string;
 }
@@ -16,13 +16,35 @@ function HomeCourses({ variant, title, path }: Props) {
 
   const [current, setCurrent] = useState("All");
 
+  const { categories, skills } = useMemo(() => {
+    const categories = new Set<string>();
+    const skills = new Set<string>();
+
+    courses.map((item) => {
+      categories.add(item.category.toLowerCase());
+      if (item.skills) {
+        item.skills.map((skill) =>
+          skills.has(skill.toLowerCase()) ? null : skills.add(skill),
+        );
+      }
+    });
+
+    return {
+      categories: [
+        "All",
+        ...Array.from(categories).sort((a, b) => a.localeCompare(b)),
+      ],
+      skills: ["All", ...Array.from(skills).sort((a, b) => a.localeCompare(b))],
+    };
+  }, [courses]);
+
   return (
     <div className="w-full">
       <div className="flex justify-between items-center w-full mb-3">
         <h3 className="font-huninn uppercase text-muted sm:text-lg text-base">
           {title}
         </h3>
-        {variant !== "category" && (
+        {variant !== "category" && variant !== "skills" && (
           <Link to={path} className="text-accent font-inter-tight">
             <div className="flex gap-1 group">
               <span className="max-sm:text-sm">View All</span>
@@ -37,14 +59,26 @@ function HomeCourses({ variant, title, path }: Props) {
       </div>
       {variant === "category" && (
         <div className="flex items-center gap-2 mb-3">
-          {Array.from([
-            "All",
-            ...new Set(courses.map((item) => item.category)),
-          ]).map((item) => (
+          {categories.map((item, index) => (
             <Button
               variant={item === current ? "primary" : "outline"}
               className="rounded-full capitalize transition-colors text-sm"
               onClick={() => setCurrent(item)}
+              key={index}
+            >
+              {item}
+            </Button>
+          ))}
+        </div>
+      )}
+      {variant === "skills" && (
+        <div className="flex items-center gap-2 mb-3">
+          {skills.map((item, index) => (
+            <Button
+              variant={item === current ? "primary" : "outline"}
+              className="rounded-full capitalize transition-colors text-sm"
+              onClick={() => setCurrent(item)}
+              key={index}
             >
               {item}
             </Button>
@@ -55,7 +89,10 @@ function HomeCourses({ variant, title, path }: Props) {
         {courses
           .filter(
             (item) =>
-              (item.category === current || current === "All") &&
+              (variant === "category"
+                ? item.category === current || current.toLowerCase() === "all"
+                : item.skills?.includes(current) ||
+                  current.toLowerCase() === "all") &&
               (variant !== "free" || item.price === 0),
           )
           .map((item, index) => (

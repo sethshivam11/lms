@@ -1,5 +1,18 @@
 {
+  "name": "lms",
   "private": true,
+  "version": "0.0.0",
+  "main": "backend/dist/index.js",
+  "author": "shivam",
+  "keywords": [
+    "react",
+    "postgres",
+    "quill",
+    "hero-ui",
+    "nodejs",
+    "express",
+    "embla-carousel"
+  ],
   "scripts": {
     "build": "npm --prefix frontend run build && npm --prefix backend run build",
     "start": "node --env-file=.env backend/dist/index.js",

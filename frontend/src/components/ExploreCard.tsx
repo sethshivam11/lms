@@ -17,7 +17,7 @@ function ExploreCard({ course }: { course: Course }) {
       />
       <div className="flex flex-col justify-between gap-2 sm:p-4 max-sm:px-3 max-sm:py-2">
         <div className="flex flex-col gap-2">
-          <h5 className="sm:text-2xl text-lg tracking-tight font-semibold truncate">
+          <h5 className="sm:text-2xl text-lg tracking-tight font-outfit font-semibold truncate">
             {course.name}
           </h5>
           <p className="sm:text-base text-sm text-muted">

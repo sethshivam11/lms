@@ -13,6 +13,7 @@ import "./App.css";
 import Course from "./pages/Course";
 import Instructor from "./pages/Instructor";
 import CreateCourse from "./pages/CreateCourse";
+import Connect from "./pages/Connect";
 
 function App() {
   return (
@@ -25,11 +26,11 @@ function App() {
           <Route element={<Dashboard />} path="/dashboard" />
           <Route element={<Earnings />} path="/earnings" />
           <Route element={<Explore />} path="/explore" />
-          <Route element={<Home />} path="/" />
           <Route element={<Home />} path="/home" />
           <Route element={<MyCourses />} path="/my-courses" />
           <Route element={<Profile />} path="/profile" />
           <Route element={<Reviews />} path="/reviews" />
+          <Route element={<Connect />} path="/connect" />
           <Route element={<Instructor />} path="/instructor/:instructorId" />
           <Route element={<Settings />} path="/settings" />
         </Route>

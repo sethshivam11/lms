@@ -26,7 +26,7 @@ function MyCourseCard({ course }: { course: Course }) {
       <div className={`w-1/2 bg-accent h-1`} />
       <div className="flex items-center justify-between gap-1 pr-3">
         <div className="flex flex-col p-3 w-full">
-          <h5 className="sm:text-xl text-lg tracking-tight font-semibold">
+          <h5 className="sm:text-xl text-lg tracking-tight font-outfit font-semibold">
             {course.name}
           </h5>
           <p className="text-muted sm:text-base text-sm truncate w-full">
@@ -39,7 +39,7 @@ function MyCourseCard({ course }: { course: Course }) {
             <div className="flex flex-wrap items-center gap-1 mt-1">
               {course.skills?.slice(0, 3)?.map((item, index) => (
                 <Chip
-                  className="rounded-full bg-white border border-accent text-accent capitalize"
+                  className="rounded-full bg-accent text-white capitalize"
                   key={index}
                 >
                   {item}

@@ -28,8 +28,11 @@ function HomeCoursesFallback({ hasVariant = false }: { hasVariant?: boolean }) {
       )}
       <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3">
         {Array.from({ length: 3 }).map((_, index) => (
-          <div className="border border-background rounded-xl overflow-hidden">
-            <Skeleton className="w-full aspect-video rounded-xl" key={index} />
+          <div
+            className="border border-background rounded-xl overflow-hidden"
+            key={index}
+          >
+            <Skeleton className="w-full aspect-video rounded-xl" />
             <div className="flex justify-between">
               <div className="flex flex-col gap-2 p-4">
                 <Skeleton className="h-6 w-24 rounded-lg" />
@@ -98,6 +101,13 @@ function Home() {
       </Suspense>
       <Suspense fallback={<InstructorsFallback />}>
         <Instructors />
+      </Suspense>
+      <Suspense fallback={<HomeCoursesFallback />}>
+        <HomeCourses
+          variant="skills"
+          title="Browse by Skills"
+          path="/explore?price=0"
+        />
       </Suspense>
       <Suspense fallback={<HomeCoursesFallback />}>
         <HomeCourses

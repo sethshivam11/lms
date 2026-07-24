@@ -183,7 +183,7 @@
 }
 
 .ql-picker-label {
-  @apply bg-background-secondary! w-12! ring-accent px-2! py-1.5! rounded-3xl! outline-none!;
+  @apply bg-background! w-12! ring-accent px-2! py-1.5! rounded-3xl! outline-none!;
 }
 
 .ql-picker-label:focus-visible {
@@ -209,3 +209,9 @@
 .ql-toolbar:after {
   @apply absolute!;
 }
+
+.duration-input::-webkit-inner-spin-button,
+  .duration-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }

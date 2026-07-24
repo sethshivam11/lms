@@ -15,19 +15,19 @@ function Footer() {
           },
           {
             name: "Courses",
-            path: "/courses",
+            path: "/explore",
           },
           {
             name: "LMS",
             path: "/home",
           },
           {
-            name: "Instructors",
-            path: "/instructors",
-          },
-          {
             name: "My Courses",
             path: "/my-courses",
+          },
+          {
+            name: "Connect",
+            path: "/connect",
           },
         ]
       : [
@@ -90,7 +90,7 @@ function Footer() {
             );
         })}
       </div>
-      <div className="flex items-center justify-between border-t border-footer-border p-4 font-sm">
+      <div className="flex items-center justify-between border-t border-footer-border p-4 text-xs text-background-secondary">
         <span>&copy; Copyright Reserved</span>
         <span>
           Made with ❤️ by{" "}

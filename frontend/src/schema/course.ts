@@ -38,13 +38,9 @@ export const levelSchema = z
   })
   .default("beginner");
 
-export const skillsSchema = z
-  .array(
-    z
-      .string()
-      .min(1, "Skill value is required")
-      .max(20, "Skill value should not be more than 20 characters"),
-  )
+export const skillSchema = z
+  .string()
+  .max(20, "Skill value should not be more than 20 characters")
   .optional();
 
 export const priceSchema = z.coerce

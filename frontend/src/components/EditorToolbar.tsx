@@ -42,11 +42,6 @@ function EditorToolbar({
       case "ArrowLeft":
         nextIndex = (index - 1 + items.length) % items.length;
         break;
-      case "ArrowDown":
-        if (current.className.includes(".ql-picker-item")) {
-          console.log("I ran");
-        }
-        break;
 
       case "Home":
         nextIndex = 0;

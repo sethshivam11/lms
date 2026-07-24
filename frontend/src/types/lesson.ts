@@ -1,3 +1,5 @@
+import type { QuizFormI } from "./quiz";
+
 export interface LessonFormI {
   id: number;
   type: "notes" | "video" | "quiz";
@@ -5,6 +7,7 @@ export interface LessonFormI {
   duration: string;
   video: string;
   notes: string;
+  quiz: QuizFormI | null;
 }
 
 export interface Lesson {

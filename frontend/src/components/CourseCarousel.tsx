@@ -28,9 +28,9 @@ function Slide({
           </h3>
         </div>
         <div className="bg-linear-to-b from-transparent via-black/50 to-black/80 absolute bottom-0 text-white p-4 w-full rounded-b-xl transition-all">
-          <h3 className="lg:text-2xl md:text-xl text-lg">{course.name}</h3>
+          <h3 className="lg:text-2xl md:text-xl text-lg text-background font-outfit">{course.name}</h3>
           <div className="flex justify-between items-center">
-            <p className="md:text-base text-sm text-muted truncate">
+            <p className="md:text-base text-sm text-background-tertiary/60 truncate">
               {course.subDescription}
             </p>
             <RatingChip

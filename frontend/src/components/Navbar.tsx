@@ -2,19 +2,20 @@ import useBoundStore from "../store";
 import { Link, useLocation } from "react-router-dom";
 import {
   Book,
-  BookOpen,
   Cog,
   DollarSign,
   Home,
   LayoutDashboard,
   LibraryBig,
   LogOut,
+  Network,
   PanelLeft,
   Star,
   User,
 } from "lucide-react";
 import { AvatarDropdown } from "./AvatarDropdown";
 import { Drawer, Button, Avatar, Accordion } from "@heroui/react";
+import Logo from "./Logo";
 
 function Navbar() {
   const location = useLocation();
@@ -32,6 +33,11 @@ function Navbar() {
             icon: LibraryBig,
             name: "Explore",
             path: "/explore",
+          },
+          {
+            icon: Network,
+            name: "Connect",
+            path: "/connect",
           },
           {
             icon: Book,
@@ -63,18 +69,27 @@ function Navbar() {
         ];
 
   return (
-    <div className="flex justify-between items-center bg-transparent/50 backdrop-blur-lg w-full px-8 py-4 border-b sticky top-0 left-0 z-50">
+    <div className="flex justify-between items-center bg-transparent/50 backdrop-blur-lg w-full sm:px-8 px-2 py-2 border-b sticky top-0 left-0 z-50">
       <Drawer>
-        <Button variant="ghost" className="sm:hidden" isIconOnly>
-          <PanelLeft />
-        </Button>
+        <div className="flex items-center gap-2 sm:hidden">
+          <Button variant="ghost" className="group" isIconOnly>
+            <Logo />
+            <PanelLeft className="hidden group-hover:inline" size={30} />
+          </Button>
+          <Link
+            to={role === "student" ? "/home" : "/dashboard"}
+            className="flex justify-center items-center gap-2 p-2 focus-visible:outline-none focus-visible:ring-2 ring-background-secondary rounded-lg text-xl font-cal-sans font-semibold"
+          >
+            LearnLoop
+          </Link>
+        </div>
         <Drawer.Backdrop>
           <Drawer.Content placement="left">
             <Drawer.Dialog>
               <Drawer.Header>
                 <Drawer.Heading>
                   <div className="flex justify-center items-center gap-2">
-                    <BookOpen size={30} />
+                    <Logo />
                     <span className="text-3xl font-extrabold tracking-tighter font-lora">
                       LMS
                     </span>
@@ -135,16 +150,19 @@ function Navbar() {
           </Drawer.Content>
         </Drawer.Backdrop>
       </Drawer>
-      <div className="flex justify-center items-center gap-2">
-        <BookOpen size={30} />
-        <span className="text-3xl font-extrabold tracking-tighter">LMS</span>
-      </div>
+      <Link
+        to={role === "student" ? "/home" : "/dashboard"}
+        className="flex justify-center items-center gap-2 p-2 focus-visible:outline-none focus-visible:ring-2 ring-background-secondary rounded-lg max-sm:hidden"
+      >
+        <Logo />
+        <span className="text-xl font-cal-sans font-semibold">LearnLoop</span>
+      </Link>
       <div className="flex justify-between items-center gap-4 max-sm:hidden group">
         {menu.map((item, index) => (
           <Link
             to={item.path}
             key={index}
-            className={`p-2 font-medium hover:text-accent ${location.pathname.includes(item.path) ? "text-accent group-hover:text-muted" : "text-muted"}`}
+            className={`p-2 font-outfit focus-visible:outline-none focus-visible:ring-2 ring-background-secondary rounded-lg hover:text-accent ${location.pathname.includes(item.path) ? "text-accent group-hover:text-muted" : "text-muted"}`}
           >
             {item.name}
           </Link>

@@ -8,7 +8,9 @@ function RecentReviews() {
 
   return (
     <div className="bg-background p-4 rounded-lg">
-      <h4 className="text-xl font-semibold tracking-tight">Recent Reviews</h4>
+      <h4 className="text-xl font-outfit font-semibold tracking-tight">
+        Recent Reviews
+      </h4>
       <div className="flex flex-col gap-2 mt-4">
         {reviews
           .slice(0, 3)
@@ -25,7 +27,7 @@ function RecentReviews() {
               <div>
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col">
-                    <h6 className="font-medium tracking-tight">
+                    <h6 className="font-medium tracking-tight font-outfit">
                       {item.user_name}
                     </h6>
                     <RatingStars
@@ -36,7 +38,7 @@ function RecentReviews() {
                   <span className="text-muted text-xs">
                     {formatDistance(new Date(item.created_at), new Date(), {
                       addSuffix: true,
-                    })}
+                    })?.replace("about ", "")}
                   </span>
                 </div>
                 <p className="">{item.review}</p>

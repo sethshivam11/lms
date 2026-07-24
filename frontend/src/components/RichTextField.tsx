@@ -10,6 +10,7 @@ function DescriptionField({
   onChange,
   invalid = false,
   validate,
+  resetKey = 0,
 }: {
   label?: string | ReactNode;
   placeholder?: string;
@@ -18,6 +19,7 @@ function DescriptionField({
   onChange: (description: string) => void;
   invalid?: boolean;
   validate?: (value: string) => null | string;
+  resetKey?: number;
 }) {
   const [error, setError] = useState<string | null>(null);
   const [touched, setTouched] = useState(false);
@@ -32,6 +34,11 @@ function DescriptionField({
   };
 
   const editorRef = useRef<Quill>(null);
+
+  useEffect(() => {
+    setTouched(false);
+    setError(null);
+  }, [resetKey])
 
   useEffect(() => {
     if (!invalid) return;

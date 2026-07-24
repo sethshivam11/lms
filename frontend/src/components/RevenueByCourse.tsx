@@ -23,7 +23,7 @@ function RevenueByCourse() {
 
   return (
     <div className="bg-background p-4 rounded-lg w-full">
-      <h4 className="text-xl font-semibold tracking-tight">
+      <h4 className="text-xl font-outfit font-semibold tracking-tight">
         Revenue by Courses
       </h4>
       <div className="grid md:grid-cols-2 gap-2 mt-4">

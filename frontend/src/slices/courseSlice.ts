@@ -87,7 +87,7 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
       status: "published",
       students_enrolled: 1,
       ban_reason: null,
-      skills: null,
+      skills: ["CSS"],
       cover:
         "https://res.cloudinary.com/dv3qbj0bn/image/upload/v1780988065/lms/course/fegjy1rmynrizittty3p.jpg",
       category: "styling",
@@ -108,7 +108,7 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
       status: "published",
       students_enrolled: 0,
       ban_reason: null,
-      skills: null,
+      skills: ["react", "HTML", "CSS", "JavaScript"],
       cover:
         "https://res.cloudinary.com/dv3qbj0bn/image/upload/v1780988197/lms/course/hcghp49jrk9favwtukme.jpg",
       category: "programming",

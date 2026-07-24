@@ -55,7 +55,6 @@ export interface CourseDetailsFormI {
   subDescription: string;
   description: string;
   category: string;
-  level: string;
   skills: string[];
   price: string;
 }
