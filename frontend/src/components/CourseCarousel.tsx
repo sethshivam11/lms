@@ -31,7 +31,7 @@ function Slide({
           <h3 className="lg:text-2xl md:text-xl text-lg text-background font-outfit">{course.name}</h3>
           <div className="flex justify-between items-center">
             <p className="md:text-base text-sm text-background-tertiary/60 truncate">
-              {course.subDescription}
+              {course.tagline}
             </p>
             <RatingChip
               rating={course.rating_sum / course.rating_count}

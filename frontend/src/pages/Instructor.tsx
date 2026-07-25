@@ -25,7 +25,7 @@ function Course({ course }: { course: CourseI }) {
       />
       <div className="p-3">
         <h4 className="text-lg tracking-tight font-medium">{course.name}</h4>
-        <p className="text-muted text-sm truncate">{course.subDescription}</p>
+        <p className="text-muted text-sm truncate">{course.tagline}</p>
         <p className="text-xs text-muted">
           {formatDuration(course.duration)} · {course.lessons} lessons
         </p>

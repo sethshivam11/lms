@@ -15,7 +15,7 @@ export interface Course {
   duration: number;
   students_enrolled: number;
   rating_count: number;
-  subDescription: string;
+  tagline: string;
   lessons: number;
 }
 
@@ -52,8 +52,9 @@ export interface CourseSlice {
 
 export interface CourseDetailsFormI {
   name: string;
-  subDescription: string;
+  tagline: string;
   description: string;
+  level: "beginner" | "intermediate" | "advanced";
   category: string;
   skills: string[];
   price: string;

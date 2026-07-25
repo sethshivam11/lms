@@ -43,7 +43,7 @@ function CourseDetails() {
                 {course.name}
               </h1>
               <p className="text-background-secondary/80 text-base">
-                {course.subDescription}
+                {course.tagline}
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2">

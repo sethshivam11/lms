@@ -11,27 +11,33 @@ import {
 import { ChevronRight, XIcon } from "lucide-react";
 import {
   categorySchema,
+  coverSchema,
   descriptionSchema,
   nameSchema,
   priceSchema,
   skillSchema,
-  subDescriptionSchema,
+  taglineSchema,
 } from "../schema/course";
 import RichTextField from "./RichTextField";
-import { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import type { CourseDetailsFormI } from "../types/course";
 
 function CourseDetailsForm({
   form,
+  cover,
   setForm,
+  setCover,
   handleNext,
 }: {
+  cover: File | null;
+  setCover: (file: File | null) => void;
   form: CourseDetailsFormI;
   setForm: (form: CourseDetailsFormI) => void;
   handleNext: () => void;
 }) {
   const [invalid, setInvalid] = useState(false);
   const [skill, setSkill] = useState("");
+  const [fileError, setFileError] = useState<string | null>(null);
 
   const handleSkill = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== "Enter" && e.key !== " ") return;
@@ -110,9 +116,28 @@ function CourseDetailsForm({
     }
   };
 
+  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const result = coverSchema.safeParse(file);
+    if (result.success) {
+      setCover(file);
+      setFileError(null);
+    } else {
+      setFileError(result.error.issues[0].message);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = descriptionSchema.safeParse(form.description);
+    if (!cover) {
+      setFileError("Cover image is required");
+      return;
+    }
     if (result.success) {
       return handleNext();
     }
@@ -127,7 +152,9 @@ function CourseDetailsForm({
       onInvalid={() => setInvalid(true)}
     >
       <div>
-        <h4 className="text-xl font-poppins font-semibold tracking-tight">Course Details</h4>
+        <h4 className="text-xl font-poppins font-semibold tracking-tight">
+          Course Details
+        </h4>
         <p className="text-muted text-sm">Describe your course</p>
       </div>
       <TextField
@@ -148,17 +175,17 @@ function CourseDetailsForm({
         <FieldError />
       </TextField>
       <TextField
-        name="subDescription"
+        name="tagline"
         type="text"
-        value={form.subDescription}
-        onChange={(value) => setForm({ ...form, subDescription: value })}
+        value={form.tagline}
+        onChange={(value) => setForm({ ...form, tagline: value })}
         validate={(value) => {
-          const result = subDescriptionSchema.safeParse(value);
+          const result = taglineSchema.safeParse(value);
           return result.success ? null : result.error.issues[0].message;
         }}
       >
         <Label>
-          Sub Description <span className="text-danger">*</span>
+          Tagline <span className="text-danger">*</span>
         </Label>
         <Input placeholder="Describe your course in a line" />
         <FieldError />
@@ -194,6 +221,19 @@ function CourseDetailsForm({
         <Input placeholder="Provide a category to this course" />
         <FieldError />
       </TextField>
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="cover">
+          Cover Image <span className="text-danger">*</span>
+        </Label>
+        <input
+          id="cover"
+          className="input"
+          type="file"
+          accept="image/png,image/jpeg,image/webp"
+          onChange={handleFile}
+        />
+        {fileError && <p className="text-danger text-xs">{fileError}</p>}
+      </div>
       <TextField
         name="skills"
         type="text"
@@ -209,6 +249,9 @@ function CourseDetailsForm({
         <Label>Skills</Label>
         <Input placeholder="Skills to be learnt by course" />
         <FieldError />
+        {form.skills.length === 0 && (
+          <Description>Press enter/space to add a new skill</Description>
+        )}
         <div
           className="flex items-center gap-1 mt-1"
           onKeyDown={handleSkillList}

@@ -21,7 +21,7 @@ function ExploreCard({ course }: { course: Course }) {
             {course.name}
           </h5>
           <p className="sm:text-base text-sm text-muted">
-            {course.subDescription}
+            {course.tagline}
           </p>
           <p className="sm:text-sm text-xs text-muted">
             {formatDuration(course.duration)} · {course.lessons} lessons

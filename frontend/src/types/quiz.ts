@@ -4,7 +4,6 @@ export interface QuizFormI {
   questions: {
     id: number;
     question: string;
-    type: "mcq" | "true_false";
     options: {
       id: number;
       option: string;

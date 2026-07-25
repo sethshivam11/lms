@@ -211,7 +211,15 @@
 }
 
 .duration-input::-webkit-inner-spin-button,
-  .duration-input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+.duration-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="file"]::file-selector-button {
+  @apply text-muted;
+}
+
+.toast {
+  @apply flex items-center;
+}

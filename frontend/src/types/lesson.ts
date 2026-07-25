@@ -4,7 +4,6 @@ export interface LessonFormI {
   id: number;
   type: "notes" | "video" | "quiz";
   name: string;
-  duration: string;
   video: string;
   notes: string;
   quiz: QuizFormI | null;

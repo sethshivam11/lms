@@ -5,7 +5,7 @@ export const nameSchema = z
   .min(8, "Course name cannot be less than 8 characters")
   .max(255, "Course name cannot be more than 255 characters");
 
-export const subDescriptionSchema = z
+export const taglineSchema = z
   .string()
   .min(2, "Sub Description cannot be less than 2 characters")
   .max(100, "Sub description cannot be more than 100 characters");
@@ -22,8 +22,8 @@ export const descriptionSchema = z
     "Description cannot be less than 10 characters",
   )
   .refine(
-    (text) => text.length <= 255,
-    "Description cannot be more than 255 characters",
+    (text) => text.length <= 10000,
+    "Description cannot be more than 10,000 characters",
   );
 
 export const categorySchema = z
@@ -46,3 +46,9 @@ export const skillSchema = z
 export const priceSchema = z.coerce
   .number()
   .min(0, "Price cannot be less than 0");
+
+export const coverSchema = z
+  .file()
+  .mime(["image/png", "image/jpeg", "image/webp"], "Invalid file")
+  .min(10_000, "File size must be greater than 10KB")
+  .max(100_000_000, "File size must be less than 100MB");

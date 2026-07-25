@@ -32,7 +32,7 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
   course: {
     id: 6,
     name: "JavaScript Mastery",
-    subDescription: "Master JavaScript like a professional",
+    tagline: "Master JavaScript like a professional",
     description:
       "This course is designed for developers who want to master React and Next.js by building real-world, full-stack AI-powered applications. Instead of learning concepts in isolation, you’ll build production-grade projects using modern tools like Convex, Supabase, Drizzle ORM, and secure payment gateways. Each module takes you from fundamentals to deployment, ensuring you understand both how things work and why they work that way. You’ll start by strengthening your React and Next.js foundations - routing, components, server actions, caching, and performance optimization. Then you’ll move into backend development using Convex and Supabase to create scalable databases, authentication systems, and API layers. You’ll learn relational modeling with Drizzle ORM, manage global state with  Zustand, or Context, and implement real payment flows using industry-standard gateways. The course includes multiple AI-based projects where you integrate models from OpenAI, Gemini, and other providers to create intelligent SaaS applications. You’ll build dashboards, file-handling systems, chat assistants, automation tools, and more. Finally, you’ll deploy your applications using modern hosting platforms and learn how to optimize them for real users. This is a complete, hands-on course that gives you the skills needed to build and ship full-stack, AI-driven web apps confidently. This course is a one stop solution to master React and NextJS so that you can ship your next project with confidence!",
     owner: 11,
@@ -58,7 +58,7 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
     {
       id: 6,
       name: "JavaScript Mastery",
-      subDescription: "Master JavaScript like a professional",
+      tagline: "Master JavaScript like a professional",
       owner: 11,
       level: "intermediate",
       is_banned: false,
@@ -79,7 +79,7 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
     {
       id: 3,
       name: "Styling using CSS",
-      subDescription:
+      tagline:
         "Cascading Style Sheets are an important part of webpage to design and align the webpage",
       owner: 11,
       level: "beginner",
@@ -101,7 +101,7 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
     {
       id: 2,
       name: "React Tutorial",
-      subDescription: "Learn React component based Library managed by Meta",
+      tagline: "Learn React component based Library managed by Meta",
       owner: 11,
       level: "beginner",
       is_banned: false,
@@ -124,7 +124,7 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
     {
       id: 6,
       name: "JavaScript Mastery",
-      subDescription: "Master JavaScript like a professional",
+      tagline: "Master JavaScript like a professional",
       owner: 11,
       level: "intermediate",
       is_banned: false,
@@ -145,7 +145,7 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
     {
       id: 2,
       name: "React Tutorial",
-      subDescription: "Learn React component based Library managed by Meta",
+      tagline: "Learn React component based Library managed by Meta",
       owner: 11,
       level: "beginner",
       is_banned: false,
@@ -166,7 +166,7 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
     {
       id: 3,
       name: "Styling using CSS",
-      subDescription:
+      tagline:
         "Cascading Style Sheets are an important part of webpage to design and align the webpage",
       owner: 11,
       level: "beginner",
@@ -190,7 +190,7 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
     {
       id: 6,
       name: "JavaScript Mastery",
-      subDescription: "Master JavaScript like a professional",
+      tagline: "Master JavaScript like a professional",
       owner: 11,
       level: "intermediate",
       is_banned: false,
@@ -211,7 +211,7 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
     {
       id: 2,
       name: "React Tutorial",
-      subDescription: "Learn React component based Library managed by Meta",
+      tagline: "Learn React component based Library managed by Meta",
       owner: 11,
       level: "beginner",
       is_banned: false,
@@ -232,7 +232,7 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
     {
       id: 3,
       name: "Styling using CSS",
-      subDescription:
+      tagline:
         "Cascading Style Sheets are an important part of webpage to design and align the webpage",
       owner: 11,
       level: "beginner",

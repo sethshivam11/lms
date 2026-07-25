@@ -28,7 +28,6 @@ function Lesson({
   index: number;
   type: LessonFormI["type"];
   name: LessonFormI["name"];
-  duration: LessonFormI["duration"];
   editing: boolean;
   handleChange: (value: string) => void;
   handleEdit: () => void;

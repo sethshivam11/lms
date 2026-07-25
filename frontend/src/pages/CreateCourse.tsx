@@ -1,8 +1,9 @@
-import { lazy, Suspense, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import CourseDetailsForm from "../components/CourseDetailsForm";
-import { Skeleton } from "@heroui/react";
+import { Skeleton, toast } from "@heroui/react";
 import type { LessonFormI } from "../types/lesson";
 import type { CourseDetailsFormI } from "../types/course";
+import { useNavigate } from "react-router-dom";
 
 const LessonsForm = lazy(() => import("../components/LessonsForm"));
 const PublishCourse = lazy(() => import("../components/PublishCourse"));
@@ -48,19 +49,54 @@ const steps = [
 
 function CreateCourse() {
   const formRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [cover, setCover] = useState<File | null>(null);
   const [details, setDetails] = useState<CourseDetailsFormI>({
     name: "",
-    subDescription: "",
+    tagline: "",
     description: "",
     category: "",
+    level: "beginner",
     skills: [],
     price: "",
   });
   const [lessons, setLessons] = useState<LessonFormI[]>([]);
 
-  function handleSubmit() {}
+  const handleSubmit = () => {
+    localStorage.removeItem("course-draft");
+    localStorage.setItem("courses", JSON.stringify({ details, lessons }));
+    toast.success("Course saved successfully");
+    navigate("/dashboard");
+  };
+
+  useEffect(() => {
+    const course = JSON.parse(localStorage.getItem("course-draft") || "null");
+    console.log(course);
+    if (course) {
+      toast.success("Continue where you left off?", {
+        actionProps: {
+          children: "Restore",
+          onPress: () => {
+            if (course?.details) setDetails(course.details);
+            if (course?.lessons) setLessons(course.lessons);
+            toast.clear();
+          },
+          size: "sm",
+          className: "bg-accent-soft text-accent rounded-full text-sm",
+        },
+        onClose: () => localStorage.removeItem("course-draft"),
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [step]);
 
   return (
     <div className="flex flex-col gap-6 py-6" ref={formRef}>
@@ -96,13 +132,16 @@ function CreateCourse() {
         <div className="lg:w-2/3 flex-1">
           {step === 1 && (
             <CourseDetailsForm
+              cover={cover}
               form={details}
+              setCover={setCover}
               setForm={(value) => setDetails(value)}
               handleNext={() => {
+                localStorage.setItem(
+                  "course-draft",
+                  JSON.stringify({ details }),
+                );
                 setStep(2);
-                formRef.current?.scrollTo({
-                  top: -20,
-                });
               }}
             />
           )}
@@ -112,11 +151,24 @@ function CreateCourse() {
                 lessons={lessons}
                 setLessons={setLessons}
                 handleBack={() => setStep(1)}
-                handleNext={() => setStep(3)}
+                handleNext={() => {
+                  localStorage.setItem(
+                    "course-draft",
+                    JSON.stringify({ details, lessons }),
+                  );
+                  setStep(3);
+                }}
               />
             </Suspense>
           )}
-          {step === 3 && <PublishCourse handleSubmit={handleSubmit} />}
+          {step === 3 && (
+            <PublishCourse
+              course={{ cover, ...details, lessons }}
+              handleBack={() => setStep(2)}
+              handleSubmit={handleSubmit}
+              setLessons={setLessons}
+            />
+          )}
         </div>
       </div>
     </div>

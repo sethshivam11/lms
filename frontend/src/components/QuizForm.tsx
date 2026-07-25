@@ -294,7 +294,6 @@ function QuizForm({
                         {
                           id: quiz.questions[quiz.questions.length - 1].id + 1,
                           question: "",
-                          type: "mcq",
                           options: [
                             {
                               id: 1,

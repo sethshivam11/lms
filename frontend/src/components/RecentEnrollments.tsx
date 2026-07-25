@@ -46,18 +46,14 @@ function RecentEnrollments() {
                 <Avatar.Fallback>{item.name[0]}</Avatar.Fallback>
               </Avatar>
               <div>
-                <h6 className="font-medium tracking-tight">
-                    {item.name}
-                </h6>
-                <p className="text-muted text-xs">
-                    {item.course}
-                </p>
+                <h6 className="font-medium tracking-tight">{item.name}</h6>
+                <p className="text-muted text-xs">{item.course}</p>
               </div>
             </div>
             <span className="text-xs text-muted">
               {formatDistance(new Date(item.created_at), new Date(), {
                 addSuffix: true,
-              })}
+              })?.replace("about ", "")}
             </span>
           </div>
         ))}

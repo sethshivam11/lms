@@ -30,7 +30,7 @@ function MyCourseCard({ course }: { course: Course }) {
             {course.name}
           </h5>
           <p className="text-muted sm:text-base text-sm truncate w-full">
-            {course.subDescription}
+            {course.tagline}
           </p>
           <p className="sm:text-sm text-xs text-muted">
             {formatDuration(course.duration)} · {course.lessons} lessons

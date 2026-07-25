@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { nameSchema, notesSchema, videoSchema } from "../schema/lesson";
 import RichTextField from "./RichTextField";
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import DraggableLessons from "./DraggableLessons";
 import QuizForm from "./QuizForm";
 import { questionSchema } from "../schema/quiz";
@@ -48,7 +48,6 @@ function LessonsForm({
     type: "notes",
     name: "",
     video: "",
-    duration: "",
     notes: "",
     quiz: null,
   });
@@ -59,7 +58,6 @@ function LessonsForm({
       {
         id: 1,
         question: "",
-        type: "mcq",
         options: [
           {
             id: 1,
@@ -131,12 +129,15 @@ function LessonsForm({
       type: "notes",
       name: "",
       video: "",
-      duration: "",
       notes: "",
       quiz: null,
     });
     setInvalid(false);
   };
+
+  useEffect(() => {
+    setLesson((prev) => ({ ...prev, id: (lessons.at(-1)?.id || 0) + 1 }));
+  }, []);
 
   return (
     <div className="flex flex-col gap-6">
@@ -157,7 +158,6 @@ function LessonsForm({
             name: "",
             notes: "",
             video: "",
-            duration: "",
             quiz: null,
           });
         }}

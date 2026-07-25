@@ -14,6 +14,7 @@ import Course from "./pages/Course";
 import Instructor from "./pages/Instructor";
 import CreateCourse from "./pages/CreateCourse";
 import Connect from "./pages/Connect";
+import { Toast } from "@heroui/react";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route element={<Settings />} path="/settings" />
         </Route>
       </Routes>
+      <Toast.Provider />
     </div>
   );
 }

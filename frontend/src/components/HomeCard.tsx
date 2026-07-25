@@ -27,7 +27,7 @@ function HomeCard({ course }: { course: CourseI }) {
               {course.name}
             </h5>
             <p className="text-muted md:text-base text-sm truncate">
-              {course.subDescription}
+              {course.tagline}
             </p>
             <span className="text-xs text-muted">
               {formatDuration(course.duration)} · {course.lessons} lessons
