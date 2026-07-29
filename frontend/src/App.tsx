@@ -15,11 +15,23 @@ import Instructor from "./pages/Instructor";
 import CreateCourse from "./pages/CreateCourse";
 import Connect from "./pages/Connect";
 import { Toast } from "@heroui/react";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Landing from "./pages/Landing";
+import LandingLayout from "./layouts/LandingLayout";
+import InstructorLanding from "./pages/InstructorLanding";
 
 function App() {
   return (
     <div className="min-h-screen w-full font-lora">
       <Routes>
+        <Route element={<Login />} path="/login" />
+        <Route element={<Register />} path="/register" />
+
+        <Route element={<LandingLayout />}>
+          <Route element={<Landing />} path="/" />
+          <Route element={<InstructorLanding />} path="/instructor" />
+        </Route>
         <Route element={<AuthLayout />}>
           <Route element={<Courses />} path="/courses" />
           <Route element={<CreateCourse />} path="/create-course" />

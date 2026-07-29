@@ -78,7 +78,7 @@ function Navbar() {
           </Button>
           <Link
             to={role === "student" ? "/home" : "/dashboard"}
-            className="flex justify-center items-center gap-2 p-2 focus-visible:outline-none focus-visible:ring-2 ring-background-secondary rounded-lg text-xl font-cal-sans font-semibold"
+            className="flex justify-center items-center gap-2 p-2 ring-visible ring-background-secondary rounded-lg text-xl font-cal-sans font-semibold"
           >
             LearnLoop
           </Link>
@@ -152,7 +152,7 @@ function Navbar() {
       </Drawer>
       <Link
         to={role === "student" ? "/home" : "/dashboard"}
-        className="flex justify-center items-center gap-2 p-2 focus-visible:outline-none focus-visible:ring-2 ring-background-secondary rounded-lg max-sm:hidden"
+        className="flex justify-center items-center gap-2 p-2 ring-visible rounded-lg max-sm:hidden"
       >
         <Logo />
         <span className="text-xl font-cal-sans font-semibold">LearnLoop</span>
@@ -162,7 +162,7 @@ function Navbar() {
           <Link
             to={item.path}
             key={index}
-            className={`p-2 font-outfit focus-visible:outline-none focus-visible:ring-2 ring-background-secondary rounded-lg hover:text-accent ${location.pathname.includes(item.path) ? "text-accent group-hover:text-muted" : "text-muted"}`}
+            className={`p-2 font-outfit ring-visible rounded-lg hover:text-accent ${location.pathname.includes(item.path) ? "text-accent group-hover:text-muted" : "text-muted"}`}
           >
             {item.name}
           </Link>

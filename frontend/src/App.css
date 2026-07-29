@@ -223,3 +223,11 @@ input[type="file"]::file-selector-button {
 .toast {
   @apply flex items-center;
 }
+
+.ring-visible {
+  @apply ring-accent focus-visible:ring-2 focus-visible:outline-none;
+}
+
+.ring-visible-offset {
+  @apply ring-accent focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-offset-2 ring-offset-white;
+}

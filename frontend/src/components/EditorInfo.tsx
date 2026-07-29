@@ -167,7 +167,7 @@ function EditorInfo() {
       >
         <button
           type="button"
-          className="p-2.5! size-fit! rounded-3xl! focus-visible:outline-none focus-visible:bg-background! focus-visible:ring-2 ring-accent hover:text-black! hover:bg-background! focus:text-black!"
+          className="p-2.5! size-fit! rounded-3xl! focus-visible:bg-background! ring-visible hover:text-black! hover:bg-background! focus:text-black!"
         >
           <Info size={16} />
         </button>

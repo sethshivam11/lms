@@ -18,7 +18,7 @@ import { useSortable } from "@dnd-kit/react/sortable";
 function CoverPreview({ image }: { image: string }) {
   return (
     <Modal>
-      <Modal.Trigger className="relative group w-full focus-visible:ring-2 ring-accent focus-visible:outline-none rounded-lg overflow-hidden active:transform-none">
+      <Modal.Trigger className="relative group w-full ring-visible rounded-lg overflow-hidden active:transform-none">
         <div className="bg-black/20 transition-opacity duration-300 w-full h-40 left-0 top-0 absolute flex items-center justify-center opacity-0 group-hover:opacity-100" />
         <img src={image} className="w-full h-40 object-cover" />
       </Modal.Trigger>

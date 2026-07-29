@@ -260,7 +260,7 @@ function CourseDetailsForm({
           {form.skills.map((item, index) => (
             <button
               type="button"
-              className="rounded-full size-fit cursor-pointer focus-visible:outline-none focus-visible:ring-2 ring-accent"
+              className="rounded-full size-fit cursor-pointer ring-visible"
               tabIndex={index === 0 ? 0 : -1}
               onClick={(e) => handleRemoveSkill(e, item)}
               key={index}
