@@ -45,11 +45,11 @@ function HomeCourses({ variant, title, path }: Props) {
           {title}
         </h3>
         {variant !== "category" && variant !== "skills" && (
-          <Link to={path} className="text-accent font-inter-tight">
-            <div className="flex gap-1 group">
+          <Link to={path} className="text-accent ring-visible rounded-lg group p-1 font-inter-tight">
+            <div className="flex gap-1">
               <span className="max-sm:text-sm">View All</span>
               <ArrowRight
-                className="transition-transform group-hover:translate-x-1"
+                className="transition-transform group-hover:translate-x-1 group-focus-visible:translate-x-1"
                 strokeWidth={1.3}
                 size={20}
               />

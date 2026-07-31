@@ -37,7 +37,7 @@ function MyCourses() {
       <div className="flex items-center gap-2">
         {categories.map((item, index) => (
           <button
-            className="cursor-pointer"
+            className="cursor-pointer ring-visible-offset rounded-full"
             onClick={() =>
               setFilter((prev) =>
                 prev.includes(item)
@@ -48,7 +48,7 @@ function MyCourses() {
             key={index}
           >
             <Chip
-              className={`rounded-full capitalize border border-accent ${filter.includes(item) ? "bg-accent text-white" : "bg-accent-soft text-black"}`}
+              className={`rounded-full capitalize border border-accent ${filter.includes(item) ? "bg-accent text-white" : "bg-accent-soft text-accent"}`}
             >
               {item}
             </Chip>
@@ -71,7 +71,9 @@ function MyCourses() {
             }
             actions={
               search.length > 0 ? (
-                <Button variant="outline" onClick={() => setSearch("")}>Clear Search</Button>
+                <Button variant="outline" onClick={() => setSearch("")}>
+                  Clear Search
+                </Button>
               ) : (
                 <div className="flex items-center gap-2">
                   <Link to="/explore">

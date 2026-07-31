@@ -11,7 +11,7 @@ function DashboardCourses() {
         <h4 className="text-xl font-outfit font-semibold tracking-tight">My Courses</h4>
         <Link
           to="/courses"
-          className="text-accent hover:underline underline-offset-2"
+          className="text-accent ring-visible rounded-lg p-1 hover:underline underline-offset-2"
         >
           View All
         </Link>
@@ -20,7 +20,7 @@ function DashboardCourses() {
         {courses.slice(0, 4).map((item, index) => (
           <Link
             to="/courses"
-            className="flex items-center justify-between gap-4 p-1 pr-3 border rounded-lg"
+            className="flex items-center ring-visible justify-between gap-4 p-1 pr-3 border rounded-lg"
             key={index}
           >
             <div className="flex items-center gap-4">

@@ -1,5 +1,5 @@
 import useBoundStore from "../store";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Book,
   Cog,
@@ -19,6 +19,7 @@ import Logo from "./Logo";
 
 function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { role, avatar, name } = useBoundStore((state) => state.user);
 
   const menu =
@@ -67,6 +68,10 @@ function Navbar() {
             path: "/reviews",
           },
         ];
+
+  const handleLogOut = () => {
+    navigate("/login");
+  };
 
   return (
     <div className="flex justify-between items-center bg-transparent/50 backdrop-blur-lg w-full sm:px-8 px-2 py-2 border-b sticky top-0 left-0 z-50">
@@ -137,6 +142,7 @@ function Navbar() {
                           variant="danger-soft"
                           size="sm"
                           className="w-full"
+                          onClick={handleLogOut}
                         >
                           <LogOut />
                           <span className="w-full text-left">Log Out</span>
@@ -168,7 +174,7 @@ function Navbar() {
           </Link>
         ))}
       </div>
-      <AvatarDropdown />
+      <AvatarDropdown handleLogOut={handleLogOut} />
     </div>
   );
 }

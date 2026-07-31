@@ -6,7 +6,7 @@ import RatingChip from "./RatingChip";
 
 function HomeCard({ course }: { course: CourseI }) {
   return (
-    <Link to={`/course/${course.id}`}>
+    <Link to={`/course/${course.id}`} className="ring-visible-offset rounded-xl">
       <div className="border border-background hover:border-background-tertiary hover:shadow-sm rounded-xl overflow-hidden relative group w-full">
         <Chip
           variant="soft"

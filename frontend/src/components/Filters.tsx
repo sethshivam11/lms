@@ -53,6 +53,56 @@ function Filters({ className = "" }: { className?: string }) {
     [courses],
   );
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(e.key)) {
+      return;
+    }
+
+    const items = Array.from(
+      e.currentTarget.querySelectorAll<HTMLElement>("button"),
+    );
+
+    if (!items.length) return;
+
+    const current = (document.activeElement as HTMLElement)?.closest(
+      "button",
+    ) as HTMLElement | null;
+
+    if (!current) return;
+
+    const index = items.indexOf(current);
+
+    if (index === -1) return;
+
+    e.preventDefault();
+
+    let nextIndex = index;
+
+    switch (e.key) {
+      case "ArrowRight":
+        nextIndex = (index + 1) % items.length;
+        break;
+
+      case "ArrowLeft":
+        nextIndex = (index - 1 + items.length) % items.length;
+        break;
+
+      case "Home":
+        nextIndex = 0;
+        break;
+
+      case "End":
+        nextIndex = items.length - 1;
+        break;
+    }
+
+    items.forEach((item) => (item.tabIndex = -1));
+
+    const next = items[nextIndex];
+    next.tabIndex = 0;
+    next.focus();
+  };
+
   return (
     <div
       className={cn(
@@ -113,7 +163,7 @@ function Filters({ className = "" }: { className?: string }) {
             {categories.length > 0 ? (
               categories.map((item, index) => (
                 <button
-                  className="cursor-pointer"
+                  className="cursor-pointer ring-visible-offset rounded-full"
                   onClick={() =>
                     filters.categories.includes(item)
                       ? setFilters({
@@ -175,15 +225,23 @@ function Filters({ className = "" }: { className?: string }) {
         </div>
         <div className="flex flex-col gap-2">
           <Label className="font-huninn uppercase text-base">Ratings</Label>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1" aria-label="stars" onKeyDown={handleKeyDown}>
             {[1, 2, 3, 4, 5].map((item, index) => (
               <button
-                className="text-warning"
-                onClick={() => setFilters({ ...filters, rating: item })}
+                className="text-warning focus-visible:outline-none group"
+                onClick={() => {
+                  if (filters.rating === 0 || item !== filters.rating) {
+                    setFilters({ ...filters, rating: item });
+                  } else {
+                    setFilters({ ...filters, rating: 0 });
+                  }
+                }}
+                tabIndex={index === 0 ? 0 : -1}
                 key={index}
               >
                 <Star
                   fill={item <= filters.rating ? "currentColor" : "transparent"}
+                  className="group-focus-visible:ring-2 ring-accent rounded-lg"
                   strokeWidth={1.6}
                 />
               </button>

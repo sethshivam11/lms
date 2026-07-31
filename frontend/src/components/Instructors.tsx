@@ -20,8 +20,11 @@ function Instructor({
         {instructor.skills.slice(0, 3).join(", ")}
       </p>
       <p className="text-xs text-muted">{instructor.courses} Courses</p>
-      <Link to={`/instructor/${instructor.id}`}>
-        <Button className="w-full mt-4">View Courses</Button>
+      <Link
+        to={`/instructor/${instructor.id}`}
+        className="button button--primary ring-visible-offset w-full mt-4"
+      >
+        View Courses
       </Link>
     </div>
   );

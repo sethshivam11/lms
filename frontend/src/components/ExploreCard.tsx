@@ -8,7 +8,7 @@ function ExploreCard({ course }: { course: Course }) {
   return (
     <Link
       to={`/course/${course.id}`}
-      className="flex gap-2 border border-background hover:border-background-tertiary hover:shadow-sm w-full rounded-lg overflow-hidden relative max-sm:flex-col"
+      className="flex gap-2 ring-visible border border-background hover:border-background-tertiary hover:shadow-sm w-full rounded-lg overflow-hidden relative max-sm:flex-col"
     >
       <img
         src={course.cover}

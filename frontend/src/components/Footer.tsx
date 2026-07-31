@@ -52,12 +52,13 @@ function Footer() {
             path: "/reviews",
           },
         ];
+
   return (
     <div className="flex flex-col bg-footer text-footer-foreground tracking-tight">
       <div className="flex max-sm:flex-col justify-evenly items-center px-4 py-8 gap-4 font-inter-tight">
         <Link
           to="/home"
-          className="flex flex-col items-center justify-center gap-2 sm:hidden mb-4"
+          className="flex flex-col items-center justify-center gap-2 sm:hidden mb-4 ring-visible"
         >
           <BookOpen size={50} strokeWidth={1.5} />
           <h3 className="text-4xl font-extrabold font-lora">LMS</h3>
@@ -71,7 +72,7 @@ function Footer() {
               <Link
                 to={item.path}
                 key={index}
-                className="flex flex-col items-center justify-center gap-2 max-sm:hidden"
+                className="flex flex-col items-center justify-center gap-2 max-sm:hidden ring-visible rounded-lg p-2"
               >
                 <BookOpen size={50} strokeWidth={1.5} />
                 <h3 className="text-4xl font-extrabold font-lora">
@@ -84,7 +85,7 @@ function Footer() {
             );
           } else
             return (
-              <Link to={item.path} className="font-medium" key={index}>
+              <Link to={item.path} className="font-medium ring-visible rounded-lg p-2" key={index}>
                 {item.name}
               </Link>
             );
@@ -97,7 +98,7 @@ function Footer() {
           <Link
             to={portfolio}
             target="_blank"
-            className="hover:underline hover:text-accent transition-all"
+            className="hover:underline hover:text-accent transition-colors ring-visible rounded"
           >
             Shivam
           </Link>

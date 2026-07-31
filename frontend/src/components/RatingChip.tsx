@@ -16,7 +16,7 @@ function RatingChip({
   className?: string;
   starClassName?: string;
 }) {
-  if (rating <= 0) return null;
+  if (rating <= 0 || isNaN(rating)) return null;
 
   return (
     <Chip className={cn("flex items-center rounded-full", className)}>

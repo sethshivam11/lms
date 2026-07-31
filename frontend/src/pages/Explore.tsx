@@ -84,7 +84,7 @@ function Explore() {
                 <span>Back</span>
               </Pagination.Previous>
             </Pagination.Item>
-            <div className="flex gap-1 overflow-auto">
+            <div className="flex gap-1">
               {Array.from({
                 length: pagination.pages,
               }).map((_, index) => (

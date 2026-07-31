@@ -6,6 +6,7 @@ import {
   Input,
   Label,
   Modal,
+  Skeleton,
   TextField,
 } from "@heroui/react";
 import {
@@ -18,6 +19,9 @@ import RichTextField from "./RichTextField";
 import { GripVertical, Plus, Trash } from "lucide-react";
 import { useSortable } from "@dnd-kit/react/sortable";
 import type { QuizFormI } from "../types/quiz";
+import { lazy, Suspense } from "react";
+
+const QuizGuidelines = lazy(() => import("../components/QuizGuidelines"));
 
 function Option({
   id,
@@ -135,7 +139,20 @@ function QuizForm({
 
   return (
     <div className="flex flex-col gap-4">
-      <h6 className="font-semibold tracking-tight text-base">Quiz Questions</h6>
+      <div className="flex justify-between items-center">
+        <h6 className="font-semibold tracking-tight text-base">
+          Quiz Questions
+        </h6>
+        <Suspense
+          fallback={
+            <div className="size-9 flex items-center justify-center">
+              <Skeleton className="size-4" />
+            </div>
+          }
+        >
+          <QuizGuidelines />
+        </Suspense>
+      </div>
       <div className="flex flex-col gap-3">
         {quiz.questions.map((item, index) => (
           <div className="flex flex-col gap-2" key={index}>

@@ -1,4 +1,3 @@
-import { Button } from "@heroui/react";
 import InstructorStats from "../components/InstructorStats";
 import useBoundStore from "../store";
 import { Plus } from "lucide-react";
@@ -17,10 +16,11 @@ function Dashboard() {
         <h3 className="font-cal-sans tracking-tight sm:text-3xl text-2xl">
           Welcome <span className="text-accent">{name}</span>
         </h3>
-        <Link to="/create-course">
-          <Button>
-            <Plus /> Create Course
-          </Button>
+        <Link
+          to="/create-course"
+          className="button button--primary ring-visible-offset"
+        >
+          <Plus /> Create Course
         </Link>
       </div>
       <InstructorStats />

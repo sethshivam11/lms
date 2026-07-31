@@ -1,94 +1,138 @@
 import {
   Button,
+  FieldError,
   Form,
   InputGroup,
   Label,
+  Separator,
   TextField,
 } from "@heroui/react";
-import Logo from "../components/Logo";
-import Footer from "../components/Footer";
 import { Eye, EyeOff, Key, Mail } from "lucide-react";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { emailSchema, passwordSchema } from "../schema/auth";
 
 function Login() {
-  const [showPwd, setShowPwd] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {};
+  const [showPwd, setShowPwd] = useState(false);
+  const [creds, setCreds] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate("/home");
+  };
 
   return (
-    <>
-      <div className="flex items-center gap-2 bg-transparent/50 backdrop-blur-lg w-full sm:px-8 px-2 py-2 border-b sticky top-0 left-0 z-50">
-        <Logo />
-        <span className="font-outfit font-bold text-2xl tracking-tight">
-          Learn Loop
-        </span>
-      </div>
-      {/* <div className="max-w-7xl mx-auto">
-          <div className="border h-80 w-80 mx-auto">
-
+    <div className="flex items-center justify-center min-h-dvh relative">
+      <Form
+        className="p-10 w-1/3 min-w-96 border rounded-4xl bg-white"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex flex-col gap-4">
+          <div className="mb-4">
+            <h2 className="font-agdasima text-4xl font-extrabold tracking-tight text-center">
+              Welcome Back
+            </h2>
+            <p className="text-muted text-center">
+              Continue your Learning Journey
+            </p>
           </div>
-      </div> */}
-      {/* <div className="grid md:grid-cols-2 min-h-dvh"> */}
-        {/* <div className="md:flex items-center justify-center hidden bg-accent-soft">
-          <img src="/login.avif" className="w-2/3 object-contain" />
-        </div> */}
-        <div className="flex items-center justify-center min-h-dvh">
-          <Form className="border rounded-xl p-10 w-1/3" onSubmit={handleSubmit}>
-            <div className="flex flex-col gap-4">
-              <h2 className="font-outfit text-3xl font-bold tracking-tight text-center mb-4">
-                Welcome Again!
-              </h2>
-              <TextField>
-                <Label>
-                  Email <span className="text-danger">*</span>
-                </Label>
-                <InputGroup>
-                  <InputGroup.Prefix>
-                    <Mail className="size-4 text-muted" />
-                  </InputGroup.Prefix>
-                  <InputGroup.Input
-                    className="w-full"
-                    placeholder="name@email.com"
-                  />
-                </InputGroup>
-              </TextField>
-              <TextField>
-                <Label>
-                  Password <span className="text-danger">*</span>
-                </Label>
-                <InputGroup>
-                  <InputGroup.Prefix>
-                    <Key className="size-4 text-muted" />
-                  </InputGroup.Prefix>
-                  <InputGroup.Input
-                    className="w-full"
-                    type={showPwd ? "text" : "password"}
-                    placeholder="Password"
-                  />
-                  <InputGroup.Suffix>
-                    <Button
-                      aria-label={showPwd ? "Hide password" : "Show password"}
-                      size="sm"
-                      variant="ghost"
-                      onPress={() => setShowPwd(!showPwd)}
-                      isIconOnly
-                    >
-                      {showPwd ? (
-                        <Eye className="size-4" />
-                      ) : (
-                        <EyeOff className="size-4" />
-                      )}
-                    </Button>
-                  </InputGroup.Suffix>
-                </InputGroup>
-              </TextField>
-              <Button className="w-full">Login</Button>
-            </div>
-          </Form>
+          <TextField
+            name="email"
+            value={creds.email}
+            onChange={(value) =>
+              setCreds((prev) => ({ ...prev, email: value }))
+            }
+            validate={(value) => {
+              const result = emailSchema.safeParse(value);
+              return result.success ? null : result.error.issues[0].message;
+            }}
+          >
+            <Label>
+              Email <span className="text-danger">*</span>
+            </Label>
+            <InputGroup>
+              <InputGroup.Prefix>
+                <Mail className="size-4 text-muted" />
+              </InputGroup.Prefix>
+              <InputGroup.Input
+                className="w-full"
+                placeholder="name@email.com"
+              />
+            </InputGroup>
+            <FieldError />
+          </TextField>
+          <TextField
+            name="password"
+            value={creds.password}
+            onChange={(value) =>
+              setCreds((prev) => ({ ...prev, password: value }))
+            }
+            validate={(value) => {
+              const result = passwordSchema.safeParse(value);
+              return result.success ? null : result.error.issues[0].message;
+            }}
+          >
+            <Label>
+              Password <span className="text-danger">*</span>
+            </Label>
+            <InputGroup>
+              <InputGroup.Prefix>
+                <Key className="size-4 text-muted" />
+              </InputGroup.Prefix>
+              <InputGroup.Input
+                className="w-full"
+                type={showPwd ? "text" : "password"}
+                placeholder="Password"
+              />
+              <InputGroup.Suffix className="p-1">
+                <Button
+                  aria-label={showPwd ? "Hide password" : "Show password"}
+                  size="sm"
+                  variant="ghost"
+                  onPress={() => setShowPwd(!showPwd)}
+                  isIconOnly
+                >
+                  {showPwd ? (
+                    <Eye className="size-4" />
+                  ) : (
+                    <EyeOff className="size-4" />
+                  )}
+                </Button>
+              </InputGroup.Suffix>
+            </InputGroup>
+            <FieldError />
+          </TextField>
+          <button className="w-full button ring-visible-offset bg-linear-to-b from-accent/50 via-accent to-accent text-white">
+            Login
+          </button>
+
+          <div className="relative">
+            <Separator />
+            <span className="absolute text-muted text-xs left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-white px-2">
+              or
+            </span>
+          </div>
+          <button className="w-full button button--outline ring-visible-offset">
+            <img src="/google-icon.svg" className="size-5" /> Continue with
+            Google
+          </button>
+          <p className="text-center text-muted text-sm">
+            Don&apos;t have an account.
+            <Link
+              to="/register"
+              className="hover:text-accent hover:underline px-1 py-2"
+            >
+              Create One
+            </Link>
+          </p>
         </div>
-      {/* </div> */}
-      <Footer />
-    </>
+      </Form>
+    </div>
   );
 }
 

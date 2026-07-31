@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const Features = lazy(() => import("../components/Features"));
 const Learn = lazy(() => import("../components/Learn"));
+const Connect = lazy(() => import("../components/Connect"));
 const Flexibility = lazy(() => import("../components/Flexibility"));
 const CTA = lazy(() => import("../components/CTA"));
 
@@ -35,6 +36,7 @@ function Hero() {
           </span>
           <br />
           Starts Here
+          <span className="md:text-6xl sm:text-5xl text-4xl"> 🚀</span>
         </h1>
         <p className="text-light sm:text-xl text-sm text-muted text-center">
           Explore interactive courses, quizzes, and notes—all in one place
@@ -85,6 +87,7 @@ function Landing() {
       <Hero />
       <Features role="student" />
       <Learn role="student" />
+      <Connect role="student" />
       <Flexibility role="student" />
       <CTA role="student" />
     </div>

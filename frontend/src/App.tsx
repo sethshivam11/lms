@@ -1,6 +1,8 @@
+import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import { Toast } from "@heroui/react";
 import Home from "./pages/Home";
-import AuthLayout from "./layouts/AuthLayout";
+import AppLayout from "./layouts/AppLayout";
 import Courses from "./pages/Courses";
 import Dashboard from "./pages/Dashboard";
 import Earnings from "./pages/Earnings";
@@ -9,33 +11,34 @@ import MyCourses from "./pages/MyCourses";
 import Profile from "./pages/Profile";
 import Reviews from "./pages/Reviews";
 import Settings from "./pages/Settings";
-import "./App.css";
 import Course from "./pages/Course";
 import Instructor from "./pages/Instructor";
 import CreateCourse from "./pages/CreateCourse";
 import Connect from "./pages/Connect";
-import { Toast } from "@heroui/react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Landing from "./pages/Landing";
 import LandingLayout from "./layouts/LandingLayout";
 import InstructorLanding from "./pages/InstructorLanding";
+import AuthLayout from "./layouts/AuthLayout";
 
 function App() {
   return (
     <div className="min-h-screen w-full font-lora">
       <Routes>
-        <Route element={<Login />} path="/login" />
-        <Route element={<Register />} path="/register" />
+        <Route element={<AuthLayout />}>
+          <Route element={<Login />} path="/login" />
+          <Route element={<Register />} path="/register" />
+        </Route>
 
         <Route element={<LandingLayout />}>
           <Route element={<Landing />} path="/" />
           <Route element={<InstructorLanding />} path="/instructor" />
         </Route>
-        <Route element={<AuthLayout />}>
-          <Route element={<Courses />} path="/courses" />
+        <Route element={<AppLayout />}>
           <Route element={<CreateCourse />} path="/create-course" />
           <Route element={<Course />} path="/course/:courseId" />
+          <Route element={<Courses />} path="/courses" />
           <Route element={<Dashboard />} path="/dashboard" />
           <Route element={<Earnings />} path="/earnings" />
           <Route element={<Explore />} path="/explore" />

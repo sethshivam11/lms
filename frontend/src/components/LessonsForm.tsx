@@ -22,13 +22,13 @@ import { nameSchema, notesSchema, videoSchema } from "../schema/lesson";
 import RichTextField from "./RichTextField";
 import { lazy, Suspense, useEffect, useState } from "react";
 import DraggableLessons from "./DraggableLessons";
-import QuizForm from "./QuizForm";
 import { questionSchema } from "../schema/quiz";
 import type { LessonFormI } from "../types/lesson";
 import type { QuizFormI } from "../types/quiz";
 import { Link } from "react-router-dom";
 
 const UploadGuidelines = lazy(() => import("./UploadGuidelines"));
+const QuizForm = lazy(() => import("./QuizForm"));
 
 function LessonsForm({
   lessons,
@@ -297,7 +297,27 @@ function LessonsForm({
           />
         )}
         {lesson.type === "quiz" && (
-          <QuizForm quiz={quiz} setQuiz={setQuiz} invalid={invalid} />
+          <Suspense
+            fallback={
+              <div className="flex flex-col gap-4">
+                <Skeleton className="w-28 h-5 rounded-lg" />
+                <Skeleton className="w-20 h-3 rounded-lg" />
+                <Skeleton className="w-full h-32 rounded-lg" />
+                <Skeleton className="w-20 h-3 rounded-lg" />
+                <Skeleton className="w-full h-8 rounded-lg" />
+                <div className="flex justify-between items-center">
+                  <Skeleton className="w-32 h-8 rounded-2xl" />
+                  <Skeleton className="w-32 h-8 rounded-2xl" />
+                </div>
+                <Skeleton className="w-20 h-3 rounded-lg" />
+                <Skeleton className="w-full h-8 rounded-lg" />
+                <Skeleton className="w-20 h-3 rounded-lg" />
+                <Skeleton className="w-full h-32 rounded-lg" />
+              </div>
+            }
+          >
+            <QuizForm quiz={quiz} setQuiz={setQuiz} invalid={invalid} />
+          </Suspense>
         )}
         <div className="flex justify-center gap-4">
           <Button variant="tertiary" type="submit">

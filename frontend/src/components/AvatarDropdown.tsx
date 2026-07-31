@@ -3,13 +3,9 @@ import { Cog, LogOut, User } from "lucide-react";
 import useBoundStore from "../store";
 import { useNavigate } from "react-router-dom";
 
-export function AvatarDropdown() {
+export function AvatarDropdown({ handleLogOut }: { handleLogOut: () => void }) {
   const { name, email, avatar } = useBoundStore((state) => state.user);
   const router = useNavigate();
-
-  const handleLogout = () => {
-    console.log("Logged out");
-  };
 
   return (
     <Dropdown>
@@ -57,7 +53,7 @@ export function AvatarDropdown() {
             id="logout"
             textValue="Logout"
             variant="danger"
-            onAction={handleLogout}
+            onAction={handleLogOut}
           >
             <div className="flex w-full items-center justify-between gap-2">
               <Label>Log Out</Label>

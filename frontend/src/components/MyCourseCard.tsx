@@ -8,7 +8,7 @@ function MyCourseCard({ course }: { course: Course }) {
   return (
     <Link
       to={`/course/${course.id}`}
-      className="flex flex-col group rounded-lg overflow-hidden border border-background hover:border-background-tertiary hover:shadow-sm relative"
+      className="flex flex-col group ring-visible rounded-lg overflow-hidden border border-background hover:border-background-tertiary hover:shadow-sm relative"
     >
       <Chip
         variant="soft"

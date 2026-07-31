@@ -75,12 +75,12 @@ function Flexibility({ role }: { role: "instructor" | "student" }) {
         <div className="grid md:grid-cols-2 gap-6">
           {courses.map((item, index) => (
             <div
-              className={`border rounded-2xl p-6 ${role === "student" ? "first:bg-background bg-accent-soft not-first:border-accent" : "border-accent hover:bg-background transition-colors"}`}
+              className={`rounded-2xl p-6 ${role === "student" ? "border first:bg-background bg-accent-soft not-first:border-accent" : "border-2 border-accent hover:bg-background transition-colors"}`}
               key={index}
             >
               <item.icon size={40} className="text-accent" />
               <h5
-                className={`font-outfit font-bold text-2xl tracking-tight mt-6 ${index === 1 ? "text-accent" : ""}`}
+                className={`font-outfit font-bold text-2xl tracking-tight mt-6 ${index === 1 && role === "student" ? "text-accent" : ""}`}
               >
                 {item.title}
               </h5>
@@ -91,7 +91,7 @@ function Flexibility({ role }: { role: "instructor" | "student" }) {
                     className="flex items-center gap-2 font-merriweather text-sm"
                     key={index}
                   >
-                    <div className="bg-accent rounded-full size-2" />
+                    <div className="bg-success rounded-full size-2" />
                     {highlight}
                   </li>
                 ))}

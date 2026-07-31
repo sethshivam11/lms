@@ -9,7 +9,16 @@ const Navbar = () => {
   const location = useLocation();
 
   const menu = location.pathname.includes("/instructor")
-    ? []
+    ? [
+        {
+          title: "Home",
+          path: "#home",
+        },
+        { title: "Features", path: "#features" },
+        { title: "Build", path: "#learning" },
+        { title: "Connect", path: "#connect" },
+        { title: "Publish", path: "#courses" },
+      ]
     : [
         {
           title: "Home",
@@ -17,6 +26,7 @@ const Navbar = () => {
         },
         { title: "Features", path: "#features" },
         { title: "Learning", path: "#learning" },
+        { title: "Connect", path: "#connect" },
         { title: "Courses", path: "#courses" },
       ];
 
@@ -33,11 +43,13 @@ const Navbar = () => {
             className="flex items-center gap-2 ring-visible p-1 rounded-lg"
           >
             <Logo />
-            <span className="sm:text-2xl text-xl font-outfit font-bold tracking-tighter">
+            <span className="text-2xl max-sm:hidden font-outfit font-bold tracking-tighter">
               Learn Loop
             </span>
           </Link>
           <Select
+            name="portal"
+            aria-label="select-portal"
             value={portal}
             onChange={(value) => {
               if (!value) return;
@@ -107,7 +119,7 @@ const Footer = () => {
     ? "instructor"
     : "student";
 
-  const nav = [
+  const nav = role === "student" ? [
     {
       title: "Home",
       path: "#home",
@@ -121,7 +133,32 @@ const Footer = () => {
       path: "#learning",
     },
     {
+      title: "Connect",
+      path: "#connect",
+    },
+    {
       title: "Courses",
+      path: "#courses",
+    },
+  ]: [
+    {
+      title: "Home",
+      path: "#home",
+    },
+    {
+      title: "Features",
+      path: "#features",
+    },
+    {
+      title: "Build",
+      path: "#learning",
+    },
+    {
+      title: "Connect",
+      path: "#connect",
+    },
+    {
+      title: "Publish",
       path: "#courses",
     },
   ];
@@ -131,7 +168,7 @@ const Footer = () => {
       <div className="flex flex-col gap-2 max-w-7xl mx-auto text-footer-foreground">
         <Logo className="w-fit" />
         <div>
-          <h4 className="text-xl font-cal-sans tracking-tight">Learn Loop</h4>
+          <h4 className="text-xl font-cal-sans tracking-tighter">Learn Loop</h4>
           <p className="text-muted text-sm">
             Learn, teach, and grow with a modern learning platform designed for
             students and educators.
@@ -163,10 +200,12 @@ const Footer = () => {
           <ul className="flex flex-col gap-2 text-muted font-outfit mt-4">
             <li>
               <a
-                href={role === "instructor" ? "/" : "/instructor"}  
+                href={role === "instructor" ? "/" : "/instructor"}
                 className="hover:underline underline-offset-2"
               >
-                {role === "instructor" ? "Student Portal": "Become an Instructor"}
+                {role === "instructor"
+                  ? "Student Portal"
+                  : "Become an Instructor"}
               </a>
             </li>
           </ul>

@@ -14,21 +14,23 @@ function Slide({
   isSuggested?: boolean;
 }) {
   return (
-    <Link to={`/course/${course.id}`} className="group w-full">
+    <Link to={`/course/${course.id}`} className="group focus-visible:outline-none w-full">
       <div className="relative overflow-hidden w-full rounded-xl aspect-video">
         <img
           src={course.cover}
           alt={course.name}
-          className="h-full object-cover rounded-xl aspect-video group-hover:scale-105 transition-transform duration-300 text-xs text-muted"
+          className="h-full object-cover rounded-xl aspect-video group-hover:scale-105 group-focus-visible:scale-105 transition-transform duration-300 text-xs text-muted"
         />
-        <div className="absolute bottom-0 w-full bg-linear-to-b from-transparent via-black/50 to-black/80 h-full group-hover:opacity-100 opacity-0 transition-opacity duration-300 text-white flex flex-col items-center justify-center gap-2">
+        <div className="absolute bottom-0 w-full bg-linear-to-b from-transparent via-black/50 to-black/80 h-full group-hover:opacity-100 group-focus-visible:opacity-100 opacity-0 transition-opacity duration-300 text-white flex flex-col items-center justify-center gap-2">
           <Play size={50} />
           <h3 className="sm:text-xl text-base font-poppins">
             {isSuggested ? "Start Learning" : "Continue Learning"}
           </h3>
         </div>
         <div className="bg-linear-to-b from-transparent via-black/50 to-black/80 absolute bottom-0 text-white p-4 w-full rounded-b-xl transition-all">
-          <h3 className="lg:text-2xl md:text-xl text-lg text-background font-outfit">{course.name}</h3>
+          <h3 className="lg:text-2xl md:text-xl text-lg text-background font-outfit">
+            {course.name}
+          </h3>
           <div className="flex justify-between items-center">
             <p className="md:text-base text-sm text-background-tertiary/60 truncate">
               {course.tagline}
