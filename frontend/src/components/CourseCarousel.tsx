@@ -21,8 +21,8 @@ function Slide({
           alt={course.name}
           className="h-full object-cover rounded-xl aspect-video group-hover:scale-105 group-focus-visible:scale-105 transition-transform duration-300 text-xs text-muted"
         />
-        <div className="absolute bottom-0 w-full bg-linear-to-b from-transparent via-black/50 to-black/80 h-full group-hover:opacity-100 group-focus-visible:opacity-100 opacity-0 transition-opacity duration-300 text-white flex flex-col items-center justify-center gap-2">
-          <Play size={50} />
+        <div className="absolute bottom-0 w-full bg-linear-to-b from-transparent via-black/50 to-black/80 h-full group-hover:opacity-100 group-focus-visible:opacity-100 opacity-0 transition-opacity duration-300 text-white flex flex-col items-center justify-center gap-2 z-10">
+          <Play className="sm:size-16 size-8" />
           <h3 className="sm:text-xl text-base font-poppins">
             {isSuggested ? "Start Learning" : "Continue Learning"}
           </h3>

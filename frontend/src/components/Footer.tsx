@@ -1,6 +1,6 @@
-import { BookOpen } from "lucide-react";
 import useBoundStore from "../store";
 import { Link } from "react-router-dom";
+import Logo from "./Logo";
 
 function Footer() {
   const { role } = useBoundStore((state) => state.user);
@@ -18,7 +18,7 @@ function Footer() {
             path: "/explore",
           },
           {
-            name: "LMS",
+            name: "Learn Loop",
             path: "/home",
           },
           {
@@ -40,7 +40,7 @@ function Footer() {
             path: "/earnings",
           },
           {
-            name: "LMS",
+            name: "Learn Loop",
             path: "/home",
           },
           {
@@ -55,37 +55,41 @@ function Footer() {
 
   return (
     <div className="flex flex-col bg-footer text-footer-foreground tracking-tight">
-      <div className="flex max-sm:flex-col justify-evenly items-center px-4 py-8 gap-4 font-inter-tight">
+      <div className="flex max-sm:flex-col justify-evenly items-center px-4 py-8 gap-4 font-outift">
         <Link
           to="/home"
           className="flex flex-col items-center justify-center gap-2 sm:hidden mb-4 ring-visible"
         >
-          <BookOpen size={50} strokeWidth={1.5} />
-          <h3 className="text-4xl font-extrabold font-lora">LMS</h3>
-          <span className="font-inter-tight font-medium">
-            Learning Management System
+          <Logo className="" />
+          <h3 className="text-4xl font-extrabold font-cal-sans">Learn Loop</h3>
+          <span className="text-muted font-lora text-center w-60">
+            Learn, teach, and grow
           </span>
         </Link>
         {menu.map((item, index) => {
-          if (item.name === "LMS") {
+          if (item.name === "Learn Loop") {
             return (
               <Link
                 to={item.path}
                 key={index}
                 className="flex flex-col items-center justify-center gap-2 max-sm:hidden ring-visible rounded-lg p-2"
               >
-                <BookOpen size={50} strokeWidth={1.5} />
-                <h3 className="text-4xl font-extrabold font-lora">
+                <Logo className="w-12" />
+                <h3 className="text-2xl font-bold font-cal-sans">
                   {item.name}
                 </h3>
-                <span className="font-inter-tight font-medium">
-                  Learning Management System
+                <span className="text-muted font-lora text-center w-60">
+                  Learn, teach, and grow
                 </span>
               </Link>
             );
           } else
             return (
-              <Link to={item.path} className="font-medium ring-visible rounded-lg p-2" key={index}>
+              <Link
+                to={item.path}
+                className="font-medium ring-visible rounded-lg p-2"
+                key={index}
+              >
                 {item.name}
               </Link>
             );

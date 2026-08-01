@@ -21,6 +21,8 @@ import Landing from "./pages/Landing";
 import LandingLayout from "./layouts/LandingLayout";
 import InstructorLanding from "./pages/InstructorLanding";
 import AuthLayout from "./layouts/AuthLayout";
+import ForgotPassword from "./pages/ForgotPassword";
+import VerifyCode from "./pages/VerifyCode";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <Route element={<AuthLayout />}>
           <Route element={<Login />} path="/login" />
           <Route element={<Register />} path="/register" />
+          <Route element={<ForgotPassword />} path="/forgot-password" />
+          <Route element={<VerifyCode />} path="/verify-code" />
         </Route>
 
         <Route element={<LandingLayout />}>

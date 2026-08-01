@@ -20,6 +20,7 @@ import Logo from "./Logo";
 function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
+
   const { role, avatar, name } = useBoundStore((state) => state.user);
 
   const menu =
@@ -78,7 +79,7 @@ function Navbar() {
       <Drawer>
         <div className="flex items-center gap-2 sm:hidden">
           <Button variant="ghost" className="group" isIconOnly>
-            <Logo />
+            <Logo className="flex items-center justify-center group-hover:hidden size-fit" />
             <PanelLeft className="hidden group-hover:inline" size={30} />
           </Button>
           <Link
@@ -104,12 +105,16 @@ function Navbar() {
               <Drawer.Body>
                 <div className="flex flex-col gap-1 mt-8">
                   {menu.map((item, index) => (
-                    <Link to={item.path} key={index}>
-                      <Button variant="ghost" className="w-full">
+                    <Button className="w-full p-0" variant="ghost" slot="close">
+                      <Link
+                        className="flex items-center px-3 gap-2 w-full"
+                        to={item.path}
+                        key={index}
+                      >
                         <item.icon />
                         <span className="w-full text-left">{item.name}</span>
-                      </Button>
-                    </Link>
+                      </Link>
+                    </Button>
                   ))}
                 </div>
               </Drawer.Body>
@@ -129,19 +134,40 @@ function Navbar() {
                       </Accordion.Trigger>
                     </Accordion.Heading>
                     <Accordion.Panel>
-                      <Accordion.Body className="pt-2">
-                        <Button variant="ghost" size="sm" className="w-full">
-                          <User />
-                          <span className="w-full text-left">Profile</span>
+                      <Accordion.Body className="pt-2 px-0">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="w-full p-0"
+                          slot="close"
+                        >
+                          <Link
+                            to="/profile"
+                            className="flex items-center px-3 gap-2 w-full"
+                          >
+                            <User />
+                            <span className="w-full text-left">Profile</span>
+                          </Link>
                         </Button>
-                        <Button variant="ghost" size="sm" className="w-full">
-                          <Cog />
-                          <span className="w-full text-left">Settings</span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="w-full p-0"
+                          slot="close"
+                        >
+                          <Link
+                            to="/profile"
+                            className="flex items-center px-3 gap-2 w-full"
+                          >
+                            <Cog />
+                            <span className="w-full text-left">Settings</span>
+                          </Link>
                         </Button>
                         <Button
                           variant="danger-soft"
                           size="sm"
                           className="w-full"
+                          slot="close"
                           onClick={handleLogOut}
                         >
                           <LogOut />

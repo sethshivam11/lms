@@ -2,6 +2,7 @@ import z from "zod";
 
 export const nameSchema = z
   .string()
+  .nonempty("Lesson name is required")
   .min(2, "Lesson name cannot be less than 2 characters")
   .max(255, "Lesson name cannot be more than 255 characters");
 

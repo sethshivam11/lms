@@ -45,7 +45,10 @@ function HomeCourses({ variant, title, path }: Props) {
           {title}
         </h3>
         {variant !== "category" && variant !== "skills" && (
-          <Link to={path} className="text-accent ring-visible rounded-lg group p-1 font-inter-tight">
+          <Link
+            to={path}
+            className="text-accent ring-visible rounded-lg group p-1 font-inter-tight"
+          >
             <div className="flex gap-1">
               <span className="max-sm:text-sm">View All</span>
               <ArrowRight
@@ -58,11 +61,11 @@ function HomeCourses({ variant, title, path }: Props) {
         )}
       </div>
       {variant === "category" && (
-        <div className="flex items-center gap-2 mb-3">
+        <div className="flex items-center gap-2 mb-3 overflow-auto max-w-full">
           {categories.map((item, index) => (
             <Button
               variant={item === current ? "primary" : "outline"}
-              className="rounded-full capitalize transition-colors text-sm"
+              className="rounded-full capitalize transition-colors max-sm:text-sm"
               onClick={() => setCurrent(item)}
               key={index}
             >
@@ -72,11 +75,11 @@ function HomeCourses({ variant, title, path }: Props) {
         </div>
       )}
       {variant === "skills" && (
-        <div className="flex items-center gap-2 mb-3">
+        <div className="flex items-center gap-2 mb-3 overflow-auto max-w-full">
           {skills.map((item, index) => (
             <Button
               variant={item === current ? "primary" : "outline"}
-              className="rounded-full capitalize transition-colors text-sm"
+              className="rounded-full capitalize transition-colors max-sm:text-sm"
               onClick={() => setCurrent(item)}
               key={index}
             >

@@ -1,8 +1,8 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
 import { ListBox, ListBoxItem, Select } from "@heroui/react";
 import { Check, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import Logo from "../components/Logo";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -119,63 +119,66 @@ const Footer = () => {
     ? "instructor"
     : "student";
 
-  const nav = role === "student" ? [
-    {
-      title: "Home",
-      path: "#home",
-    },
-    {
-      title: "Features",
-      path: "#features",
-    },
-    {
-      title: "Learning",
-      path: "#learning",
-    },
-    {
-      title: "Connect",
-      path: "#connect",
-    },
-    {
-      title: "Courses",
-      path: "#courses",
-    },
-  ]: [
-    {
-      title: "Home",
-      path: "#home",
-    },
-    {
-      title: "Features",
-      path: "#features",
-    },
-    {
-      title: "Build",
-      path: "#learning",
-    },
-    {
-      title: "Connect",
-      path: "#connect",
-    },
-    {
-      title: "Publish",
-      path: "#courses",
-    },
-  ];
+  const nav =
+    role === "student"
+      ? [
+          {
+            title: "Home",
+            path: "#home",
+          },
+          {
+            title: "Features",
+            path: "#features",
+          },
+          {
+            title: "Learning",
+            path: "#learning",
+          },
+          {
+            title: "Connect",
+            path: "#connect",
+          },
+          {
+            title: "Courses",
+            path: "#courses",
+          },
+        ]
+      : [
+          {
+            title: "Home",
+            path: "#home",
+          },
+          {
+            title: "Features",
+            path: "#features",
+          },
+          {
+            title: "Build",
+            path: "#learning",
+          },
+          {
+            title: "Connect",
+            path: "#connect",
+          },
+          {
+            title: "Publish",
+            path: "#courses",
+          },
+        ];
 
   return (
-    <footer className="grid grid-cols-2 bg-footer p-10">
+    <footer className="grid md:grid-cols-2 bg-footer p-10">
       <div className="flex flex-col gap-2 max-w-7xl mx-auto text-footer-foreground">
-        <Logo className="w-fit" />
+        <Logo />
         <div>
           <h4 className="text-xl font-cal-sans tracking-tighter">Learn Loop</h4>
           <p className="text-muted text-sm">
             Learn, teach, and grow with a modern learning platform designed for
-            students and educators.
+            students and educators
           </p>
         </div>
       </div>
-      <div className="flex justify-evenly">
+      <div className="grid sm:grid-cols-2 gap-4 md:justify-evenly sm:justify-start max-md:mt-6">
         <div className="flex flex-col text-footer-foreground">
           <h4 className="text-xl font-semibold">
             For {role === "instructor" ? "Instructors" : "Students"}

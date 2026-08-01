@@ -16,6 +16,9 @@
   "scripts": {
     "build": "npm --prefix frontend run build && npm --prefix backend run build",
     "start": "node --env-file=.env backend/dist/index.js",
-    "install": "npm --prefix frontend install --include=dev && npm --prefix backend install --include=dev"
+    "install": "npm --prefix frontend install --include=dev && npm --prefix backend install --include=dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "start:frontend": "cd frontend && npm run preview"
   }
 }

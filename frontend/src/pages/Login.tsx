@@ -27,9 +27,9 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-dvh relative">
+    <div className="flex items-center justify-center min-h-screen relative">
       <Form
-        className="p-10 w-1/3 min-w-96 border rounded-4xl bg-white"
+        className="p-10 lg:w-1/3 sm:w-1/2 min-w-96 border rounded-4xl bg-white animate-step-in"
         onSubmit={handleSubmit}
       >
         <div className="flex flex-col gap-4">
@@ -44,6 +44,7 @@ function Login() {
           <TextField
             name="email"
             value={creds.email}
+            autoComplete="email"
             onChange={(value) =>
               setCreds((prev) => ({ ...prev, email: value }))
             }
@@ -77,9 +78,17 @@ function Login() {
               return result.success ? null : result.error.issues[0].message;
             }}
           >
-            <Label>
-              Password <span className="text-danger">*</span>
-            </Label>
+            <div className="flex items-center justify-between gap-4">
+              <Label>
+                Password <span className="text-danger">*</span>
+              </Label>
+              <Link
+                to="/forgot-password"
+                className="text-sm text-muted hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
             <InputGroup>
               <InputGroup.Prefix>
                 <Key className="size-4 text-muted" />

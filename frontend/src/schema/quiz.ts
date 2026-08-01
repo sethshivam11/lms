@@ -6,6 +6,7 @@ export const passMarksSchema = z.coerce
 
 export const questionSchema = z
   .string()
+  .nonempty("Question is required")
   .transform((html) => {
     const div = document.createElement("div");
     div.innerHTML = html;
@@ -22,6 +23,7 @@ export const questionSchema = z
 
 export const optionSchema = z
   .string()
+  .nonempty("Option is required")
   .min(2, "Option cannot be less than 10 characters")
   .max(255, "Option cannot be more than 255 characters");
 

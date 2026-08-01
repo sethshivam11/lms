@@ -14,17 +14,26 @@ function Sorting({ className = "" }: { className?: string }) {
   const { sort, setSort } = useBoundStore();
 
   return (
-    <div className={cn("flex items-center gap-4 w-full text-sm relative max-w-full font-lora", className)}>
-      <h5 className="text-muted whitespace-nowrap max-sm:text-lg max-sm:font-bold max-sm:tracking-tight max-sm:text-black">Sort by</h5>
+    <div
+      className={cn(
+        "flex items-center gap-4 w-full text-sm relative max-w-full font-lora",
+        className,
+      )}
+    >
+      <h5 className="text-muted whitespace-nowrap max-sm:text-lg max-sm:font-bold max-sm:tracking-tight max-sm:text-black">
+        Sort by
+      </h5>
       <div className="flex items-center max-sm:flex-col max-sm:w-full max-sm:gap-2">
         {sorting.map(({ id, title }, index) => (
-          <button
-            className={`px-4 py-2 ${sort === id ? "border-accent text-accent" : "border-muted/10"} ring-visible rounded-t-lg sm:border-b-2 cursor-pointer whitespace-nowrap max-sm:w-full max-sm:py-3 max-sm:rounded-lg max-sm:hover:bg-background-secondary max-sm:text-left`}
+          <Button
+            variant="ghost"
+            className={`${sort === id ? "text-accent" : ""} whitespace-nowrap max-sm:w-full max-sm:text-left`}
             onClick={() => setSort(id)}
+            slot="close"
             key={index}
           >
             {title}
-          </button>
+          </Button>
         ))}
       </div>
     </div>

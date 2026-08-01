@@ -14,6 +14,30 @@ function Explore() {
     useBoundStore();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const getPageNumbers = () => {
+    const pages: (number | "ellipsis")[] = [];
+    if (pagination.pages <= 7) {
+      for (let i = 1; i <= pagination.pages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      if (pagination.page > 3) {
+        pages.push("ellipsis");
+      }
+      const start = Math.max(2, pagination.page - 1);
+      const end = Math.min(pagination.pages - 1, pagination.page + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (pagination.page < pagination.pages - 2) {
+        pages.push("ellipsis");
+      }
+      pages.push(pagination.pages);
+    }
+    return pages;
+  };
+
   useEffect(() => {
     const page = parseInt(searchParams.get("page") || "1");
     pagination.setPage(page);
@@ -72,7 +96,7 @@ function Explore() {
           />
         )}
         <Pagination className="mt-4 justify-center">
-          <Pagination.Content className="max-sm:w-full">
+          <Pagination.Content className="max-sm:mx-auto">
             <Pagination.Item>
               <Pagination.Previous
                 isDisabled={pagination.page === 1}
@@ -81,24 +105,26 @@ function Explore() {
                 }
               >
                 <Pagination.PreviousIcon />
-                <span>Back</span>
+                <span className="max-sm:hidden">Back</span>
               </Pagination.Previous>
             </Pagination.Item>
             <div className="flex gap-1">
-              {Array.from({
-                length: pagination.pages,
-              }).map((_, index) => (
-                <Pagination.Item key={index}>
-                  <Pagination.Link
-                    isActive={index + 1 === pagination.page}
-                    onClick={() =>
-                      setSearchParams({ page: (index + 1).toString() })
-                    }
-                  >
-                    {index + 1}
-                  </Pagination.Link>
-                </Pagination.Item>
-              ))}
+              {getPageNumbers().map((page, i) =>
+                page === "ellipsis" ? (
+                  <Pagination.Item key={`ellipsis-${i}`}>
+                    <Pagination.Ellipsis />
+                  </Pagination.Item>
+                ) : (
+                  <Pagination.Item key={page}>
+                    <Pagination.Link
+                      isActive={page === pagination.page}
+                      onPress={() => pagination.setPage(page)}
+                    >
+                      {page}
+                    </Pagination.Link>
+                  </Pagination.Item>
+                ),
+              )}
             </div>
             <Pagination.Item>
               <Pagination.Next
@@ -107,7 +133,7 @@ function Explore() {
                 }
                 isDisabled={pagination.page === pagination.pages}
               >
-                <span>Next</span>
+                <span className="max-sm:hidden">Next</span>
                 <Pagination.NextIcon />
               </Pagination.Next>
             </Pagination.Item>

@@ -1,12 +1,11 @@
 import { Link, Outlet } from "react-router-dom";
-import Logo from "../components/Logo";
 
 function Navbar() {
   return (
     <nav className="border-b p-2 sticky top-0 left-0 backdrop-blur-sm bg-white/50 z-50">
       <div className="flex items-center gap-2 max-w-7xl mx-auto">
         <Link to="/" className="flex items-center gap-2">
-          <Logo />
+          <img src="/logo.png" className="w-10" />
           <h3 className="text-xl font-cal-sans tracking-tight font-bold">
             Learn Loop
           </h3>
@@ -23,12 +22,12 @@ function Footer() {
     <footer className="bg-footer border-t border-footer-border">
       <div className="p-10">
         <div className="flex flex-col gap-2 max-w-7xl mx-auto text-footer-foreground">
-          <Logo className="w-fit" />
+          <img src="/logo.png" className="w-10 object-contain" />
           <div>
             <h4 className="text-xl font-cal-sans tracking-tight">Learn Loop</h4>
             <p className="text-muted text-sm">
               Learn, teach, and grow with a modern learning platform designed
-              for students and educators.
+              for students and educators
             </p>
           </div>
         </div>
@@ -57,14 +56,14 @@ function AuthLayout() {
       <Navbar />
       <div className="relative overflow-hidden">
         <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full opacity-40 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(circle, oklch(60.92% 0.214 256.89 / 0.5), transparent 60%)",
-        }}
-      />
-        <div className="min-h-screen w-full">
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full opacity-40 blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle, oklch(60.92% 0.214 256.89 / 0.5), transparent 60%)",
+          }}
+        />
+        <div className="sm:min-h-[80vh] w-full sm:px-6 px-4">
           <Outlet />
         </div>
       </div>

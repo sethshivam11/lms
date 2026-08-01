@@ -47,7 +47,7 @@ function Connect({ role }: { role: "student" | "instructor" }) {
       className="border-t bg-accent sm:px-6 px-4 scroll-mt-16"
       id="connect"
     >
-      <div className="grid grid-cols-2 gap-16 py-20 max-w-7xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-16 py-20 max-w-7xl mx-auto">
         <div>
           <span className="font-huninn uppercase text-black tracking-tighter">
             {role === "student" ? "Learning Together" : "Build your Community"}
@@ -65,7 +65,7 @@ function Connect({ role }: { role: "student" | "instructor" }) {
           <ul className="flex flex-col gap-2 mt-6">
             {highlights.map((item, index) => (
               <li className="flex items-center gap-1" key={index}>
-                <CircleCheck className="text-white" size={20} /> {item}
+                <CircleCheck className="text-green-400" size={20} /> {item}
               </li>
             ))}
           </ul>
@@ -77,7 +77,7 @@ function Connect({ role }: { role: "student" | "instructor" }) {
           </div>
           <div className="flex flex-col gap-2 p-4">
             {chats.map((item, index) => (
-              <div className="flex flex-col">
+              <div className="flex flex-col" key={index}>
                 <div
                   className={`flex flex-col ${item.name === "You" ? "self-end bg-accent text-white" : "bg-background-tertiary self-start pt-1.5"} max-w-4/5 p-3 rounded-4xl`}
                   key={index}

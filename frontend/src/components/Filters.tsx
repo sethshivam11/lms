@@ -106,7 +106,7 @@ function Filters({ className = "" }: { className?: string }) {
   return (
     <div
       className={cn(
-        "lg:w-80 max-md:hidden md:bg-default-soft-hover rounded-lg p-4 font-lora h-fit sticky top-20",
+        "lg:w-80 max-md:hidden md:bg-default-soft-hover rounded-lg sm:p-4 px-2 font-lora h-fit sticky top-20",
         className,
       )}
     >
@@ -115,6 +115,7 @@ function Filters({ className = "" }: { className?: string }) {
       </h5>
       <div className="flex flex-col gap-4 py-4">
         <Slider
+          aria-label="Price"
           className="w-full"
           value={filters.price}
           onChange={(value) => setFilters({ ...filters, price: value })}
@@ -129,9 +130,9 @@ function Filters({ className = "" }: { className?: string }) {
           step={1}
         >
           <div className="flex flex-col">
-            <Label className="font-huninn uppercase text-base mb-2">
+            <span className="label font-huninn uppercase text-base mb-2">
               Price
-            </Label>
+            </span>
             <Slider.Track className="w-full border-x-0 h-2 bg-accent-soft">
               {({ state }) => (
                 <>
@@ -158,7 +159,9 @@ function Filters({ className = "" }: { className?: string }) {
           </div>
         </Slider>
         <div className="flex flex-col gap-2">
-          <Label className="font-huninn uppercase text-base">Category</Label>
+          <span className="label font-huninn uppercase text-base">
+            Category
+          </span>
           <div className="flex flex-wrap items-center gap-2">
             {categories.length > 0 ? (
               categories.map((item, index) => (
@@ -192,7 +195,9 @@ function Filters({ className = "" }: { className?: string }) {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <Label className="font-huninn uppercase text-base">Duration</Label>
+          <span className="label font-huninn uppercase text-base">
+            Duration
+          </span>
           <div className="flex flex-col gap-2">
             {durations.map((item, index) => (
               <Checkbox
@@ -224,8 +229,12 @@ function Filters({ className = "" }: { className?: string }) {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <Label className="font-huninn uppercase text-base">Ratings</Label>
-          <div className="flex items-center gap-1" aria-label="stars" onKeyDown={handleKeyDown}>
+          <span className="label font-huninn uppercase text-base">Ratings</span>
+          <div
+            className="flex items-center gap-1"
+            aria-label="stars"
+            onKeyDown={handleKeyDown}
+          >
             {[1, 2, 3, 4, 5].map((item, index) => (
               <button
                 className="text-warning focus-visible:outline-none group"
@@ -249,8 +258,9 @@ function Filters({ className = "" }: { className?: string }) {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <Label className="font-huninn uppercase text-base">Lessons</Label>
+          <span className="label font-huninn uppercase text-base">Lessons</span>
           <Select
+            name="min-lessons"
             className="flex flex-row justify-between items-center gap-2 w-full"
             placeholder="Min Lessons"
             value={filters.lessons[0]}
@@ -294,6 +304,7 @@ function Filters({ className = "" }: { className?: string }) {
             </Select.Popover>
           </Select>
           <Select
+            name="max-lessons"
             className="flex flex-row justify-between items-center gap-2 w-full"
             placeholder="Max Lessons"
             value={filters.lessons[1]}
@@ -332,6 +343,9 @@ function Filters({ className = "" }: { className?: string }) {
           </Select>
         </div>
       </div>
+      <Button className="sm:hidden w-full" size="sm" slot="close">
+        Apply Filters
+      </Button>
     </div>
   );
 }

@@ -30,13 +30,13 @@ function Register() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate("/home");
+    navigate({ pathname: "/verify-code", search: `?email=${creds.email}` });
   };
 
   return (
-    <div className="flex items-center justify-center min-h-dvh relative">
+    <div className="flex items-center justify-center min-h-screen relative">
       <Form
-        className="p-10 w-1/3 min-w-96 border rounded-4xl bg-white"
+        className="p-10 xl:w-1/3 sm:w-1/2 min-w-96 border rounded-4xl bg-white animate-step-in"
         onSubmit={handleSubmit}
       >
         <div className="flex flex-col gap-4">
@@ -64,16 +64,14 @@ function Register() {
               <InputGroup.Prefix>
                 <User className="size-4 text-muted" />
               </InputGroup.Prefix>
-              <InputGroup.Input
-                className="w-full"
-                placeholder="Your Full Name"
-              />
+              <InputGroup.Input className="w-full" placeholder="Full Name" />
             </InputGroup>
             <FieldError />
           </TextField>
           <TextField
             name="email"
             value={creds.email}
+            autoComplete="email"
             onChange={(value) =>
               setCreds((prev) => ({ ...prev, email: value }))
             }

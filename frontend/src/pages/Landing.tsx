@@ -23,7 +23,7 @@ function Hero() {
             "radial-gradient(circle, oklch(60.92% 0.214 256.89 / 0.5), transparent 60%)",
         }}
       />
-      <div className="flex flex-col items-center justify-center gap-6 min-h-[90dvh] relative max-w-7xl mx-auto">
+      <div className="flex flex-col items-center justify-center gap-6 sm:min-h-[90vh] min-h-[80vh] relative max-w-7xl mx-auto">
         <Chip className="border text-muted rounded-full text-xs bg-white z-10">
           <Stars size={12} className="mr-2 text-accent" /> Learn at your own
           pace

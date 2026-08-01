@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const nameSchema = z
   .string()
+  .nonempty("Name is required")
   .min(2, "Name cannot be less than 2 characters")
   .max(255, "Name cannot be more than 255 characters")
   .refine(
@@ -28,4 +29,11 @@ export const passwordSchema = z
     "Password must include a special character",
   );
 
-export const confirmPasswordSchema = z.string();
+export const confirmPasswordSchema = z
+  .string()
+  .nonempty("Confirm Password is required");
+
+export const otpSchema = z.coerce
+  .number("Invalid OTP. Please enter a valid 6-digit OTP")
+  .min(100000, "OTP must be 6 digits")
+  .max(999999, "OTP must be 6 digits");
