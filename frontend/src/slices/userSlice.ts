@@ -5,7 +5,7 @@ export const createUserSlice: StateCreator<UserSlice> = () => ({
   loading: false,
   user: {
     id: 0,
-    role: "student",
+    role: "instructor",
     avatar: null,
     wallet: 0,
     skills: null,

@@ -9,6 +9,7 @@ import {
   Select,
   ListBox,
   Skeleton,
+  cn,
 } from "@heroui/react";
 import {
   ArrowUp,
@@ -35,11 +36,17 @@ function LessonsForm({
   setLessons,
   handleBack,
   handleNext,
+  formClassName = "",
+  headerClassName = "",
+  containerClassName = "",
 }: {
   lessons: LessonFormI[];
   setLessons: React.Dispatch<React.SetStateAction<LessonFormI[]>>;
   handleBack: () => void;
   handleNext: () => void;
+  formClassName?: string;
+  headerClassName?: string;
+  containerClassName?: string;
 }) {
   const [invalid, setInvalid] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -137,11 +144,11 @@ function LessonsForm({
 
   useEffect(() => {
     setLesson((prev) => ({ ...prev, id: (lessons.at(-1)?.id || 0) + 1 }));
-  }, []);
+  }, [lessons]);
 
   return (
-    <div className="flex flex-col gap-6">
-      <div>
+    <div className={cn("flex flex-col gap-6", containerClassName)}>
+      <div className={headerClassName}>
         <h4 className="text-xl font-semibold tracking-tight">Add Lessons</h4>
         <p className="text-muted text-sm">Add Lessons to your course</p>
       </div>
@@ -163,14 +170,17 @@ function LessonsForm({
         }}
       />
       <Form
-        className="flex flex-col gap-4 bg-background/50 p-4 rounded-xl"
+        className={cn(
+          "flex flex-col gap-4 bg-background/50 p-4 rounded-xl",
+          formClassName,
+        )}
         onSubmit={handleSubmit}
         onInvalid={() => setInvalid(true)}
       >
-        <h5 className="text-xl font-semibold text-center tracking-tight text-accent">
+        <h5 className="text-xl font-semibold font-outfit text-center tracking-tight text-accent">
           {editing ? "Edit Lesson" : "Lesson Details"}
         </h5>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-4 gap-4">
           <Select
             name="type"
             placeholder="Type of Lesson"
@@ -208,7 +218,7 @@ function LessonsForm({
             name="name"
             type="text"
             autoComplete="name"
-            className="col-span-3"
+            className="sm:col-span-3"
             value={lesson.name}
             onChange={(value) => setLesson({ ...lesson, name: value })}
             validate={(value) => {
@@ -337,7 +347,14 @@ function LessonsForm({
           <ChevronLeft />
           Back
         </Button>
-        <Button type="button" onClick={handleNext}>
+        <Button
+          type="button"
+          isDisabled={lessons.length === 0}
+          onClick={() => {
+            if (lessons.length === 0) return;
+            handleNext();
+          }}
+        >
           Continue
           <ChevronRight />
         </Button>

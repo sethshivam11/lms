@@ -1,9 +1,10 @@
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
 import CourseDetailsForm from "../components/CourseDetailsForm";
 import { Skeleton, toast } from "@heroui/react";
 import type { LessonFormI } from "../types/lesson";
 import type { CourseDetailsFormI } from "../types/course";
 import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 const LessonsForm = lazy(() => import("../components/LessonsForm"));
 const PublishCourse = lazy(() => import("../components/PublishCourse"));
@@ -52,7 +53,10 @@ function CreateCourse() {
   const navigate = useNavigate();
 
   const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [cover, setCover] = useState<File | null>(null);
+  const [cover, setCover] = useState<{ file: File | null; uri: string }>({
+    file: null,
+    uri: "",
+  });
   const [details, setDetails] = useState<CourseDetailsFormI>({
     name: "",
     tagline: "",
@@ -73,7 +77,6 @@ function CreateCourse() {
 
   useEffect(() => {
     const course = JSON.parse(localStorage.getItem("course-draft") || "null");
-    console.log(course);
     if (course) {
       toast.success("Continue where you left off?", {
         actionProps: {
@@ -86,6 +89,7 @@ function CreateCourse() {
           size: "sm",
           className: "bg-accent-soft text-accent rounded-full text-sm",
         },
+        timeout: 1000,
         onClose: () => localStorage.removeItem("course-draft"),
       });
     }
@@ -109,24 +113,30 @@ function CreateCourse() {
         </p>
       </div>
       <div className="flex max-md:flex-col gap-8">
-        <div className="flex md:flex-col max-md:justify-between gap-4 md:sticky top-20 h-fit">
+        <div className="flex md:flex-col max-md:justify-between max-md:items-center md:gap-4 md:sticky top-20 h-fit">
           {steps.map((item, index) => (
-            <button
-              className={`flex flex-col cursor-pointer text-left disabled:cursor-not-allowed w-full`}
-              onClick={() => {
-                if (step <= index) return;
-                setStep((index + 1) as 1 | 2 | 3);
-              }}
-              disabled={step <= index}
-              key={index}
-            >
-              <span
-                className={`font-huninn uppercase ${step >= index + 1 ? "text-accent" : "text-muted"} text-xl`}
+            <Fragment key={index}>
+              <button
+                className={`flex flex-col cursor-pointer text-left disabled:cursor-not-allowed md:w-full`}
+                onClick={() => {
+                  if (step <= index && !cover && lessons.length === 0) return;
+                  setStep((index + 1) as 1 | 2 | 3);
+                }}
+                disabled={step <= index && !cover && lessons.length === 0}
+                key={index}
               >
-                Step {index + 1}
-              </span>
-              <p className="text-muted">{item}</p>
-            </button>
+                <span
+                  className={`font-huninn uppercase ${step >= index + 1 ? "text-accent" : "text-muted"} text-xl`}
+                >
+                  Step {index + 1}
+                </span>
+                <p className="text-muted max-sm:hidden">{item}</p>
+              </button>
+              <ArrowRight
+                size={20}
+                className={`sm:hidden last:hidden ${step} ${index} ${step > index ? "text-accent" : "text-muted"}`}
+              />
+            </Fragment>
           ))}
         </div>
         <div className="lg:w-2/3 flex-1">

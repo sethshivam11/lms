@@ -46,13 +46,32 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
       "https://res.cloudinary.com/dv3qbj0bn/image/upload/v1780987669/lms/course/yndzt0xxjwmgkyrucwqy.jpg",
     category: "programming",
     price: 2199,
-    rating_sum: 45  ,
+    rating_sum: 45,
     rating_count: 10,
     duration: 7200,
     owner_name: "Shadcn",
     owner_avatar: "/avatar-small.png",
     lessons: 5,
     created_at: "2026-06-09T06:05:01.891Z",
+  },
+  setCourse: (courseId: number) => {
+    const { courses } = get();
+    const course = courses.find((item) => item.id === courseId);
+    if (!course) return null;
+    set({
+      course: {
+        ...course,
+        description: "",
+        owner_name: "Shivam",
+        owner_avatar: "/avatar-small.png",
+      },
+    });
+    return {
+      ...course,
+      description: "",
+      owner_name: "Shivam",
+      owner_avatar: "/avatar-small.png",
+    };
   },
   courses: [
     {

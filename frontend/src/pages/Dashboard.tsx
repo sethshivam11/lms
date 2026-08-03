@@ -20,7 +20,8 @@ function Dashboard() {
           to="/create-course"
           className="button button--primary ring-visible-offset"
         >
-          <Plus /> Create Course
+          <Plus />
+          <span className="max-sm:hidden">Create Course</span>
         </Link>
       </div>
       <InstructorStats />

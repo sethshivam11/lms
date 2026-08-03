@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import type { CourseDetailsFormI } from "../types/course";
 import type { LessonFormI } from "../types/lesson";
-import { useMemo } from "react";
 import { DragDropProvider } from "@dnd-kit/react";
 import { move } from "@dnd-kit/helpers";
 import { useSortable } from "@dnd-kit/react/sortable";
@@ -80,17 +79,13 @@ function PublishCourse({
   setLessons,
 }: {
   course: CourseDetailsFormI & {
-    cover: File | null;
+    cover: { file: File | null; uri: string };
     lessons: LessonFormI[];
   };
   setLessons: (lessons: LessonFormI[]) => void;
   handleBack: () => void;
   handleSubmit: () => void;
 }) {
-  const coverImage = useMemo(() => {
-    return "https://res.cloudinary.com/dv3qbj0bn/image/upload/v1780988197/lms/course/hcghp49jrk9favwtukme.jpg";
-  }, [course.cover]);
-
   return (
     <div className="flex flex-col gap-6">
       <div>
@@ -102,7 +97,7 @@ function PublishCourse({
         </p>
       </div>
       <div className="bg-background rounded-lg">
-        <CoverPreview image={coverImage} />
+        <CoverPreview image={course.cover.uri} />
         <div className="p-4 flex flex-col justify-center gap-4">
           <div className="flex justify-between items-center">
             <div>
@@ -142,16 +137,21 @@ function PublishCourse({
               </p>
             </div>
           </div>
-          <div>
-            <h5 className="text-xl font-medium">Skills</h5>
-            <div className="flex items-center gap-2 mt-3">
-              {course.skills.map((item, index) => (
-                <Chip className="bg-accent rounded-full text-white" key={index}>
-                  {item}
-                </Chip>
-              ))}
+          {course.skills.length > 0 && (
+            <div>
+              <h5 className="text-xl font-medium">Skills</h5>
+              <div className="flex items-center gap-2 mt-3">
+                {course.skills.map((item, index) => (
+                  <Chip
+                    className="bg-accent rounded-full text-white"
+                    key={index}
+                  >
+                    {item}
+                  </Chip>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
           <div>
             <h5 className="text-xl font-medium">Lessons</h5>
             <DragDropProvider

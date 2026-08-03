@@ -1,0 +1,134 @@
+import { Button, Modal, Tooltip } from "@heroui/react";
+import { Pen } from "lucide-react";
+import { useEffect, useState } from "react";
+import type { CourseDetailsFormI } from "../types/course";
+import CourseDetailsForm from "./CourseDetailsForm";
+import LessonsForm from "./LessonsForm";
+import type { LessonFormI } from "../types/lesson";
+import useBoundStore from "../store";
+import CustomEmptyState from "./CustomEmptyState";
+
+function EditCourseModal({ courseId }: { courseId: number }) {
+  const { setCourse, lessons: lessonsStore } = useBoundStore();
+
+  const [open, setOpen] = useState(false);
+  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [form, setForm] = useState<CourseDetailsFormI>({
+    name: "",
+    tagline: "",
+    description: "",
+    level: "beginner",
+    category: "",
+    skills: [],
+    price: "",
+  });
+  const [lessons, setLessons] = useState<LessonFormI[]>([]);
+  const [cover, setCover] = useState<{ file: File | null; uri: string }>({
+    file: null,
+    uri: "",
+  });
+  const [notFound, setNotFound] = useState(false);
+
+  const handleUpdate = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    const course = setCourse(courseId);
+    if (!course) {
+      setNotFound(true);
+    } else {
+      const { name, category, tagline, description, level, price, skills } =
+        course;
+      setForm({
+        name,
+        tagline,
+        category,
+        description,
+        level,
+        price: price.toString(),
+        skills: skills ?? [],
+      });
+      setLessons(
+        lessonsStore.map((item) => {
+          const { course, duration, video, notes, ...lesson } = item;
+          return {
+            ...lesson,
+            video: video || "",
+            notes: notes || "",
+            quiz: null,
+          };
+        }),
+      );
+    }
+  }, []);
+
+  return (
+    <Modal>
+      <Tooltip delay={0}>
+        <Button
+          className="bg-success-soft text-success"
+          onClick={() => setOpen(true)}
+          size="sm"
+          isIconOnly
+        >
+          <Pen />
+        </Button>
+        <Tooltip.Content>
+          <p className="font-outfit">Edit</p>
+        </Tooltip.Content>
+      </Tooltip>
+      <Modal.Backdrop
+        isOpen={open}
+        onOpenChange={setOpen}
+        isDismissable={false}
+      >
+        <Modal.Container size="lg" scroll="inside">
+          <Modal.Dialog>
+            <Modal.CloseTrigger />
+            <Modal.Header>
+              <h4 className="text-xl font-outfit font-semibold tracking-tight text-center mb-4">
+                Edit Course
+              </h4>
+            </Modal.Header>
+            {notFound ? (
+              <Modal.Body className="font-lora">
+                <CustomEmptyState
+                  title="Something went wrong"
+                  description="Course not found"
+                />
+              </Modal.Body>
+            ) : (
+              <Modal.Body className="text-black font-lora">
+                {step === 1 && (
+                  <CourseDetailsForm
+                    form={form}
+                    cover={cover}
+                    setForm={setForm}
+                    setCover={setCover}
+                    handleNext={() => setStep(2)}
+                    headerClassName="hidden"
+                    formClassName="gap-4 max-h-[80vh]"
+                    toolbarClassName="sm:overflow-x-auto sm:flex-nowrap [&>*]:first:overflow-x-scroll [&>*]:first:flex-nowrap"
+                  />
+                )}
+                {step === 2 && (
+                  <LessonsForm
+                    lessons={lessons}
+                    setLessons={setLessons}
+                    handleBack={() => setStep(1)}
+                    handleNext={handleUpdate}
+                    containerClassName="max-h-[80vh]"
+                    headerClassName="hidden"
+                  />
+                )}
+              </Modal.Body>
+            )}
+          </Modal.Dialog>
+        </Modal.Container>
+      </Modal.Backdrop>
+    </Modal>
+  );
+}
+
+export default EditCourseModal;

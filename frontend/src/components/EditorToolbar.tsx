@@ -1,13 +1,15 @@
 import React, { lazy, Suspense } from "react";
 import { ToolbarButton } from "./ToolbarButton";
-import { Skeleton } from "@heroui/react";
+import { cn, Skeleton } from "@heroui/react";
 
 const EditorInfo = lazy(() => import("./EditorInfo"));
 
 function EditorToolbar({
   ref,
+  className= ""
 }: {
   ref: React.RefObject<HTMLDivElement | null>;
+  className?: string;
 }) {
   const handleToolbarKeys = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(e.key)) {
@@ -61,7 +63,7 @@ function EditorToolbar({
 
   return (
     <div
-      className="flex! flex-wrap justify-end border-none! w-full! gap-4 max-sm:flex-nowrap"
+      className={cn("flex! flex-wrap justify-end border-none! w-full! gap-4 max-sm:flex-nowrap", className)}
       ref={ref}
       aria-label="Formatting Toolbar"
     >

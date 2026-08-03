@@ -25,7 +25,7 @@ function InstructorStats() {
         const Icon = icon;
         return (
           <div className="p-8 rounded-xl border" key={index}>
-            <Icon />
+            <Icon size={40} className="mb-4" />
             <h4 className="text-2xl font-agdasima uppercase font-bold tracking-tight text-accent">{title}</h4>
             <p className="text-4xl font-merriweather">
               {value.toLocaleString("en-IN", {

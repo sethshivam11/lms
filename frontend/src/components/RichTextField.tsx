@@ -6,6 +6,7 @@ function DescriptionField({
   label,
   placeholder,
   className = "",
+  toolbarClassName = "",
   value,
   onChange,
   invalid = false,
@@ -15,6 +16,7 @@ function DescriptionField({
   label?: string | ReactNode;
   placeholder?: string;
   className?: string;
+  toolbarClassName?: string;
   value: string;
   onChange: (description: string) => void;
   invalid?: boolean;
@@ -68,6 +70,7 @@ function DescriptionField({
         onChange={handleChange}
         isInvalid={touched && !!error}
         onBlur={() => setTouched(true)}
+        toolbarClassName={toolbarClassName}
         placeholder={placeholder}
       />
       {error && touched && <p className="mt-1 text-danger text-xs">{error}</p>}

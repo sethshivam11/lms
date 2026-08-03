@@ -7,12 +7,14 @@ function RatingStars({
   size = 16,
   subText = "",
   className = "",
+  starsClassName = "",
   subTextClassName = "",
 }: {
   stars: number;
   size?: number;
   subText?: string;
   className?: string;
+  starsClassName?: string;
   subTextClassName?: string;
 }) {
   const fullStars = useMemo(() => {
@@ -30,10 +32,15 @@ function RatingStars({
       {Array.from({
         length: fullStars,
       }).map((_, index) => (
-        <Star size={size} fill="currentColor" key={index} />
+        <Star
+          size={size}
+          fill="currentColor"
+          className={starsClassName}
+          key={index}
+        />
       ))}
       {halfStars && (
-        <div className="relative size-4">
+        <div className={cn("relative size-4", starsClassName)}>
           <Star className="absolute top-0 left-0" size={size} />
           <StarHalf
             className="absolute top-0 left-0"
@@ -44,10 +51,17 @@ function RatingStars({
       )}
       {fullStars < 5
         ? Array.from({ length: 5 - fullStars - (halfStars ? 1 : 0) }).map(
-            (_, index) => <Star size={size} fill="none" key={index} />,
+            (_, index) => (
+              <Star
+                size={size}
+                fill="none"
+                className={starsClassName}
+                key={index}
+              />
+            ),
           )
         : null}
-      <span className={cn("text-background", subTextClassName)}>
+      <span className={cn("text-foreground", subTextClassName)}>
         {stars.toLocaleString("en-IN", {
           style: "decimal",
           maximumFractionDigits: 1,

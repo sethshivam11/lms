@@ -6,7 +6,7 @@ function Navbar() {
       <div className="flex items-center gap-2 max-w-7xl mx-auto">
         <Link to="/" className="flex items-center gap-2">
           <img src="/logo.png" className="w-10" />
-          <h3 className="text-xl font-cal-sans tracking-tight font-bold">
+          <h3 className="md:text-2xl text-xl font-cal-sans tracking-tight font-bold">
             Learn Loop
           </h3>
         </Link>
@@ -18,22 +18,56 @@ function Navbar() {
 function Footer() {
   const portfolioUrl = import.meta.env.VITE_APP_PORTFOLIO_URL;
 
+  const nav = [
+    {
+      title: "Login",
+      path: "/login",
+    },
+    {
+      title: "Register",
+      path: "/register",
+    },
+    {
+      title: "Forgot Password",
+      path: "/forgot-password",
+    },
+  ];
+
   return (
     <footer className="bg-footer border-t border-footer-border">
       <div className="p-10">
-        <div className="flex flex-col gap-2 max-w-7xl mx-auto text-footer-foreground">
-          <img src="/logo.png" className="w-10 object-contain" />
-          <div>
-            <h4 className="text-xl font-cal-sans tracking-tight">Learn Loop</h4>
-            <p className="text-muted text-sm">
-              Learn, teach, and grow with a modern learning platform designed
-              for students and educators
-            </p>
+        <div className="grid md:grid-cols-2 gap-6 max-w-7xl mx-auto">
+          <div className="flex flex-col gap-2 text-footer-foreground">
+            <img src="/logo.png" className="w-10 object-contain" />
+            <div>
+              <h4 className="text-xl font-cal-sans tracking-tight">
+                Learn Loop
+              </h4>
+              <p className="text-muted text-sm">
+                Discover courses that inspire curiosity, build practical skills,
+                and help you achieve your goals at your own pace.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col text-footer-foreground items-center">
+            <h4 className="text-xl font-semibold">Quick Links</h4>
+            <ul className="flex flex-col gap-2 text-muted font-outfit mt-4">
+              {nav.map((item, index) => (
+                <li key={index}>
+                  <a
+                    href={item.path}
+                    className="hover:underline underline-offset-2"
+                  >
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
-      <div className="border-t border-footer-border">
-        <div className="flex justify-between items-center gap-2 text-sm py-3 text-footer-foreground max-w-7xl mx-auto xl:px-0 sm:px-6 px-4">
+      <div className="border-t border-footer-border p-4">
+        <div className="flex justify-between items-center gap-2 text-xs text-footer-foreground max-w-7xl mx-auto">
           <span>&copy; Copyrights Reserved</span>
           <span>
             Made with ❤️ by{" "}

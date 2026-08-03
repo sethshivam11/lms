@@ -10,6 +10,7 @@ interface EditorProps {
   value?: string;
   readOnly?: boolean;
   className?: string;
+  toolbarClassName?: string;
   isInvalid?: boolean;
   placeholder?: string;
   onBlur?: () => void;
@@ -25,6 +26,7 @@ const Editor = forwardRef<Quill, EditorProps>(
       readOnly = false,
       placeholder = "Write something...",
       className = "",
+      toolbarClassName = "",
       onBlur,
       onChange,
     },
@@ -74,6 +76,7 @@ const Editor = forwardRef<Quill, EditorProps>(
       if (value) {
         quill.root.innerHTML = value;
       }
+      quill.container.querySelector("input")?.setAttribute("name", "editor");
 
       quill.on("text-change", () => {
         onChangeRef.current?.(quill.root.innerHTML);
@@ -115,7 +118,7 @@ const Editor = forwardRef<Quill, EditorProps>(
         data-invalid={isInvalid}
         className={`shadow-sm bg-white transition-colors rounded-field ring-2 ${focused ? "ring-accent data-[invalid='true']:ring-danger bg-white" : "ring-transparent data-[invalid='true']:ring data-[invalid='true']:ring-danger hover:bg-field-hover"}`}
       >
-        <EditorToolbar ref={toolbarRef} />
+        <EditorToolbar ref={toolbarRef} className={toolbarClassName} />
         <div
           id={id}
           ref={editorRef}

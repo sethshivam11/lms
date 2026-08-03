@@ -46,6 +46,7 @@ export interface CourseSlice {
     owner_name: string;
     owner_avatar: string;
   };
+  setCourse: (courseId: number) => CourseSlice["course"] | null;
   recentCourses: Course[];
   suggestedCourses: Course[];
 }

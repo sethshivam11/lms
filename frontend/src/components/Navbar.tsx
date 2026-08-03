@@ -59,6 +59,11 @@ function Navbar() {
             path: "/earnings",
           },
           {
+            icon: Network,
+            name: "Connect",
+            path: "/connect",
+          },
+          {
             icon: Book,
             name: "Courses",
             path: "/courses",
@@ -75,132 +80,140 @@ function Navbar() {
   };
 
   return (
-    <div className="flex justify-between items-center bg-transparent/50 backdrop-blur-lg w-full sm:px-8 px-2 py-2 border-b sticky top-0 left-0 z-50">
-      <Drawer>
-        <div className="flex items-center gap-2 sm:hidden">
-          <Button variant="ghost" className="group" isIconOnly>
-            <Logo className="flex items-center justify-center group-hover:hidden size-fit" />
-            <PanelLeft className="hidden group-hover:inline" size={30} />
-          </Button>
-          <Link
-            to={role === "student" ? "/home" : "/dashboard"}
-            className="flex justify-center items-center gap-2 p-2 ring-visible ring-background-secondary rounded-lg text-xl font-cal-sans font-semibold"
-          >
-            LearnLoop
-          </Link>
-        </div>
-        <Drawer.Backdrop>
-          <Drawer.Content placement="left">
-            <Drawer.Dialog>
-              <Drawer.Header>
-                <Drawer.Heading>
-                  <div className="flex justify-center items-center gap-2">
-                    <Logo />
-                    <span className="text-3xl font-extrabold tracking-tighter font-lora">
-                      LMS
-                    </span>
-                  </div>
-                </Drawer.Heading>
-              </Drawer.Header>
-              <Drawer.Body>
-                <div className="flex flex-col gap-1 mt-8">
-                  {menu.map((item, index) => (
-                    <Button className="w-full p-0" variant="ghost" slot="close">
-                      <Link
-                        className="flex items-center px-3 gap-2 w-full"
-                        to={item.path}
-                        key={index}
+    <div className=" bg-white/50 backdrop-blur-lg w-full sm:px-8 px-4 py-2 border-b sticky top-0 left-0 z-50">
+      <div className="flex justify-between items-center max-w-7xl mx-auto">
+        <Drawer>
+          <div className="flex items-center sm:hidden">
+            <Button variant="ghost" className="group" isIconOnly>
+              <Logo className="flex items-center justify-center group-hover:hidden size-fit" />
+              <PanelLeft className="hidden group-hover:inline" size={30} />
+            </Button>
+            <Link
+              to={role === "student" ? "/home" : "/dashboard"}
+              className="flex justify-center items-center gap-2 p-2 ring-visible ring-background-secondary rounded-lg text-xl font-cal-sans font-semibold"
+            >
+              LearnLoop
+            </Link>
+          </div>
+          <Drawer.Backdrop>
+            <Drawer.Content placement="left">
+              <Drawer.Dialog>
+                <Drawer.Header>
+                  <Drawer.Heading>
+                    <div className="flex justify-center items-center gap-2">
+                      <Logo />
+                      <span className="text-3xl font-extrabold tracking-tighter font-lora">
+                        LMS
+                      </span>
+                    </div>
+                  </Drawer.Heading>
+                </Drawer.Header>
+                <Drawer.Body>
+                  <div className="flex flex-col gap-1 mt-8">
+                    {menu.map((item, index) => (
+                      <Button
+                        className="w-full p-0"
+                        variant="ghost"
+                        slot="close"
                       >
-                        <item.icon />
-                        <span className="w-full text-left">{item.name}</span>
-                      </Link>
-                    </Button>
-                  ))}
-                </div>
-              </Drawer.Body>
-              <Drawer.Footer>
-                <Accordion className="w-full max-w-md">
-                  <Accordion.Item>
-                    <Accordion.Heading>
-                      <Accordion.Trigger className="rounded-lg hover:bg-hover px-2 py-1 gap-2">
-                        <Avatar size="sm" className="rounded-full">
-                          <Avatar.Image src={avatar ?? "/avatar-small.png"} />
-                          <Avatar.Fallback delayMs={600}>
-                            {name[0]}
-                          </Avatar.Fallback>
-                        </Avatar>
-                        <span className="w-full text-left">{name}</span>
-                        <Accordion.Indicator />
-                      </Accordion.Trigger>
-                    </Accordion.Heading>
-                    <Accordion.Panel>
-                      <Accordion.Body className="pt-2 px-0">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="w-full p-0"
-                          slot="close"
+                        <Link
+                          className="flex items-center px-3 gap-2 w-full"
+                          to={item.path}
+                          key={index}
                         >
-                          <Link
-                            to="/profile"
-                            className="flex items-center px-3 gap-2 w-full"
+                          <item.icon />
+                          <span className="w-full text-left">{item.name}</span>
+                        </Link>
+                      </Button>
+                    ))}
+                  </div>
+                </Drawer.Body>
+                <Drawer.Footer>
+                  <Accordion className="w-full max-w-md">
+                    <Accordion.Item>
+                      <Accordion.Heading>
+                        <Accordion.Trigger className="rounded-lg hover:bg-hover px-2 py-1 gap-2">
+                          <Avatar size="sm" className="rounded-full">
+                            <Avatar.Image src={avatar ?? "/avatar-small.png"} />
+                            <Avatar.Fallback delayMs={600}>
+                              {name[0]}
+                            </Avatar.Fallback>
+                          </Avatar>
+                          <span className="w-full text-left">{name}</span>
+                          <Accordion.Indicator />
+                        </Accordion.Trigger>
+                      </Accordion.Heading>
+                      <Accordion.Panel>
+                        <Accordion.Body className="pt-2 px-0">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="w-full p-0"
+                            slot="close"
                           >
-                            <User />
-                            <span className="w-full text-left">Profile</span>
-                          </Link>
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="w-full p-0"
-                          slot="close"
-                        >
-                          <Link
-                            to="/profile"
-                            className="flex items-center px-3 gap-2 w-full"
+                            <Link
+                              to="/profile"
+                              className="flex items-center px-3 gap-2 w-full"
+                            >
+                              <User />
+                              <span className="w-full text-left">Profile</span>
+                            </Link>
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="w-full p-0"
+                            slot="close"
                           >
-                            <Cog />
-                            <span className="w-full text-left">Settings</span>
-                          </Link>
-                        </Button>
-                        <Button
-                          variant="danger-soft"
-                          size="sm"
-                          className="w-full"
-                          slot="close"
-                          onClick={handleLogOut}
-                        >
-                          <LogOut />
-                          <span className="w-full text-left">Log Out</span>
-                        </Button>
-                      </Accordion.Body>
-                    </Accordion.Panel>
-                  </Accordion.Item>
-                </Accordion>
-              </Drawer.Footer>
-            </Drawer.Dialog>
-          </Drawer.Content>
-        </Drawer.Backdrop>
-      </Drawer>
-      <Link
-        to={role === "student" ? "/home" : "/dashboard"}
-        className="flex justify-center items-center gap-2 p-2 ring-visible rounded-lg max-sm:hidden"
-      >
-        <Logo />
-        <span className="text-xl font-cal-sans font-semibold">LearnLoop</span>
-      </Link>
-      <div className="flex justify-between items-center gap-4 max-sm:hidden group">
-        {menu.map((item, index) => (
-          <Link
-            to={item.path}
-            key={index}
-            className={`p-2 font-outfit ring-visible rounded-lg hover:text-accent ${location.pathname.includes(item.path) ? "text-accent group-hover:text-muted" : "text-muted"}`}
-          >
-            {item.name}
-          </Link>
-        ))}
+                            <Link
+                              to="/profile"
+                              className="flex items-center px-3 gap-2 w-full"
+                            >
+                              <Cog />
+                              <span className="w-full text-left">Settings</span>
+                            </Link>
+                          </Button>
+                          <Button
+                            variant="danger-soft"
+                            size="sm"
+                            className="w-full"
+                            slot="close"
+                            onClick={handleLogOut}
+                          >
+                            <LogOut />
+                            <span className="w-full text-left">Log Out</span>
+                          </Button>
+                        </Accordion.Body>
+                      </Accordion.Panel>
+                    </Accordion.Item>
+                  </Accordion>
+                </Drawer.Footer>
+              </Drawer.Dialog>
+            </Drawer.Content>
+          </Drawer.Backdrop>
+        </Drawer>
+        <Link
+          to={role === "student" ? "/home" : "/dashboard"}
+          className="flex justify-center items-center gap-2 p-2 ring-visible rounded-lg max-sm:hidden"
+        >
+          <Logo />
+          <span className="md:text-2xl text-xl font-cal-sans font-semibold tracking-tight">
+            LearnLoop
+          </span>
+        </Link>
+        <div className="flex justify-between items-center gap-4 max-sm:hidden group">
+          {menu.map((item, index) => (
+            <Link
+              to={item.path}
+              key={index}
+              className={`p-2 font-outfit ring-visible rounded-lg hover:text-accent ${location.pathname.includes(item.path) ? "text-accent group-hover:text-muted" : "text-muted"}`}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
+        <AvatarDropdown handleLogOut={handleLogOut} />
       </div>
-      <AvatarDropdown handleLogOut={handleLogOut} />
     </div>
   );
 }

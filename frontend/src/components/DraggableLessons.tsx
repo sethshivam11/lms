@@ -48,7 +48,7 @@ function Lesson({
       </div>
       <div className="flex items-center gap-2">
         <Button
-          className="bg-accent-soft text-accent cursor-default group hover:bg-background-secondary hover:cursor-grab"
+          className="shrink-0 bg-accent-soft text-accent cursor-default group hover:bg-background-secondary hover:cursor-grab"
           size="sm"
           isIconOnly
           ref={handleRef}
@@ -66,14 +66,14 @@ function Lesson({
           name={`lesson-${id}`}
           value={name}
           onChange={(e) => handleChange(e.target.value)}
-          className="flex-1"
+          className="w-full"
         />
         {editing ? (
           <Button
             size="sm"
             onClick={handleCancelEdit}
             variant="tertiary"
-            className="bg-background border hover:bg-background-secondary"
+            className="shrink-0 bg-background border hover:bg-background-secondary"
             isIconOnly
           >
             <X />
@@ -82,14 +82,14 @@ function Lesson({
           <Button
             size="sm"
             onClick={handleEdit}
-            className="bg-warning-soft text-warning"
+            className="shrink-0 bg-warning-soft text-warning"
             isIconOnly
           >
             <Pencil />
           </Button>
         )}
         <Modal>
-          <Button variant="danger-soft" size="sm" isIconOnly>
+          <Button variant="danger-soft" size="sm" className="shrink-0" isIconOnly>
             <Trash />
           </Button>
           <Modal.Backdrop>

@@ -43,7 +43,7 @@ const Navbar = () => {
             className="flex items-center gap-2 ring-visible p-1 rounded-lg"
           >
             <Logo />
-            <span className="text-2xl max-sm:hidden font-outfit font-bold tracking-tighter">
+            <span className="md:text-2xl text-xl max-sm:hidden font-cal-sans font-bold tracking-tight">
               Learn Loop
             </span>
           </Link>
@@ -115,6 +115,7 @@ const Navbar = () => {
 
 const Footer = () => {
   const location = useLocation();
+  const portfolio = import.meta.env.VITE_APP_PORTFOLIO_URL;
   const role = location.pathname.includes("/instructor")
     ? "instructor"
     : "student";
@@ -167,51 +168,73 @@ const Footer = () => {
         ];
 
   return (
-    <footer className="grid md:grid-cols-2 bg-footer p-10">
-      <div className="flex flex-col gap-2 max-w-7xl mx-auto text-footer-foreground">
-        <Logo />
-        <div>
-          <h4 className="text-xl font-cal-sans tracking-tighter">Learn Loop</h4>
-          <p className="text-muted text-sm">
-            Learn, teach, and grow with a modern learning platform designed for
-            students and educators
-          </p>
+    <footer className="bg-footer">
+      <div className="p-10">
+        <div className="grid md:grid-cols-2 gap-6 max-w-7xl mx-auto">
+          <div className="flex flex-col gap-2 text-footer-foreground w-full">
+            <Logo />
+            <div>
+              <h4 className="text-xl font-cal-sans tracking-tighter">
+                Learn Loop
+              </h4>
+              <p className="text-muted text-sm">
+                {role === "student"
+                  ? "Discover courses that inspire curiosity, build practical skills, and help you achieve your goals at your own pace."
+                  : "Empowering learners and educators with a platform to learn, teach, collaborate, and grow together with confidence."}
+              </p>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4 md:justify-evenly sm:justify-start max-md:mt-6 w-full">
+            <div className="flex flex-col text-footer-foreground">
+              <h4 className="text-xl font-semibold">
+                Quick Links
+              </h4>
+              <ul className="flex flex-col gap-2 text-muted font-outfit mt-4">
+                {nav.map((item, index) => (
+                  <li key={index}>
+                    <a
+                      href={item.path}
+                      className="hover:underline underline-offset-2"
+                    >
+                      {item.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex flex-col text-footer-foreground">
+              <h4 className="text-xl font-semibold">
+                For {role === "instructor" ? "Students" : "Instructors"}
+              </h4>
+              <ul className="flex flex-col gap-2 text-muted font-outfit mt-4">
+                <li>
+                  <a
+                    href={role === "instructor" ? "/" : "/instructor"}
+                    className="hover:underline underline-offset-2"
+                  >
+                    {role === "instructor"
+                      ? "Student Portal"
+                      : "Become an Instructor"}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="grid sm:grid-cols-2 gap-4 md:justify-evenly sm:justify-start max-md:mt-6">
-        <div className="flex flex-col text-footer-foreground">
-          <h4 className="text-xl font-semibold">
-            For {role === "instructor" ? "Instructors" : "Students"}
-          </h4>
-          <ul className="flex flex-col gap-2 text-muted font-outfit mt-4">
-            {nav.map((item, index) => (
-              <li key={index}>
-                <a
-                  href={item.path}
-                  className="hover:underline underline-offset-2"
-                >
-                  {item.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="flex flex-col text-footer-foreground">
-          <h4 className="text-xl font-semibold">
-            For {role === "instructor" ? "Students" : "Instructors"}
-          </h4>
-          <ul className="flex flex-col gap-2 text-muted font-outfit mt-4">
-            <li>
-              <a
-                href={role === "instructor" ? "/" : "/instructor"}
-                className="hover:underline underline-offset-2"
-              >
-                {role === "instructor"
-                  ? "Student Portal"
-                  : "Become an Instructor"}
-              </a>
-            </li>
-          </ul>
+      <div className="border-t border-footer-border p-4">
+        <div className="flex items-center justify-between text-xs text-background-secondary max-w-7xl mx-auto">
+          <span>&copy; Copyright Reserved</span>
+          <span>
+            Made with ❤️ by{" "}
+            <Link
+              to={portfolio}
+              target="_blank"
+              className="hover:underline hover:text-accent transition-colors ring-visible rounded"
+            >
+              Shivam
+            </Link>
+          </span>
         </div>
       </div>
     </footer>

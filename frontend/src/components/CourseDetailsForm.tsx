@@ -1,6 +1,7 @@
 import {
   Button,
   Chip,
+  cn,
   Description,
   FieldError,
   Form,
@@ -28,12 +29,20 @@ function CourseDetailsForm({
   setForm,
   setCover,
   handleNext,
+  headerClassName = "",
+  formClassName = "",
+  editorClassName = "",
+  toolbarClassName = "",
 }: {
-  cover: File | null;
-  setCover: (file: File | null) => void;
+  cover: { file: File | null; uri: string };
+  setCover: (cover: { file: File | null; uri: string }) => void;
   form: CourseDetailsFormI;
   setForm: (form: CourseDetailsFormI) => void;
   handleNext: () => void;
+  headerClassName?: string;
+  formClassName?: string;
+  editorClassName?: string;
+  toolbarClassName?: string;
 }) {
   const [invalid, setInvalid] = useState(false);
   const [skill, setSkill] = useState("");
@@ -124,7 +133,8 @@ function CourseDetailsForm({
 
     const result = coverSchema.safeParse(file);
     if (result.success) {
-      setCover(file);
+      const uri = URL.createObjectURL(file);
+      setCover({ file, uri });
       setFileError(null);
     } else {
       setFileError(result.error.issues[0].message);
@@ -147,11 +157,11 @@ function CourseDetailsForm({
   return (
     <Form
       id="course-details"
-      className="flex flex-col gap-6 w-full"
+      className={cn("flex flex-col gap-6 w-full", formClassName)}
       onSubmit={handleSubmit}
       onInvalid={() => setInvalid(true)}
     >
-      <div>
+      <div className={headerClassName}>
         <h4 className="text-xl font-poppins font-semibold tracking-tight">
           Course Details
         </h4>
@@ -196,6 +206,8 @@ function CourseDetailsForm({
             Description <span className="text-danger">*</span>
           </>
         }
+        className={editorClassName}
+        toolbarClassName={toolbarClassName}
         value={form.description}
         onChange={(value) => setForm({ ...form, description: value })}
         invalid={invalid}
