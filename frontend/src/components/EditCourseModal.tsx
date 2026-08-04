@@ -1,4 +1,4 @@
-import { Button, Modal, Tooltip } from "@heroui/react";
+import { Button, cn, Modal, Tooltip } from "@heroui/react";
 import { Pen } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { CourseDetailsFormI } from "../types/course";
@@ -8,7 +8,13 @@ import type { LessonFormI } from "../types/lesson";
 import useBoundStore from "../store";
 import CustomEmptyState from "./CustomEmptyState";
 
-function EditCourseModal({ courseId }: { courseId: number }) {
+function EditCourseModal({
+  courseId,
+  buttonClassName = "",
+}: {
+  courseId: number;
+  buttonClassName?: string;
+}) {
   const { setCourse, lessons: lessonsStore } = useBoundStore();
 
   const [open, setOpen] = useState(false);
@@ -61,13 +67,13 @@ function EditCourseModal({ courseId }: { courseId: number }) {
         }),
       );
     }
-  }, []);
+  }, [lessonsStore]);
 
   return (
     <Modal>
       <Tooltip delay={0}>
         <Button
-          className="bg-success-soft text-success"
+          className={cn("bg-success-soft text-success-soft-foreground", buttonClassName)}
           onClick={() => setOpen(true)}
           size="sm"
           isIconOnly
@@ -118,8 +124,9 @@ function EditCourseModal({ courseId }: { courseId: number }) {
                     setLessons={setLessons}
                     handleBack={() => setStep(1)}
                     handleNext={handleUpdate}
-                    containerClassName="max-h-[80vh]"
                     headerClassName="hidden"
+                    containerClassName="max-h-[80vh]"
+                    toolbarClassName="sm:flex-nowrap [&>*]:first:overflow-x-scroll [&>*]:first:flex-nowrap"
                   />
                 )}
               </Modal.Body>

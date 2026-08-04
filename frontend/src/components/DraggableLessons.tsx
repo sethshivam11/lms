@@ -82,23 +82,31 @@ function Lesson({
           <Button
             size="sm"
             onClick={handleEdit}
-            className="shrink-0 bg-warning-soft text-warning"
+            className="shrink-0 bg-warning-soft text-warning-soft-foreground"
             isIconOnly
           >
             <Pencil />
           </Button>
         )}
         <Modal>
-          <Button variant="danger-soft" size="sm" className="shrink-0" isIconOnly>
+          <Button
+            variant="danger-soft"
+            size="sm"
+            className="shrink-0"
+            isIconOnly
+          >
             <Trash />
           </Button>
           <Modal.Backdrop>
             <Modal.Container>
-              <Modal.Dialog className="sm:max-w-[360px] font-lora">
+              <Modal.Dialog className="font-lora">
+                <Modal.Icon className="bg-danger-soft text-danger-soft-foreground mx-auto mb-4">
+                  <Trash />
+                </Modal.Icon>
                 <Modal.Header className="items-center text-center">
-                  <Modal.Heading className="tracking-tight text-lg font-semibold">
+                  <h4 className="font-outfit tracking-tight text-xl font-semibold">
                     Delete Lesson
-                  </Modal.Heading>
+                  </h4>
                 </Modal.Header>
                 <Modal.Body>
                   <p>
@@ -115,7 +123,7 @@ function Lesson({
                   >
                     Delete
                   </Button>
-                  <Button className="w-full" slot="close" variant="tertiary">
+                  <Button className="w-full" slot="close" variant="ghost">
                     Cancel
                   </Button>
                 </Modal.Footer>

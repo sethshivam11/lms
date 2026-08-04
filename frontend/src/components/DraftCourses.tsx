@@ -1,14 +1,19 @@
-import { Button, EmptyState, Table, Tooltip } from "@heroui/react";
-import { ArchiveRestore, Layers, Package2, Pen, Trash } from "lucide-react";
+import { EmptyState, Table } from "@heroui/react";
+import { Layers, Package2 } from "lucide-react";
+import EditCourseModal from "./EditCourseModal";
+import DeleteCourseModal from "./DeleteCourseModal";
+import PublishCourseModal from "./PublishCourseModal";
 
 function DraftCourses() {
   const drafts = [
     {
+      id: 1,
       name: "React.js",
       lessons: 4,
       price: 1212,
     },
     {
+      id: 2,
       name: "Vue Fundamentals",
       lessons: 6,
       price: 2300,
@@ -56,42 +61,12 @@ function DraftCourses() {
                 </Table.Cell>
                 <Table.Cell>
                   <div className="flex items-center gap-2">
-                    <Tooltip delay={0}>
-                      <Button
-                        size="sm"
-                        className="bg-success-soft text-success"
-                        isIconOnly
-                      >
-                        <ArchiveRestore />
-                      </Button>
-                      <Tooltip.Content>
-                        <p className="font-outfit">Publish</p>
-                      </Tooltip.Content>
-                    </Tooltip>
-                    <Tooltip delay={0}>
-                      <Button
-                        className="bg-warning-soft text-warning"
-                        size="sm"
-                        isIconOnly
-                      >
-                        <Pen />
-                      </Button>
-                      <Tooltip.Content>
-                        <p className="font-outfit">Edit</p>
-                      </Tooltip.Content>
-                    </Tooltip>
-                    <Tooltip delay={0}>
-                      <Button
-                        className="bg-danger-soft text-danger"
-                        size="sm"
-                        isIconOnly
-                      >
-                        <Trash />
-                      </Button>
-                      <Tooltip.Content>
-                        <p className="font-outfit">Delete</p>
-                      </Tooltip.Content>
-                    </Tooltip>
+                    <PublishCourseModal courseId={item.id} />
+                    <EditCourseModal
+                      courseId={item.id}
+                      buttonClassName="bg-warning-soft text-warning-soft-foreground"
+                    />
+                    <DeleteCourseModal courseId={item.id} />
                   </div>
                 </Table.Cell>
               </Table.Row>

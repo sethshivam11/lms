@@ -1,4 +1,4 @@
-import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
+import { Fragment, lazy, Suspense, useEffect, useState } from "react";
 import CourseDetailsForm from "../components/CourseDetailsForm";
 import { Skeleton, toast } from "@heroui/react";
 import type { LessonFormI } from "../types/lesson";
@@ -49,7 +49,6 @@ const steps = [
 ];
 
 function CreateCourse() {
-  const formRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -103,7 +102,7 @@ function CreateCourse() {
   }, [step]);
 
   return (
-    <div className="flex flex-col gap-6 py-6" ref={formRef}>
+    <div className="flex flex-col gap-6 py-6">
       <div>
         <h3 className="tracking-tighter sm:text-3xl text-2xl font-outfit font-bold">
           Create Course
@@ -130,7 +129,9 @@ function CreateCourse() {
                 >
                   Step {index + 1}
                 </span>
-                <p className="text-muted max-sm:hidden">{item}</p>
+                <p className="text-muted max-sm:hidden whitespace-nowrap">
+                  {item}
+                </p>
               </button>
               <ArrowRight
                 size={20}

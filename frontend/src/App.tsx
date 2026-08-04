@@ -51,6 +51,7 @@ function App() {
           <Route element={<Profile />} path="/profile" />
           <Route element={<Reviews />} path="/reviews" />
           <Route element={<Connect />} path="/connect" />
+          <Route element={<Connect />} path="/connect/:chatId" />
           <Route element={<Instructor />} path="/instructor/:instructorId" />
           <Route element={<Settings />} path="/settings" />
         </Route>

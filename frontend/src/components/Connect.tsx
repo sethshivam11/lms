@@ -78,7 +78,7 @@ function Connect({ role }: { role: "student" | "instructor" }) {
           <div className="flex flex-col gap-2 p-4">
             {chats.map((item, index) => (
               <div className="flex flex-col" key={index}>
-                <div
+                <div 
                   className={`flex flex-col ${item.name === "You" ? "self-end bg-accent text-white" : "bg-background-tertiary self-start pt-1.5"} max-w-4/5 p-3 rounded-4xl`}
                   key={index}
                 >

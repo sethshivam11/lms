@@ -39,6 +39,7 @@ function LessonsForm({
   formClassName = "",
   headerClassName = "",
   containerClassName = "",
+  toolbarClassName = "",
 }: {
   lessons: LessonFormI[];
   setLessons: React.Dispatch<React.SetStateAction<LessonFormI[]>>;
@@ -47,6 +48,7 @@ function LessonsForm({
   formClassName?: string;
   headerClassName?: string;
   containerClassName?: string;
+  toolbarClassName?: string;
 }) {
   const [invalid, setInvalid] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -171,7 +173,7 @@ function LessonsForm({
       />
       <Form
         className={cn(
-          "flex flex-col gap-4 bg-background/50 p-4 rounded-xl",
+          "flex flex-col gap-4 bg-background/50 border p-4 rounded-xl",
           formClassName,
         )}
         onSubmit={handleSubmit}
@@ -292,6 +294,7 @@ function LessonsForm({
                 )}
               </>
             }
+            toolbarClassName={toolbarClassName}
             value={lesson.notes}
             placeholder="Provide notes to students"
             onChange={(value) =>

@@ -1,15 +1,13 @@
-import { Button, Table, Tooltip } from "@heroui/react";
+import { Table } from "@heroui/react";
 import useBoundStore from "../store";
-import { Archive, Layers, Star, Trash, Users } from "lucide-react";
+import { Layers, Star, Users } from "lucide-react";
 import RatingStars from "../components/RatingStars";
 import EditCourseModal from "./EditCourseModal";
 import CustomEmptyState from "./CustomEmptyState";
+import ArchiveCourseModal from "./ArchiveCourseModal";
 
 function ManageCourses() {
   const { courses } = useBoundStore();
-
-  const handleArchive = () => {};
-  const handleDelete = () => {};
 
   return (
     <Table>
@@ -76,32 +74,7 @@ function ManageCourses() {
                 <Table.Cell>
                   <div className="flex items-center gap-2">
                     <EditCourseModal courseId={item.id} />
-                    <Tooltip delay={0}>
-                      <Button
-                        className="bg-warning-soft text-warning"
-                        size="sm"
-                        onClick={handleArchive}
-                        isIconOnly
-                      >
-                        <Archive />
-                      </Button>
-                      <Tooltip.Content>
-                        <p className="font-outfit">Archive</p>
-                      </Tooltip.Content>
-                    </Tooltip>
-                    <Tooltip delay={0}>
-                      <Button
-                        className="bg-danger-soft text-danger"
-                        size="sm"
-                        onClick={handleDelete}
-                        isIconOnly
-                      >
-                        <Trash />
-                      </Button>
-                      <Tooltip.Content>
-                        <p className="font-outfit">Delete</p>
-                      </Tooltip.Content>
-                    </Tooltip>
+                    <ArchiveCourseModal courseId={item.id} />
                   </div>
                 </Table.Cell>
               </Table.Row>

@@ -1,4 +1,4 @@
-import { Button, EmptyState, Table } from "@heroui/react";
+import { Button, EmptyState, Table, Tooltip } from "@heroui/react";
 import { ArchiveRestore, Layers, Package2, Star, Users } from "lucide-react";
 import RatingStars from "./RatingStars";
 
@@ -75,9 +75,17 @@ function ArchivedCourses() {
                 </Table.Cell>
                 <Table.Cell>
                   <div className="flex items-center gap-2">
-                    <Button className="bg-warning-soft text-warning" size="sm">
-                      <ArchiveRestore /> Publish
-                    </Button>
+                    <Tooltip>
+                      <Button
+                        className="bg-warning-soft text-warning-soft-foreground"
+                        size="sm"
+                      >
+                        <ArchiveRestore />
+                      </Button>
+                      <Tooltip.Content>
+                        <p className="font-outfit">Unarchive</p>
+                      </Tooltip.Content>
+                    </Tooltip>
                   </div>
                 </Table.Cell>
               </Table.Row>
