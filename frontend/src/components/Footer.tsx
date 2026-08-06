@@ -1,8 +1,9 @@
 import useBoundStore from "../store";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 
 function Footer() {
+  const location = useLocation();
   const { role } = useBoundStore((state) => state.user);
   const portfolio = import.meta.env.PORTFOLIO_URL;
 
@@ -54,14 +55,18 @@ function Footer() {
         ];
 
   return (
-    <div className="flex flex-col bg-footer text-footer-foreground tracking-tight">
+    <div
+      className={`flex flex-col bg-footer text-footer-foreground tracking-tight ${location.pathname.includes("/connect/") ? "max-md:hidden" : ""} `}
+    >
       <div className="flex max-md:flex-col justify-evenly items-center px-4 py-8 gap-4 font-outift">
         <Link
           to="/home"
           className="flex flex-col items-center justify-center gap-2 md:hidden mb-4 ring-visible"
         >
           <Logo />
-          <h3 className="text-2xl font-extrabold font-cal-sans leading-4">Learn Loop</h3>
+          <h3 className="text-2xl font-extrabold font-cal-sans leading-4">
+            Learn Loop
+          </h3>
           <span className="text-muted font-lora text-center">
             {role === "student"
               ? "Learn Today. Lead Tomorrow."
@@ -83,7 +88,7 @@ function Footer() {
                 <span className="text-muted font-lora text-center w-60">
                   {role === "student"
                     ? "Learn Today. Lead Tomorrow."
-                    : "Teach. Inspire. Transform."} 
+                    : "Teach. Inspire. Transform."}
                 </span>
               </Link>
             );

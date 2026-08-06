@@ -1,11 +1,12 @@
 import { Link, Outlet } from "react-router-dom";
+import Logo from "../components/Logo";
 
 function Navbar() {
   return (
     <nav className="border-b p-2 sticky top-0 left-0 backdrop-blur-sm bg-white/50 z-50">
       <div className="flex items-center gap-2 max-w-7xl mx-auto">
         <Link to="/" className="flex items-center gap-2">
-          <img src="/logo.png" className="w-10" />
+          <Logo />
           <h3 className="md:text-2xl text-xl font-cal-sans tracking-tight font-bold">
             Learn Loop
           </h3>
@@ -38,7 +39,7 @@ function Footer() {
       <div className="p-10">
         <div className="grid md:grid-cols-2 gap-6 max-w-7xl mx-auto">
           <div className="flex flex-col gap-2 text-footer-foreground">
-            <img src="/logo.png" className="w-10 object-contain" />
+            <Logo />
             <div>
               <h4 className="text-xl font-cal-sans tracking-tight">
                 Learn Loop

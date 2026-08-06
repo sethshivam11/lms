@@ -1,16 +1,32 @@
-import { Avatar, Button, Dropdown, Input, Label } from "@heroui/react";
-import { Loader2, Paperclip, Send } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import {
+  Avatar,
+  Button,
+  Input,
+  Skeleton,
+} from "@heroui/react";
+import { ArrowLeft, Loader2, Send } from "lucide-react";
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import MessageBubble from "./MessageBubble";
 import type { MessageI } from "../types/message";
 import InfiniteScroll from "react-infinite-scroll-component";
 
+const AttachmentDropdown = lazy(() => import("./AttachmentDropdown"));
+
 function ChatCard() {
+  const previousHeightRef = useRef(0);
+  const scrollActionRef = useRef<"initial" | "loadOlder" | "newMessage" | null>(
+    null,
+  );
   const inputRef = useRef<HTMLInputElement>(null);
-  const scrollHeightRef = useRef<number>(0);
   const lastMessageRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [attachment, setAttachment] = useState("");
 
   const chat = {
     cover:
@@ -22,14 +38,9 @@ function ChatCard() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<MessageI[]>([]);
 
-  const handleSelect = (key: string) => {
-    console.log(key);
-    setAttachment(key);
-    inputRef.current?.click();
-  };
-
-  const fetchMore = () => {
+  const fetchMore = (initialLoad = false) => {
     if (!containerRef.current) return;
+
     const older = Array.from(
       { length: messages.length === 0 ? 20 : 10 },
       (_, i) => ({
@@ -37,71 +48,91 @@ function ChatCard() {
         avatar: "/avatar-small.png",
         user: i.toString().includes("1") || i.toString().includes("5") ? 0 : 2,
         name: "Raghav",
+        role: "student",
         message: `Old message ${messages.length + i}`,
         attachment: null,
         created_at: new Date().toISOString(),
-      }),
+      } as MessageI),
     );
 
-    const prevHeight = containerRef.current?.scrollHeight;
+    previousHeightRef.current = containerRef.current.scrollHeight;
+    scrollActionRef.current = initialLoad ? "initial" : "loadOlder";
 
-    setMessages((prev) => [...prev, ...older]);
-
-    requestAnimationFrame(() => {
-      if (!containerRef.current) return;
-      const newHeight = containerRef.current.scrollHeight;
-
-      containerRef.current.scrollTop += newHeight - prevHeight;
-    });
+    setTimeout(() => {
+      setMessages((prev) => [...prev, ...older]);
+    }, 2000);
   };
 
   const handleSend = () => {
-    if (!containerRef.current) return;
-    const newMessage = {
-      id: Date.now() + messages.length,
+    if (!message.trim()) return;
+
+    const newMessage: MessageI = {
+      id: Date.now(),
       avatar: "/avatar-small.png",
       user: 0,
       name: "Raghav",
       message,
+      role: "student",
       attachment: null,
       created_at: new Date().toISOString(),
     };
 
     setMessage("");
     inputRef.current?.focus();
+
+    scrollActionRef.current = "newMessage";
+
     setMessages((prev) => [newMessage, ...prev]);
+  };
 
-    requestAnimationFrame(() => {
-      if (!containerRef.current) return;
+  useLayoutEffect(() => {
+    const container = containerRef.current;
 
+    if (!container) return;
+
+    switch (scrollActionRef.current) {
+      case "initial":
+        container.scrollTop = container.scrollHeight;
+        break;
+
+      case "loadOlder":
+        container.scrollTop +=
+          container.scrollHeight - previousHeightRef.current;
+        break;
+
+      case "newMessage":
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: "smooth",
+        });
+        break;
+    }
+
+    scrollActionRef.current = null;
+  }, [messages]);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    if (containerRef.current.scrollHeight > 0) {
       containerRef.current.scrollTo({
         top: containerRef.current.scrollHeight,
         behavior: "instant",
       });
-    });
-  };
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    containerRef.current.scrollTo({
-      top: containerRef.current.scrollHeight,
-      behavior: "instant",
-    });
+    }
   }, []);
 
-  useEffect(() => {
-    if (!containerRef.current) return;
-    if (!scrollHeightRef) return;
-    containerRef.current.scrollTo({
-      top: scrollHeightRef.current,
-      behavior: "instant",
-    });
-  }, [messages]);
-
   return (
-    <div className="flex flex-col md:col-span-3">
-      <div className="flex items-center gap-2 p-3 border-b">
+    <div className="flex flex-col md:col-span-3 max-md:w-full">
+      <div className="flex items-center gap-2 p-3 max-md:h-18 border-b max-md:fixed top-0 max-md:z-50 left-0 max-md:bg-white max-md:w-full">
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => history.back()}
+          isIconOnly
+        >
+          <ArrowLeft />
+        </Button>
         <Avatar className="rounded-full">
           <Avatar.Image src={chat.cover} />
           <Avatar.Fallback>S</Avatar.Fallback>
@@ -114,15 +145,15 @@ function ChatCard() {
         </div>
       </div>
       <div
-        className="w-full max-h-[60vh] p-2 overflow-y-auto flex-1"
+        className="w-full md:max-h-[60vh] max-md:max-h-[calc(100dvh-9rem)] p-2 overflow-y-auto flex-1"
         ref={containerRef}
         id="messages-container"
       >
         <InfiniteScroll
           dataLength={messages.length}
-          next={fetchMore}
+          next={() => fetchMore(messages.length === 0)}
           hasMore={messages.length < 100}
-          loader={<Loader2 className="animate-spin" />}
+          loader={<Loader2 className="animate-spin mx-auto" />}
           scrollableTarget="messages-container"
           inverse={true}
           className="flex flex-col-reverse gap-2"
@@ -136,40 +167,20 @@ function ChatCard() {
           ))}
         </InfiniteScroll>
       </div>
-      <div className="flex items-center gap-2 p-3 border-t">
-        <Dropdown>
-          <Button size="sm" variant="ghost" isIconOnly>
-            <Paperclip />
-          </Button>
-          <input
-            accept={attachment}
-            className="size-0 opacity-0"
-            ref={inputRef}
-          />
-          <Dropdown.Popover>
-            <Dropdown.Menu onAction={(key) => handleSelect(key.toString())}>
-              <Dropdown.Item id="image" textValue="Image">
-                <Label>Image</Label>
-              </Dropdown.Item>
-              <Dropdown.Item id="video" textValue="Video">
-                <Label>Video</Label>
-              </Dropdown.Item>
-              <Dropdown.Item id="audio" textValue="Audio">
-                <Label>Audio</Label>
-              </Dropdown.Item>
-              <Dropdown.Item id="document" textValue="Document">
-                <Label>Document</Label>
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown.Popover>
-        </Dropdown>
+      <div className="flex items-center gap-2 p-3 h-18 border-t max-md:w-full max-md:fixed bottom-0 left-0 bg-white">
+        <Suspense
+          fallback={<Skeleton className="size-9 md:size-8 rounded-xl" />}
+        >
+          <AttachmentDropdown />
+        </Suspense>
         <Input
-          placeholder="Your message here..."
+          name="message"
           ref={inputRef}
           value={message}
-          autoFocus
-          onChange={(e) => setMessage(e.target.value)}
           className="flex-1"
+          placeholder="Your message here..."
+          onChange={(e) => setMessage(e.target.value)}
+          autoFocus
         />
         <Button size="sm" onClick={handleSend} isIconOnly>
           <Send />

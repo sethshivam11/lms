@@ -3,6 +3,7 @@ export interface MessageI {
   name: string;
   avatar: string;
   message: string;
+  role: "instructor" | "student";
   user: number;
   attachment: null | {
     type: "image" | "video" | "audio" | "document";

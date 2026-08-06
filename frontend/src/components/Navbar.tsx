@@ -80,7 +80,9 @@ function Navbar() {
   };
 
   return (
-    <div className=" bg-white/50 backdrop-blur-lg w-full sm:px-8 px-4 py-2 border-b sticky top-0 left-0 z-50">
+    <div
+      className={`bg-white/50 backdrop-blur-lg w-full sm:px-8 px-4 py-2 border-b sticky top-0 left-0 z-50 ${location.pathname.includes("/connect/") ? "max-md:hiddden" : ""}`}
+    >
       <div className="flex justify-between items-center max-w-7xl mx-auto">
         <Drawer>
           <div className="flex items-center sm:hidden">

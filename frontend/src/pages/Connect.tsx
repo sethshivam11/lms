@@ -1,4 +1,4 @@
-import { Avatar,  InputGroup } from "@heroui/react";
+import { Avatar, InputGroup } from "@heroui/react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import ChatCard from "../components/ChatCard";
 import CustomEmptyState from "../components/CustomEmptyState";
@@ -57,8 +57,8 @@ function Connect() {
   }, [chats, search]);
 
   return (
-    <div className="flex flex-col gap-6 py-6">
-      <div>
+    <div className="flex flex-col gap-6 md:py-6">
+      <div className="max-md:hidden">
         <h3 className="tracking-tighter sm:text-3xl text-2xl font-outfit font-bold">
           Connect
         </h3>
@@ -66,7 +66,7 @@ function Connect() {
           Join the community, start conversations, and stay connected
         </p>
       </div>
-      <div className="grid md:grid-cols-4 border rounded-4xl min-h-[75vh]">
+      <div className="grid md:grid-cols-4 md:border rounded-4xl min-h-[75vh]">
         <div
           className={`md:border-r relative group ${params.chatId ? "max-md:hidden" : ""}`}
         >
@@ -84,7 +84,7 @@ function Connect() {
               />
             </InputGroup>
           </div>
-          <div className="flex flex-col md:overflow-y-auto md:h-[90%]">
+          <div className="flex flex-col md:overflow-y-auto overflow-x-hidden md:h-[90%]">
             {chats.length === 0 ? (
               <CustomEmptyState
                 icon={History}
@@ -110,11 +110,11 @@ function Connect() {
                     <Avatar.Image src={item.cover} />
                     <Avatar.Fallback>{item.name[0]}</Avatar.Fallback>
                   </Avatar>
-                  <div>
-                    <p className="text-lg font-medium font-outfit leading-3">
+                  <div className="flex flex-col gap-1">
+                    <p className="text-lg font-medium font-outfit leading-4 w-fit">
                       {item.name}
                     </p>
-                    <span className="text-xs text-muted truncate max-w-full">
+                    <span className="text-xs text-muted truncate">
                       {item.lastMessage}
                     </span>
                   </div>

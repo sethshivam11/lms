@@ -2,17 +2,19 @@ import useBoundStore from "../store";
 import { Link } from "react-router-dom";
 import { FileText, ListChecks, Play } from "lucide-react";
 import { formatDuration } from "../lib/helpers";
+import { cn } from "@heroui/styles";
 
-function CourseContent() {
+function CourseContent({ className }: { className?: string }) {
   const { lessons } = useBoundStore();
+
   return (
-    <div className="bg-background rounded-lg p-4 h-fit">
+    <div className={cn("bg-background rounded-lg p-4 h-fit", className)}>
       <h4 className="text-xl font-semibold tracking-tight">Course Contents</h4>
       <div className="flex flex-col gap-2 mt-4">
         {lessons.map((lesson, index) => (
           <Link
             to={`/course/${lesson.course}/lesson/${lesson.id}`}
-            className="flex items-center gap-2 border border-background-secondary p-2"
+            className="flex items-center gap-2 border border-background-secondary rounded-lg p-2"
             key={index}
           >
             <div className="p-2 bg-accent/50 rounded-lg">

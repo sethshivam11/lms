@@ -8,6 +8,7 @@ function BankAccount() {
     ifsc: "HDFC0541487",
     name: "Shivam",
   };
+
   return (
     <div className="bg-background p-4 h-fit rounded-lg">
       <div className="flex items-center justify-between">

@@ -1,4 +1,4 @@
-import { Avatar, Button, Modal } from "@heroui/react";
+import { Avatar, Button, cn, Modal } from "@heroui/react";
 import useBoundStore from "../store";
 import { formatDistance } from "date-fns";
 import RatingStars from "./RatingStars";
@@ -40,7 +40,7 @@ function Review({ review }: { review: ReviewI }) {
   );
 }
 
-function Reviews() {
+function Reviews({ className }: { className?: string }) {
   const { reviews } = useBoundStore();
 
   const filteredReviews = useMemo(
@@ -49,7 +49,7 @@ function Reviews() {
   );
 
   return (
-    <div className="bg-background rounded-lg p-4 h-fit">
+    <div className={cn("bg-background rounded-lg p-4 h-fit", className)}>
       <h4 className="text-xl font-semibold tracking-tight">
         Ratings & Reviews
       </h4>
