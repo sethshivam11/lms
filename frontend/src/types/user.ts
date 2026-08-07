@@ -33,4 +33,6 @@ export interface UserSlice {
   };
   instructors: Instructor[];
   user: UserI;
+  becomeInstructor: () => void;
+  updateAvatar: (avatar: string) => void;
 }

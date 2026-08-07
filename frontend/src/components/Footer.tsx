@@ -45,12 +45,12 @@ function Footer() {
             path: "/home",
           },
           {
-            name: "Courses",
-            path: "/courses",
+            name: "Connect",
+            path: "/connect",
           },
           {
-            name: "Reviews",
-            path: "/reviews",
+            name: "Courses",
+            path: "/courses",
           },
         ];
 

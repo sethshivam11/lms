@@ -10,7 +10,6 @@ import {
   LogOut,
   Network,
   PanelLeft,
-  Star,
   User,
 } from "lucide-react";
 import { AvatarDropdown } from "./AvatarDropdown";
@@ -67,11 +66,6 @@ function Navbar() {
             icon: Book,
             name: "Courses",
             path: "/courses",
-          },
-          {
-            icon: Star,
-            name: "Reviews",
-            path: "/reviews",
           },
         ];
 

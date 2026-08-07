@@ -1,4 +1,4 @@
-import { Avatar } from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
 import useBoundStore from "../store";
 import RatingStars from "./RatingStars";
 import { formatDistance } from "date-fns";
@@ -7,17 +7,22 @@ function RecentReviews() {
   const { reviews } = useBoundStore();
 
   return (
-    <div className="bg-background p-4 rounded-lg">
-      <h4 className="text-xl font-outfit font-semibold tracking-tight">
-        Recent Reviews
-      </h4>
+    <div className="bg-background/60 p-3 rounded-lg">
+      <div className="flex items-center justify-between gap-4">
+        <h4 className="text-xl font-outfit font-semibold tracking-tight">
+          Recent Reviews
+        </h4>
+        <Button variant="ghost" className="text-accent">
+          View More
+        </Button>
+      </div>
       <div className="flex flex-col gap-2 mt-4">
         {reviews
           .slice(0, 3)
           .filter((item) => item.review?.length > 0)
           .map((item, index) => (
             <div
-              className="flex gap-4 border rounded-lg p-2 w-full"
+              className="flex gap-4 border border-default bg-background/50 rounded-lg p-3 w-full"
               key={index}
             >
               <Avatar className="rounded-full size-10">

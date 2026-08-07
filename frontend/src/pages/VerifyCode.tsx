@@ -39,7 +39,7 @@ function VerifyCode() {
     } else {
       setError(null);
     }
-    navigate("/home");
+    navigate({ pathname: "/home", search: "?upgrade=true" });
   };
 
   useEffect(() => {

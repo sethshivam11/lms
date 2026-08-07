@@ -1,12 +1,12 @@
 import type { StateCreator } from "zustand";
 import type { UserSlice } from "../types/user";
 
-export const createUserSlice: StateCreator<UserSlice> = () => ({
+export const createUserSlice: StateCreator<UserSlice> = (set, get) => ({
   loading: false,
   user: {
     id: 0,
-    role: "instructor",
-    avatar: null,
+    role: "student",
+    avatar: "/avatar-small.png",
     wallet: 0,
     skills: null,
     bio: null,
@@ -24,8 +24,7 @@ export const createUserSlice: StateCreator<UserSlice> = () => ({
     id: 1,
     avatar: "/avatar-big.png",
     courses: 2,
-    bio:
-      "My name is Hitesh Choudhary, a retired corporate professional who has seamlessly transitioned into a full-time YouTuber. With a rich history as the founder of LCO (acquired) and a former CTO at iNeuron and Senior Director at PW, I bring a wealth of experience in building software and companies. My journey in the tech world has endowed me with unique insights and expertise, which I am passionate about sharing.",
+    bio: "My name is Hitesh Choudhary, a retired corporate professional who has seamlessly transitioned into a full-time YouTuber. With a rich history as the founder of LCO (acquired) and a former CTO at iNeuron and Senior Director at PW, I bring a wealth of experience in building software and companies. My journey in the tech world has endowed me with unique insights and expertise, which I am passionate about sharing.",
     name: "Hitesh Choudhary",
     skills: ["javascript", "typescript", "react", "mongodb"],
     students: 100,
@@ -110,4 +109,12 @@ export const createUserSlice: StateCreator<UserSlice> = () => ({
     },
   ],
   login: () => {},
+  becomeInstructor: () => {
+    const { user } = get();
+    set({ user: { ...user, role: "instructor" } });
+  },
+  updateAvatar: (avatar: string) => {
+    const { user } = get();
+    set({ user: { ...user, avatar } });
+  },
 });

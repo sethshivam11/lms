@@ -20,7 +20,7 @@ function Payouts() {
   ];
 
   return (
-    <div className="p-4 bg-background md:col-span-2 rounded-lg h-fit">
+    <div className="p-4 bg-background/60 md:col-span-2 rounded-lg h-fit">
       <h5 className="text-xl font-outfit font-semibold tracking-tight">
         Payouts
       </h5>

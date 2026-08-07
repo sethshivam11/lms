@@ -3,8 +3,8 @@ import useBoundStore from "../store";
 import { Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import DashboardCourses from "../components/DashboardCourses";
-import RecentEnrollments from "../components/RecentEnrollments";
-import RevenueByCourse from "../components/RevenueByCourse";
+import Enrollments from "../components/Enrollments";
+import TopEarning from "../components/TopEarning";
 import RecentReviews from "../components/RecentReviews";
 
 function Dashboard() {
@@ -25,16 +25,23 @@ function Dashboard() {
         </Link>
       </div>
       <InstructorStats />
-      <div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
-        <div className="flex flex-col gap-4 h-fit col-span-2">
-          <RevenueByCourse />
+      <div className="grid md:grid-cols-3 gap-6">
+        <div className="flex flex-col gap-6 md:col-span-2">
           <DashboardCourses />
           <RecentReviews />
         </div>
-        <div className="flex flex-col gap-4 h-fit">
-          <RecentEnrollments />
+        <div className="flex flex-col gap-6">
+          <Enrollments />
+          <TopEarning />
         </div>
       </div>
+      {/*
+      <div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
+        <div className="flex flex-col gap-4 h-fit col-span-2">
+        </div>
+        <div className="flex flex-col gap-4 h-fit">
+        </div>
+      </div> */}
     </div>
   );
 }

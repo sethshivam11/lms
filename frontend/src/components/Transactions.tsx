@@ -53,7 +53,7 @@ function Transactions() {
   }, [searchParams]);
 
   return (
-    <div className="flex flex-col gap-4 bg-background rounded-lg p-4">
+    <div className="flex flex-col gap-4 bg-background/50 rounded-lg p-4">
       <h5 className="text-xl font-outfit font-semibold tracking-tight">
         Transactions
       </h5>

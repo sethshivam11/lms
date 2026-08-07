@@ -2,10 +2,7 @@ import EarningStats from "../components/EarningStats";
 import Transactions from "../components/Transactions";
 import BankAccount from "../components/BankAccount";
 import Payouts from "../components/Payouts";
-import { lazy, Suspense } from "react";
-import { Skeleton } from "@heroui/react";
-
-const WithdrawModal = lazy(() => import("../components/WithdrawModal"));
+import RequestPayout from "../components/RequestPayout";
 
 function Earnings() {
   return (
@@ -17,13 +14,6 @@ function Earnings() {
           </h3>
           <p className="text-muted">Manage your earnings and track payouts</p>
         </div>
-        <Suspense
-          fallback={
-            <Skeleton className="rounded-2xl md:w-30 w-12 md:h-9 h-10" />
-          }
-        >
-          <WithdrawModal />
-        </Suspense>
       </div>
       <EarningStats />
       <div className="grid md:grid-cols-3 gap-6">
@@ -31,7 +21,10 @@ function Earnings() {
           <Transactions />
           <Payouts />
         </div>
-        <BankAccount />
+        <div className="flex flex-col gap-6">
+          <RequestPayout />
+          <BankAccount />
+        </div>
       </div>
     </div>
   );

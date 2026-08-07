@@ -184,7 +184,6 @@ function Register() {
           <button className="w-full button ring-visible-offset bg-linear-to-b from-accent/50 via-accent to-accent text-white">
             Sign Up
           </button>
-
           <div className="relative">
             <Separator />
             <span className="absolute text-muted text-xs left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-white px-2">

@@ -23,7 +23,9 @@ function Login() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate("/home");
+    navigate({
+      pathname: "/home",
+    });
   };
 
   return (
