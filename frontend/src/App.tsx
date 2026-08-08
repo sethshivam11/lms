@@ -22,6 +22,7 @@ import InstructorLanding from "./pages/InstructorLanding";
 import AuthLayout from "./layouts/AuthLayout";
 import ForgotPassword from "./pages/ForgotPassword";
 import VerifyCode from "./pages/VerifyCode";
+import Lesson from "./pages/Lesson";
 
 function App() {
   return (
@@ -41,6 +42,10 @@ function App() {
         <Route element={<AppLayout />}>
           <Route element={<CreateCourse />} path="/create-course" />
           <Route element={<Course />} path="/course/:courseId" />
+          <Route
+            element={<Lesson />}
+            path="/course/:courseId/lesson/:lessonId"
+          />
           <Route element={<Courses />} path="/courses" />
           <Route element={<Dashboard />} path="/dashboard" />
           <Route element={<Earnings />} path="/earnings" />
@@ -54,7 +59,7 @@ function App() {
           <Route element={<Settings />} path="/settings" />
         </Route>
       </Routes>
-      <Toast.Provider />
+      <Toast.Provider className="font-lora" />
     </div>
   );
 }

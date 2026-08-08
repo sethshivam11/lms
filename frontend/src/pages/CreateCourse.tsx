@@ -140,7 +140,7 @@ function CreateCourse() {
             </Fragment>
           ))}
         </div>
-        <div className="lg:w-2/3 flex-1">
+        <div className="lg:w-2/3 flex-1 min-w-0">
           {step === 1 && (
             <CourseDetailsForm
               cover={cover}

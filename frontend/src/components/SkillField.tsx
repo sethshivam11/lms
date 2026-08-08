@@ -18,9 +18,11 @@ function SkillField({
   setSkills: (skills: string[]) => void;
 }) {
   const [skill, setSkill] = useState("");
+  const [field, setField] = useState("");
 
   const handleSkill = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== "Enter" && e.key !== " ") return;
+    if (e.key !== "Enter") return;
+    setField(JSON.stringify(e.nativeEvent));
     e.preventDefault();
     if (skills.includes(skill)) return;
     setSkills([...skills, skill]);
@@ -106,11 +108,11 @@ function SkillField({
         return result.success ? null : result.error.issues[0].message;
       }}
     >
-      <Label>Skills</Label>
+      <Label>Skills {field}</Label>
       <Input placeholder="Skills to be learnt by course" />
       <FieldError />
       {skills.length === 0 && (
-        <Description>Press enter/space to add a new skill</Description>
+        <Description>Press enter to add a new skill</Description>
       )}
       <div
         className="flex items-center gap-1 mt-1"

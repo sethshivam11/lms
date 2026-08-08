@@ -4,8 +4,9 @@ import useBoundStore from "../store";
 import { useNavigate } from "react-router-dom";
 
 export function AvatarDropdown({ handleLogOut }: { handleLogOut: () => void }) {
-  const { name, email, avatar } = useBoundStore((state) => state.user);
   const router = useNavigate();
+
+  const { name, email, avatar } = useBoundStore((state) => state.user);
 
   return (
     <Dropdown>
@@ -16,14 +17,14 @@ export function AvatarDropdown({ handleLogOut }: { handleLogOut: () => void }) {
         </Avatar>
       </Dropdown.Trigger>
       <Dropdown.Popover>
-        <div className="px-3 pt-3 pb-1">
+        <div className="px-3 pt-3 pb-1 font-lora">
           <div className="flex items-center gap-2">
             <Avatar size="sm" className="bg-transparent">
               <Avatar.Image alt="Jane" src={avatar ?? "/avatar-big.png"} />
               <Avatar.Fallback delayMs={600}>{name[0]}</Avatar.Fallback>
             </Avatar>
             <div className="flex flex-col gap-0">
-              <p className="text-sm leading-5 font-medium whitespace-nowrap">
+              <p className="leading-5 text-base tracking-tight font-medium whitespace-nowrap font-outfit">
                 Jane Doe
               </p>
               <p className="text-xs leading-none text-muted">{email}</p>

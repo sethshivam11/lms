@@ -28,6 +28,8 @@ export interface CourseSlice {
     setPage: (page: number) => void;
     limit: number;
   };
+  enrolledCourses: { id: number }[];
+  progress: { completed: number; total: number };
   sort: "latest" | "popularity" | "price+" | "price-";
   setSort: (sort: CourseSlice["sort"]) => void;
   search: string;

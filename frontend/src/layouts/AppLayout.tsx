@@ -8,7 +8,7 @@ function AppLayout() {
   return (
     <div>
       <Navbar />
-      <div className="relative">
+      <div className={location.pathname.includes("/lesson/") ? "" : "relative"}>
         <div
           className={`${location.pathname.includes("/connect/") ? "md:min-h-screen md:px-6" : "min-h-screen md:px-6 px-4"} max-w-7xl mx-auto w-full`}
         >

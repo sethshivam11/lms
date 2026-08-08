@@ -1,7 +1,9 @@
 import { Skeleton } from "@heroui/react";
 import CourseDetails from "../components/CourseDetails";
-import EnrollCourse from "../components/EnrollCourse";
+import EnrollCourse from "../components/CourseStatus";
 import { lazy, Suspense } from "react";
+import { useParams } from "react-router-dom";
+import RateCourse from "../components/RateCourse";
 
 const CourseContent = lazy(() => import("../components/CourseContent"));
 const Reviews = lazy(() => import("../components/Reviews"));
@@ -11,15 +13,20 @@ const InstructorOverview = lazy(
 const CourseDescription = lazy(() => import("../components/CourseDescription"));
 
 function Course() {
+  const params = useParams<{ courseId: string }>();
+
   return (
     <div className="flex flex-col pb-6 gap-6">
       <CourseDetails>
-        <EnrollCourse className="max-md:hidden" />
+        <EnrollCourse className="max-md:hidden" courseId={params?.courseId} />
       </CourseDetails>
       <div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
         <div className="flex flex-col gap-4 w-full">
           <div className="flex flex-col gap-4">
-            <EnrollCourse className="md:hidden py-0 *:max-md:w-full" />
+            <EnrollCourse
+              className="md:hidden py-0 *:max-md:w-full"
+              courseId={params?.courseId}
+            />
             <Suspense
               fallback={
                 <div className="bg-background p-4 rounded-lg">
@@ -43,6 +50,7 @@ function Course() {
               <CourseContent className="max-sm:flex-1" />
             </Suspense>
           </div>
+          <RateCourse courseId={params.courseId} />
           <Suspense
             fallback={
               <div className="bg-background rounded-lg p-4">

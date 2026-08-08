@@ -49,11 +49,16 @@ function Reviews({ className }: { className?: string }) {
   );
 
   return (
-    <div className={cn("bg-background rounded-lg p-4 h-fit", className)}>
-      <h4 className="text-xl font-semibold tracking-tight">
+    <div
+      className={cn(
+        "bg-background/30 border border-default rounded-lg p-4 h-fit",
+        className,
+      )}
+    >
+      <h4 className="text-xl font-semibold tracking-tight font-outfit">
         Ratings & Reviews
       </h4>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 mt-2">
         {filteredReviews.slice(0, 2).map((item, index) => (
           <Review key={index} review={item} />
         ))}
@@ -67,7 +72,7 @@ function Reviews({ className }: { className?: string }) {
                 <Modal.Dialog>
                   <Modal.CloseTrigger />
                   <Modal.Body>
-                    <h5 className="text-xl text-foreground font-semibold mb-4">
+                    <h5 className="text-xl text-foreground font-outfit font-semibold mb-4">
                       Ratings & Reviews
                     </h5>
                     <div className="flex flex-col gap-2 h-full max-h-[75vh] overflow-y-auto">

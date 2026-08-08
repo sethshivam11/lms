@@ -73,6 +73,12 @@ export const createCourseSlice: StateCreator<CourseSlice> = (set, get) => ({
       owner_avatar: "/avatar-small.png",
     };
   },
+  enrolledCourses: [
+    {
+      id: 6,
+    },
+  ],
+  progress: { completed: 1, total: 2 },
   courses: [
     {
       id: 6,

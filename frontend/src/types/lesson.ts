@@ -23,4 +23,5 @@ export interface Lesson {
 
 export interface LessonSlice {
   lessons: Lesson[];
+  lesson: Lesson;
 }

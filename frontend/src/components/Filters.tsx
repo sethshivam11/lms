@@ -11,7 +11,8 @@ import {
 } from "@heroui/react";
 import { useMemo } from "react";
 import useBoundStore from "../store";
-import { Funnel, Star } from "lucide-react";
+import { Funnel } from "lucide-react";
+import StarsSelector from "./StarsSelector";
 
 const durations = [
   { label: "0-2 hours", value: [0, 120] },
@@ -53,60 +54,10 @@ function Filters({ className = "" }: { className?: string }) {
     [courses],
   );
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(e.key)) {
-      return;
-    }
-
-    const items = Array.from(
-      e.currentTarget.querySelectorAll<HTMLElement>("button"),
-    );
-
-    if (!items.length) return;
-
-    const current = (document.activeElement as HTMLElement)?.closest(
-      "button",
-    ) as HTMLElement | null;
-
-    if (!current) return;
-
-    const index = items.indexOf(current);
-
-    if (index === -1) return;
-
-    e.preventDefault();
-
-    let nextIndex = index;
-
-    switch (e.key) {
-      case "ArrowRight":
-        nextIndex = (index + 1) % items.length;
-        break;
-
-      case "ArrowLeft":
-        nextIndex = (index - 1 + items.length) % items.length;
-        break;
-
-      case "Home":
-        nextIndex = 0;
-        break;
-
-      case "End":
-        nextIndex = items.length - 1;
-        break;
-    }
-
-    items.forEach((item) => (item.tabIndex = -1));
-
-    const next = items[nextIndex];
-    next.tabIndex = 0;
-    next.focus();
-  };
-
   return (
     <div
       className={cn(
-        "lg:w-80 max-md:hidden md:bg-default-soft-hover rounded-lg sm:p-4 px-2 font-lora h-fit sticky top-20",
+        "lg:w-80 max-md:hidden md:bg-background/50 rounded-lg sm:p-4 px-2 font-lora h-fit sticky top-20",
         className,
       )}
     >
@@ -230,32 +181,10 @@ function Filters({ className = "" }: { className?: string }) {
         </div>
         <div className="flex flex-col gap-2">
           <span className="label font-huninn uppercase text-base">Ratings</span>
-          <div
-            className="flex items-center gap-1"
-            aria-label="stars"
-            onKeyDown={handleKeyDown}
-          >
-            {[1, 2, 3, 4, 5].map((item, index) => (
-              <button
-                className="text-warning focus-visible:outline-none group"
-                onClick={() => {
-                  if (filters.rating === 0 || item !== filters.rating) {
-                    setFilters({ ...filters, rating: item });
-                  } else {
-                    setFilters({ ...filters, rating: 0 });
-                  }
-                }}
-                tabIndex={index === 0 ? 0 : -1}
-                key={index}
-              >
-                <Star
-                  fill={item <= filters.rating ? "currentColor" : "transparent"}
-                  className="group-focus-visible:ring-2 ring-accent rounded-lg"
-                  strokeWidth={1.6}
-                />
-              </button>
-            ))}
-          </div>
+          <StarsSelector
+            value={filters.rating}
+            setValue={(value) => setFilters({ ...filters, rating: value })}
+          />
         </div>
         <div className="flex flex-col gap-2">
           <span className="label font-huninn uppercase text-base">Lessons</span>

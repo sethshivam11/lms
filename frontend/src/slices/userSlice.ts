@@ -12,7 +12,7 @@ export const createUserSlice: StateCreator<UserSlice> = (set, get) => ({
     bio: null,
     created_at: "",
     name: "Shivam",
-    email: "",
+    email: "shivam@mail.com",
     login_type: "email",
     is_verified: false,
     is_banned: false,

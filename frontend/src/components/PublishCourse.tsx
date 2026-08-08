@@ -113,13 +113,13 @@ function PublishCourse({
           <div className="grid md:grid-cols-3 gap-4">
             <div className="flex flex-col gap-4 p-4 border rounded-lg">
               <span className="text-accent uppercase font-huninn">Level</span>
-              <p className="md:text-4xl sm:text-3xl text-2xl font-merriweather capitalize">
+              <p className="md:text-4xl sm:text-3xl text-2xl font-merriweather capitalize truncate">
                 {course.level}
               </p>
             </div>
             <div className="flex flex-col gap-4 p-4 border rounded-lg">
               <span className="text-accent uppercase font-huninn">Lessons</span>
-              <p className="md:text-4xl sm:text-3xl text-2xl font-merriweather">
+              <p className="md:text-4xl sm:text-3xl text-2xl font-merriweather truncate">
                 {Number(course.lessons.length).toLocaleString("en-IN", {
                   style: "decimal",
                   maximumFractionDigits: 0,
@@ -128,7 +128,7 @@ function PublishCourse({
             </div>
             <div className="flex flex-col gap-4 p-4 border rounded-lg">
               <span className="text-accent uppercase font-huninn">Price</span>
-              <p className="md:text-4xl sm:text-3xl text-2xl font-merriweather">
+              <p className="md:text-4xl sm:text-3xl text-2xl font-merriweather truncate">
                 {Number(course.price).toLocaleString("en-IN", {
                   currency: "INR",
                   style: "currency",
@@ -143,7 +143,7 @@ function PublishCourse({
               <div className="flex items-center gap-2 mt-3">
                 {course.skills.map((item, index) => (
                   <Chip
-                    className="bg-accent rounded-full text-white"
+                    className="bg-accent rounded-full text-white capitalize"
                     key={index}
                   >
                     {item}
